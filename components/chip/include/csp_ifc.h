@@ -169,11 +169,4 @@ static inline uint32_t csp_ifc_get_dflash_paramode(csp_ifc_t *ptIfcBase)
 }
 
 
-csp_error_t csp_ifc_wr_1word(csp_ifc_t * ptIfcBase, uint8_t bFlashType, uint32_t wAddr, uint32_t wData);
-csp_error_t csp_ifc_swd_remap(csp_ifc_t * ptIfcBase, uint8_t bGrp);
-csi_error_t csp_ifc_wr_useroption(csp_ifc_t * ptIfcBase, uint32_t wData);
-csp_error_t csp_ifc_wr_nword(csp_ifc_t * ptIfcBase, uint8_t bFlashType, uint32_t wAddr, uint32_t wDataNum, uint32_t *pwData);
-uint32_t csp_ifc_rd_1word(csp_ifc_t * ptIfcBase, uint32_t wAddr);
-void csp_ifc_step_sync(csp_ifc_t * ptIfcBase, ifc_cmd_e eStepn, uint32_t wPageStAddr);
-
 #endif   /**< CSP_IFC_H */
