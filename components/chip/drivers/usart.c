@@ -391,23 +391,24 @@ int32_t csi_usart_receive(csp_usart_t *ptUsartBase, void *pData, uint16_t hwSize
 /** \brief usart dma receive mode init
  * 
  *  \param[in] ptUartBase: pointer of usart register structure
+ *  \param[in] eReload: dma reload mode \ref csi_dma_reload_e 
  *  \param[in] eDmaCh: channel id number of dma, eDmaCh: DMA_CH0_ID ` DMA_CH5_ID
  *  \param[in] eEtbCh: channel id number of etb, eEtbCh >= ETB_CH20_ID
  *  \return  error code \ref csi_error_t
  */
-csi_error_t csi_usart_dma_rx_init(csp_usart_t *ptUsartBase, csi_dma_ch_e eDmaCh, csi_etb_ch_e eEtbCh)
+csi_error_t csi_usart_dma_rx_init(csp_usart_t *ptUsartBase, csi_dma_reload_e eReload, csi_dma_ch_e eDmaCh, csi_etb_ch_e eEtbCh)
 {
 	csi_error_t ret = CSI_OK;
 	csi_dma_ch_config_t tDmaConfig;				
-	csi_etb_config_t 	tEtbConfig;				
-	
+	csi_etb_config_t 	tEtbConfig;		
+		
 	//dma config
 	tDmaConfig.bySrcLinc 	= DMA_ADDR_CONSTANT;		//低位传输原地址固定不变
 	tDmaConfig.bySrcHinc 	= DMA_ADDR_CONSTANT;		//高位传输原地址固定不变
 	tDmaConfig.byDetLinc 	= DMA_ADDR_CONSTANT;		//低位传输目标地址固定不变
 	tDmaConfig.byDetHinc 	= DMA_ADDR_INC;				//高位传输目标地址自增
 	tDmaConfig.byDataWidth 	= DMA_DSIZE_8_BITS;			//传输数据宽度8bit
-	tDmaConfig.byReload 	= DMA_RELOAD_DISABLE;		//禁止自动重载
+	tDmaConfig.byReload 	= eReload;					//自动重载
 	tDmaConfig.byTransMode 	= DMA_TRANS_ONCE;			//DMA服务模式(传输模式)，连续服务
 	tDmaConfig.byTsizeMode  = DMA_TSIZE_ONE_DSIZE;		//传输数据大小，一个 DSIZE , 即DSIZE定义大小
 	tDmaConfig.byReqMode	= DMA_REQ_HARDWARE;			//DMA请求模式，硬件请求
@@ -423,6 +424,8 @@ csi_error_t csi_usart_dma_rx_init(csp_usart_t *ptUsartBase, csi_dma_ch_e eDmaCh,
 	if(ret < 0)
 		return CSI_ERROR;
 	ret = csi_dma_ch_init(DMA, eDmaCh, &tDmaConfig);	//初始化DMA
+	
+	csp_usart_set_rxdma(ptUsartBase, US_RDMA_EN, US_RDMA_FIFO_NSPACE);		//配置RX DMA模式并使能
 	
 	return ret;
 }
@@ -462,6 +465,8 @@ csi_error_t csi_usart_dma_tx_init(csp_usart_t *ptUsartBase, csi_dma_ch_e eDmaCh,
 		return CSI_ERROR;
 	ret = csi_dma_ch_init(DMA, eDmaCh, &tDmaConfig);	//初始化DMA
 	
+	csp_usart_set_txdma(ptUsartBase, US_TDMA_EN, US_TDMA_FIF0_TRG);		//配置TX DMA模式并使能
+	
 	return ret;
 }
 /** \brief send data from usart, this function is dma transfer
@@ -476,7 +481,6 @@ csi_error_t csi_usart_send_dma(csp_usart_t *ptUsartBase, const void *pData, uint
 	if(hwSize > 0xfff)
 		return CSI_ERROR;
 		
-	csp_usart_set_txdma(ptUsartBase, US_TDMA_EN, US_TDMA_FIF0_TRG);
 	csi_dma_ch_start(DMA, byDmaCh, (void *)pData, (void *)&(ptUsartBase->THR), hwSize, 1);
 	
 	return CSI_OK;
@@ -492,7 +496,7 @@ csi_error_t csi_usart_recv_dma(csp_usart_t *ptUsartBase, void *pData, uint8_t by
 {
 	if(hwSize > 0xfff)
 		return CSI_ERROR;
-	csp_usart_set_rxdma(ptUsartBase, US_RDMA_EN, US_RDMA_FIFO_NSPACE);
+		
 	csi_dma_ch_start(DMA, byDmaCh, (void *)&(ptUsartBase->RHR), (void *)pData, hwSize, 1);
 	
 	return CSI_OK;

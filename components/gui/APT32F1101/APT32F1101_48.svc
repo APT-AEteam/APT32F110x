@@ -16,7 +16,7 @@
       <ChipName>48Pin</ChipName>
       <ChipShape>CVS_LOOK_SQUARE</ChipShape>
       <PinCount>48</PinCount>
-      <GenCodeFuncName>APT32F1103_48PinInitFunc</GenCodeFuncName>
+      <GenCodeFuncName>APT32F1101_48PinInitFunc</GenCodeFuncName>
       <Pins>
         <Pin pinNum="38" group="PA0" displayName="PA0.0">
           <Property class="UIchoice">
@@ -38,7 +38,6 @@
               <sel>FVR</sel>
               <sel>ADC_AIN0</sel>
               <sel>CMP_IN0</sel>
-              <sel>TKEY_CH24</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -89,7 +88,6 @@
               <sel>GPTB1_CHAX</sel>
               <sel>SIO</sel>
               <sel>ADC_AIN1</sel>
-              <sel>TKEY_CH25</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -140,7 +138,6 @@
               <sel>GPTB1_CHAY</sel>
               <sel>GPTB1_CHB</sel>
               <sel>ADC_AIN18</sel>
-              <sel>TKEY_CH26</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -192,7 +189,6 @@
               <sel>I2C0_SCL</sel>
               <sel>ADC_AIN2</sel>
               <sel>CMP_IN2</sel>
-              <sel>TKEY_CH27</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -244,7 +240,6 @@
               <sel>I2C0_SDA</sel>
               <sel>INTVREF</sel>
               <sel>CMP_IN3</sel>
-              <sel>TKEY_CH28</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -294,7 +289,6 @@
               <sel>BT1_OUT</sel>
               <sel>SIO</sel>
               <sel>CLO</sel>
-              <sel>TS_CAP</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -340,7 +334,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM0</sel>
               <sel>GPTB0_CHB</sel>
               <sel>USART0_RX</sel>
               <sel>UART1_RX</sel>
@@ -392,7 +385,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM1</sel>
               <sel>LPT_INOUT</sel>
               <sel>I2C0_SCL</sel>
               <sel>USART0_CK</sel>
@@ -444,8 +436,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM2</sel>
-              <sel>LCD_SEG0</sel>
               <sel>CMP1_OUT</sel>
               <sel>I2C0_SDA</sel>
               <sel>USART0_TX</sel>
@@ -497,8 +487,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM3</sel>
-              <sel>LCD_SEG1</sel>
               <sel>EBI0</sel>
               <sel>GPTA0_CHA</sel>
               <sel>BT1_OUT</sel>
@@ -550,8 +538,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM4</sel>
-              <sel>LCD_SEG2</sel>
               <sel>EPT_CHAY</sel>
               <sel>GPTA0_CHB</sel>
               <sel>GPTB1_CHAX</sel>
@@ -603,8 +589,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM5</sel>
-              <sel>LCD_SEG3</sel>
               <sel>EPT_CHBY</sel>
               <sel>GPTA1_CHA</sel>
               <sel>LED_S0</sel>
@@ -655,8 +639,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM6</sel>
-              <sel>LCD_SEG4</sel>
               <sel>EPT_CHCY</sel>
               <sel>GPTA1_CHB</sel>
               <sel>LPT_INOUT</sel>
@@ -708,8 +690,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_COM7</sel>
-              <sel>LCD_SEG5</sel>
               <sel>GPTB0_CHAX</sel>
               <sel>SIO</sel>
               <sel>LED_S3</sel>
@@ -760,11 +740,9 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG6</sel>
               <sel>GPTB0_CHAY</sel>
               <sel>GPTB0_CHB</sel>
               <sel>LED_S0</sel>
-              <sel>TKEY_CH0</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -810,10 +788,8 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG7</sel>
               <sel>GPTB1_CHAX</sel>
               <sel>LED_S1</sel>
-              <sel>TKEY_CH1</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -865,7 +841,6 @@
               <sel>CLO</sel>
               <sel>ADC_AIN3</sel>
               <sel>CMP_IN4</sel>
-              <sel>TKEY_CH29</sel>
               <sel>ELVI</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
@@ -918,7 +893,6 @@
               <sel>SIO</sel>
               <sel>ADC_AIN4</sel>
               <sel>CMP_IN5</sel>
-              <sel>TKEY_CH30</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -970,7 +944,6 @@
               <sel>UART1_TX</sel>
               <sel>ADC_AIN5</sel>
               <sel>CMP_IN6</sel>
-              <sel>TKEY_CH31</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1016,7 +989,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG8</sel>
               <sel>GPTB1_CHAY</sel>
               <sel>GPTB1_CHB</sel>
               <sel>LED_S2</sel>
@@ -1066,7 +1038,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG10</sel>
               <sel>GPTB0_CHB</sel>
               <sel>GPTA1_CHA</sel>
               <sel>EBI1</sel>
@@ -1117,12 +1088,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG18</sel>
               <sel>SIO</sel>
               <sel>CMP1_OUT</sel>
               <sel>UART0_RX</sel>
               <sel>LED_COM1</sel>
-              <sel>TKEY_CH9</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1168,12 +1137,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG20</sel>
               <sel>I2C0_SCL</sel>
               <sel>GPTA0_CHA</sel>
               <sel>UART2_TX</sel>
               <sel>LED_COM3</sel>
-              <sel>TKEY_CH11</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1219,12 +1186,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG21</sel>
               <sel>I2C0_SDA</sel>
               <sel>GPTA1_CHA</sel>
               <sel>UART2_RX</sel>
               <sel>LED_COM4</sel>
-              <sel>TKEY_CH12</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1270,12 +1235,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG23</sel>
               <sel>UART0_TX</sel>
               <sel>USART0_RX</sel>
               <sel>SPI0_NSS</sel>
               <sel>LED_COM6</sel>
-              <sel>TKEY_CH14</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1321,12 +1284,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG24</sel>
               <sel>UART0_RX</sel>
               <sel>GPTB1_CHB</sel>
               <sel>SPI0_SCK</sel>
               <sel>USART0_CK</sel>
-              <sel>TKEY_CH15</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1372,12 +1333,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG25</sel>
               <sel>GPTA0_CHA</sel>
               <sel>GPTA1_CHA</sel>
               <sel>SPI0_MISO</sel>
               <sel>LED_COM6</sel>
-              <sel>TKEY_CH16</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1423,13 +1382,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG26</sel>
               <sel>GPTA0_CHB</sel>
               <sel>GPTA1_CHB</sel>
               <sel>SPI0_MOSI</sel>
               <sel>LED_COM7</sel>
               <sel>USART0_CK</sel>
-              <sel>TKEY_CH17</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1475,11 +1432,9 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG11</sel>
               <sel>EPT_CHAY</sel>
               <sel>GPTA1_CHB</sel>
               <sel>LED_S5</sel>
-              <sel>TKEY_CH2</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1525,11 +1480,9 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG12</sel>
               <sel>EPT_CHBY</sel>
               <sel>GPTB0_CHAX</sel>
               <sel>LED_S6</sel>
-              <sel>TKEY_CH3</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1575,12 +1528,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG13</sel>
               <sel>EPT_CHCY</sel>
               <sel>GPTB0_CHAY</sel>
               <sel>GPTB0_CHB</sel>
               <sel>LED_S7</sel>
-              <sel>TKEY_CH4</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1626,11 +1577,9 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG14</sel>
               <sel>EPT_CHAX</sel>
               <sel>CLO</sel>
               <sel>USART0_CK</sel>
-              <sel>TKEY_CH5</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1676,12 +1625,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG15</sel>
               <sel>EPT_CHBX</sel>
               <sel>EBI2</sel>
               <sel>USART0_TX</sel>
               <sel>UART1_TX</sel>
-              <sel>TKEY_CH6</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1727,12 +1674,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG16</sel>
               <sel>EPT_CHCX</sel>
               <sel>EBI3</sel>
               <sel>USART0_RX</sel>
               <sel>UART1_RX</sel>
-              <sel>TKEY_CH7</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1778,12 +1723,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG17</sel>
               <sel>EPT_CHD</sel>
               <sel>CMP0_OUT</sel>
               <sel>UART0_TX</sel>
               <sel>LED_COM0</sel>
-              <sel>TKEY_CH8</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1829,12 +1772,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG19</sel>
               <sel>DBUG_SWDIO</sel>
               <sel>CNTA_BUZ</sel>
               <sel>GPTA1_CHA</sel>
               <sel>LED_COM2</sel>
-              <sel>TKEY_CH10</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1880,12 +1821,10 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG22</sel>
               <sel>DBUG_SWCLK</sel>
               <sel>USART0_TX</sel>
               <sel>LPT_INOUT</sel>
               <sel>LED_COM5</sel>
-              <sel>TKEY_CH13</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1931,13 +1870,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG27</sel>
               <sel>GPTB0_CHAY</sel>
               <sel>BT0_OUT</sel>
               <sel>USART0_TX</sel>
               <sel>LED_COM8</sel>
               <sel>I2C0_SCL</sel>
-              <sel>TKEY_CH18</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -1983,13 +1920,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG28</sel>
               <sel>GPTB1_CHAY</sel>
               <sel>CNTA_BUZ</sel>
               <sel>USART0_RX</sel>
               <sel>BT1_OUT</sel>
               <sel>I2C0_SDA</sel>
-              <sel>TKEY_CH19</sel>
               <sel>CMP_IN1</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
@@ -2036,14 +1971,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG29</sel>
-              <sel>VLC3</sel>
               <sel>GPTB1_CHAX</sel>
               <sel>UART2_TX</sel>
               <sel>CMP0_OUT</sel>
               <sel>LED_C0M7</sel>
               <sel>USART0_CK</sel>
-              <sel>TKEY_CH20</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -2089,14 +2021,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG30</sel>
-              <sel>VLC2</sel>
               <sel>GPTB0_CHAX</sel>
               <sel>UART2_RX</sel>
               <sel>BT1_OUT</sel>
               <sel>LED_C0M8</sel>
               <sel>I2C0_SCL</sel>
-              <sel>TKEY_CH21</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -2142,14 +2071,11 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG31</sel>
-              <sel>VLC1</sel>
               <sel>GPTB1_CHAX</sel>
               <sel>CNTA_BUZ</sel>
               <sel>SPI0_NSS</sel>
               <sel>LED_C0M9</sel>
               <sel>I2C0_SDA</sel>
-              <sel>TKEY_CH22</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -2202,7 +2128,6 @@
               <sel>AVGND</sel>
               <sel>ADC_AIN17</sel>
               <sel>CMP_IN7</sel>
-              <sel>TKEY_CH23</sel>
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
           </Property>
@@ -2248,7 +2173,6 @@
               <sel>GPIO_OUTPUT_Open-Drain</sel>
               <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
               <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG9</sel>
               <sel>GPTA0_CHA</sel>
               <sel>LED_S3</sel>
               <sel>ADC_AIN15</sel>
@@ -2286,7 +2210,7 @@
           </Property>
         </Pin>
         <Pin pinNum="35" displayName="VSS"/>
-        <Pin pinNum="36" displayName="VLCD"/>
+        <Pin pinNum="36" displayName="VDD"/>
         <Pin pinNum="44" displayName="VSS"/>
         <Pin pinNum="45" displayName="VDD"/>
       </Pins>

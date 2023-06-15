@@ -13,12 +13,12 @@
       </DLLConfig>
     </CodeGenerateConfig>
     <ChipView>
-      <ChipName>48Pin</ChipName>
+      <ChipName>44Pin</ChipName>
       <ChipShape>CVS_LOOK_SQUARE</ChipShape>
-      <PinCount>48</PinCount>
-      <GenCodeFuncName>APT32F1103_48PinInitFunc</GenCodeFuncName>
+      <PinCount>44</PinCount>
+      <GenCodeFuncName>APT32F1103_44PinInitFunc</GenCodeFuncName>
       <Pins>
-        <Pin pinNum="38" group="PA0" displayName="PA0.0">
+        <Pin pinNum="35" group="PA0" displayName="PA0.0">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -72,7 +72,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="39" group="PA0" displayName="PA0.1">
+        <Pin pinNum="36" group="PA0" displayName="PA0.1">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -123,7 +123,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="40" group="PA0" displayName="PA0.2">
+        <Pin pinNum="37" group="PA0" displayName="PA0.2">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -174,7 +174,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="41" group="PA0" displayName="PA0.3">
+        <Pin pinNum="38" group="PA0" displayName="PA0.3">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -226,7 +226,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="42" group="PA0" displayName="PA0.4">
+        <Pin pinNum="39" group="PA0" displayName="PA0.4">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -278,7 +278,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="43" group="PA0" displayName="PA0.5">
+        <Pin pinNum="40" group="PA0" displayName="PA0.5">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -328,7 +328,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="1" group="PA0" displayName="PA0.6">
+        <Pin pinNum="2" group="PA0" displayName="PA0.6">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -380,7 +380,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="2" group="PA0" displayName="PA0.7">
+        <Pin pinNum="3" group="PA0" displayName="PA0.7">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -432,7 +432,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="3" group="PA0" displayName="PA0.8">
+        <Pin pinNum="4" group="PA0" displayName="PA0.8">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -485,7 +485,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="4" group="PA0" displayName="PA0.9">
+        <Pin pinNum="5" group="PA0" displayName="PA0.9">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -538,7 +538,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="5" group="PA0" displayName="PA0.10">
+        <Pin pinNum="6" group="PA0" displayName="PA0.10">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -591,7 +591,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="6" group="PA0" displayName="PA0.11">
+        <Pin pinNum="7" group="PA0" displayName="PA0.11">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -643,7 +643,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="7" group="PA0" displayName="PA0.12">
+        <Pin pinNum="8" group="PA0" displayName="PA0.12">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -696,7 +696,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="8" group="PA0" displayName="PA0.13">
+        <Pin pinNum="9" group="PA0" displayName="PA0.13">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -748,7 +748,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="9" group="PA0" displayName="PA0.14">
+        <Pin pinNum="10" group="PA0" displayName="PA0.14">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -798,7 +798,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="10" group="PA0" displayName="PA0.15">
+        <Pin pinNum="11" group="PA0" displayName="PA0.15">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -847,7 +847,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="46" group="PB0" displayName="PB0.0">
+        <Pin pinNum="43" group="PB0" displayName="PB0.0">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -900,7 +900,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="47" group="PB0" displayName="PB0.1">
+        <Pin pinNum="44" group="PB0" displayName="PB0.1">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -952,7 +952,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="48" group="PB0" displayName="PB0.2">
+        <Pin pinNum="1" group="PB0" displayName="PB0.2">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -1004,7 +1004,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="11" group="PB0" displayName="PB0.3">
+        <Pin pinNum="12" group="PB0" displayName="PB0.3">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -1971,60 +1971,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="31" group="PA1" displayName="PA1.10">
-          <Property class="UIchoice">
-            <label>PinFunctions</label>
-            <value>Undefined</value>
-            <Selections>
-              <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
-              <sel>GPIO_OUTPUT_Push-Pull</sel>
-              <sel>GPIO_OUTPUT_Open-Drain</sel>
-              <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
-              <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG28</sel>
-              <sel>GPTB1_CHAY</sel>
-              <sel>CNTA_BUZ</sel>
-              <sel>USART0_RX</sel>
-              <sel>BT1_OUT</sel>
-              <sel>I2C0_SDA</sel>
-              <sel>TKEY_CH19</sel>
-              <sel>CMP_IN1</sel>
-            </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Ability</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Strong</sel>
-              <sel>Constant</sel>
-            </Selections>
-            <Comment>驱动能力:仅输出有效&#xD;Normal:标准&#xD;Stronge:强驱&#xD;Constant:恒流</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Slew-Rate</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Fast</sel>
-            </Selections>
-            <Comment>斜率:仅输出有效&#xD;Normal:标准&#xD;Fast:快速</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Pull Mode</label>
-            <value>Pull_None</value>
-            <Selections>
-              <sel>Pull_None</sel>
-              <sel>Pull_Up</sel>
-              <sel>Pull_Down</sel>
-            </Selections>
-            <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
-          </Property>
-        </Pin>
-        <Pin pinNum="32" group="PA1" displayName="PA1.11">
+        <Pin pinNum="31" group="PA1" displayName="PA1.11">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -2077,7 +2024,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="33" group="PA1" displayName="PA1.12">
+        <Pin pinNum="32" group="PA1" displayName="PA1.12">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -2130,7 +2077,7 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="34" group="PA1" displayName="PA1.13">
+        <Pin pinNum="33" group="PA1" displayName="PA1.13">
           <Property class="UIchoice">
             <label>PinFunctions</label>
             <value>Undefined</value>
@@ -2183,112 +2130,9 @@
             <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
           </Property>
         </Pin>
-        <Pin pinNum="37" group="PC0" displayName="PC0.0">
-          <Property class="UIchoice">
-            <label>PinFunctions</label>
-            <value>Undefined</value>
-            <Selections>
-              <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
-              <sel>GPIO_OUTPUT_Push-Pull</sel>
-              <sel>GPIO_OUTPUT_Open-Drain</sel>
-              <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
-              <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>SIO</sel>
-              <sel>BT1_OUT</sel>
-              <sel>GPTB0_CHAX</sel>
-              <sel>CLO</sel>
-              <sel>AVGND</sel>
-              <sel>ADC_AIN17</sel>
-              <sel>CMP_IN7</sel>
-              <sel>TKEY_CH23</sel>
-            </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Ability</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Strong</sel>
-              <sel>Constant</sel>
-            </Selections>
-            <Comment>驱动能力:仅输出有效&#xD;Normal:标准&#xD;Stronge:强驱&#xD;Constant:恒流</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Slew-Rate</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Fast</sel>
-            </Selections>
-            <Comment>斜率:仅输出有效&#xD;Normal:标准&#xD;Fast:快速</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Pull Mode</label>
-            <value>Pull_None</value>
-            <Selections>
-              <sel>Pull_None</sel>
-              <sel>Pull_Up</sel>
-              <sel>Pull_Down</sel>
-            </Selections>
-            <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
-          </Property>
-        </Pin>
-        <Pin pinNum="12" group="PC0" displayName="PC0.1">
-          <Property class="UIchoice">
-            <label>PinFunctions</label>
-            <value>Undefined</value>
-            <Selections>
-              <sel>High_Z</sel>
-              <sel>GPIO_INPUT</sel>
-              <sel>GPIO_INPUT with Filter</sel>
-              <sel>GPIO_OUTPUT_Push-Pull</sel>
-              <sel>GPIO_OUTPUT_Open-Drain</sel>
-              <sel>GPIO_OUTPUT_Push-Pull with Monitor</sel>
-              <sel>GPIO_OUTPUT_Open-Drain with Monitor</sel>
-              <sel>LCD_SEG9</sel>
-              <sel>GPTA0_CHA</sel>
-              <sel>LED_S3</sel>
-              <sel>ADC_AIN15</sel>
-            </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Ability</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Strong</sel>
-              <sel>Constant</sel>
-            </Selections>
-            <Comment>驱动能力:仅输出有效&#xD;Normal:标准&#xD;Stronge:强驱&#xD;Constant:恒流</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Driving Slew-Rate</label>
-            <value>Normal</value>
-            <Selections>
-              <sel>Normal</sel>
-              <sel>Fast</sel>
-            </Selections>
-            <Comment>斜率:仅输出有效&#xD;Normal:标准&#xD;Fast:快速</Comment>
-          </Property>
-          <Property class="Choice">
-            <label>Pull Mode</label>
-            <value>Pull_None</value>
-            <Selections>
-              <sel>Pull_None</sel>
-              <sel>Pull_Up</sel>
-              <sel>Pull_Down</sel>
-            </Selections>
-            <Comment>上下拉&#xD;Pull_None:上下拉禁止&#xD;Pull_Up:上拉&#xD;Pull_Down:下拉</Comment>
-          </Property>
-        </Pin>
-        <Pin pinNum="35" displayName="VSS"/>
-        <Pin pinNum="36" displayName="VLCD"/>
-        <Pin pinNum="44" displayName="VSS"/>
-        <Pin pinNum="45" displayName="VDD"/>
+        <Pin pinNum="34" displayName="VLCD"/>
+        <Pin pinNum="41" displayName="VSS"/>
+        <Pin pinNum="42" displayName="VDD"/>
       </Pins>
     </ChipView>
     <ChipPropertiesView>
