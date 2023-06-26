@@ -35,7 +35,6 @@ int main()
 	board_init();							//PA111 为UART_TXD等
 	
 	my_printf("Hello World~~~~~~~\n");		//print message
-	
 	csi_pin_set_mux(PA06, PA06_OUTPUT);		//PA06 OUTPUT
 	
 	user_demo();							//demo		
