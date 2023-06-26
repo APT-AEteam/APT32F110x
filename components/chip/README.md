@@ -13,7 +13,7 @@ Release Notes
 4.更新csi_calc_clk_freq接口，适用于可视化编程
 5.更新USART的DMA底层驱动解决DMACR寄存器只写导致的BUG
 6.更新UART和USART的DMA接收初始化函数，加入reload参数
-7.更新GPIO和PIN的中断配置，解决POR可能导致的进EXI中断处理问题
+7.更新GPIO和PIN的中断配置，解决POR可能导致的进EXI中断问题
 8.更新csi_sramcheck_int接口，解决SYSCON中对应中断未使能BUG
 ======================================================
 
