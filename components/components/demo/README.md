@@ -5,7 +5,7 @@
 
 ======================================================
 Version: V1.2.6
-Release Date: 2023.06.25
+Release Date: 2023.06.26
 
 Release Notes
 1.修复I2C从机demo中的BUG

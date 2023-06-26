@@ -5,7 +5,7 @@
 
 ======================================================
 Version: V1.2.6
-Release Date: 2023.06.25
+Release Date: 2023.06.26
 
 Release Notes
 1.全局变量tClkConfig更新为g_tClkConfig
