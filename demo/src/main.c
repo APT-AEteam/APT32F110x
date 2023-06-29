@@ -31,18 +31,27 @@ extern void user_demo(void);				//demo
 
 int main()
 {
-    system_init();							//系统时钟、TICK等配置							
-	board_init();							//PA111 为UART_TXD等
+
+#if !defined(USE_GUI)
+	//不使用图形化编程需调用system_init函数
+    system_init();							//系统时钟、TICK等配置	
+						
+#else
+	//使用图形化编程，用户需要在工程设置里Compiler的Define选项里面添加USE_GUI的编译开关
+	//图形化编程支持SYSTEM(包括系统时钟、LVD/R、IWDT、TICK等)、I/O PORT和EXI
+	//使用图形化编程请务必配置System Clk，否则系统的时钟默认选择IM_5.556M
+	__ChipInitHandler();
+	
+#endif
+	
+	board_init();							//打印初始化, PA111/PA112 = UART2_TX/RX, 定义见board_config.h	
+	user_demo();							//demo	
 	
 	my_printf("Hello World~~~~~~~\n");		//print message
-	csi_pin_set_mux(PA06, PA06_OUTPUT);		//PA06 OUTPUT
 	
-	user_demo();							//demo		
-
 	while(1)
 	{
 		mdelay(100);						//delay 100ms
-		csi_pin_toggle(PA06);				//PA06 toggle
 	}
 	
     return 0;
