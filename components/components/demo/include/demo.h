@@ -129,8 +129,8 @@ void rtc_timer_demo(void);
 void rtc_trgev_demo(void);
 
 //iic demo
+extern void iic_master_eeprom_demo(void);
 extern void iic_master_demo(void);
-extern void iic_master_slave_demo(void);
 extern void iic_slave_demo(void);
 
 //cnta demo
