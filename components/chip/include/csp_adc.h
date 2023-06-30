@@ -563,13 +563,16 @@ static inline uint32_t csp_adc_get_imr(csp_adc_t *ptAdcBase)
 {
 	return (uint32_t)(ptAdcBase->IMR);
 }
-static inline void csp_adc_int_enable(csp_adc_t *ptAdcBase, adc_int_e eAdcInt, bool bEnable)
+static inline void csp_adc_int_enable(csp_adc_t *ptAdcBase, adc_int_e eAdcInt)
 {
-	if(bEnable)
-		ptAdcBase->IER |= eAdcInt; 
-	else
-		ptAdcBase->IDR |= eAdcInt; 
+	ptAdcBase->IER = eAdcInt; 
 }
+
+static inline void csp_adc_int_disable(csp_adc_t *ptAdcBase, adc_int_e eAdcInt)
+{
+	ptAdcBase->IDR = eAdcInt; 
+}
+
 /*************************************************************************
  * @brief  adc cr control: start/stop/en/dis/swtrg
 ****************************************************************************/

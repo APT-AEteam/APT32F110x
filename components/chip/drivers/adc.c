@@ -60,8 +60,8 @@ csi_error_t csi_adc_init(csp_adc_t *ptAdcBase, csi_adc_config_t *ptAdcCfg)
 	//adc interrupt
 	if(ptAdcCfg->wInt)
 	{
-		csp_adc_int_enable(ptAdcBase, ptAdcCfg->wInt, ENABLE);	//enable adc interrupt
-		csi_irq_enable((uint32_t *)ptAdcBase);						//enable adc irq	
+		csp_adc_int_enable(ptAdcBase, ptAdcCfg->wInt);		//enable adc interrupt
+		csi_irq_enable((uint32_t *)ptAdcBase);				//enable adc irq	
 	}
 	
 	return ret;
@@ -306,10 +306,10 @@ csi_error_t csi_adc_set_cmp0(csp_adc_t *ptAdcBase, uint8_t byCmpChnl, uint32_t w
 	switch(eDir)
 	{
 		case ADC_CMP_H:	
-			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0H , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0H);
 			break;
 		case ADC_CMP_L:	
-			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0L , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP0L);
 			break;
 		default:		
 			return CSI_ERROR;
@@ -333,10 +333,10 @@ csi_error_t csi_adc_set_cmp1(csp_adc_t *ptAdcBase, uint8_t byCmpChnl, uint32_t w
 	switch(eDir)
 	{
 		case ADC_CMP_H:	
-			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1H , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1H);
 			break;
 		case ADC_CMP_L:	
-			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1L , ENABLE);
+			csp_adc_int_enable(ptAdcBase,(adc_int_e)ADC12_CMP1L);
 			break;
 		default:		
 			return CSI_ERROR;
@@ -436,19 +436,26 @@ csi_error_t csi_adc_evtrg_enable(csp_adc_t *ptAdcBase, csi_adc_trgout_e eTrgOut,
 		
 	return CSI_OK;
 }
-/** \brief enable/disable adc INT status
+/** \brief enable adc INT 
  * 
- *  \param[in] adc: ADC handle to operate
- *  \param[in] wInt: INT
+ *  \param[in] ptAdcBase: ADC handle to operate
+ *  \param[in] eIntSrc: interrupt source
+ *  \return none
  */
-void csi_adc_int_enable(csp_adc_t *ptAdcBase, csi_adc_intsrc_e eIntSrc, bool bEnable)
+void csi_adc_int_enable(csp_adc_t *ptAdcBase, csi_adc_intsrc_e eIntSrc)
 {
-	csp_adc_int_enable(ptAdcBase, (adc_int_e)eIntSrc, bEnable);
-	
-	if(bEnable)
-		csi_irq_enable((uint32_t *)ptAdcBase);
-	else
-		csi_irq_disable((uint32_t *)ptAdcBase);
+	csp_adc_clr_sr(ptAdcBase, (adc_sr_e)eIntSrc);
+	csp_adc_int_enable(ptAdcBase, (adc_int_e)eIntSrc);
+}
+/** \brief disable adc INT 
+ * 
+ *  \param[in] ptAdcBase: ADC handle to operate
+ *  \param[in] eIntSrc: interrupt source
+ *  \return none
+ */
+void csi_adc_int_disable(csp_adc_t *ptAdcBase, csi_adc_intsrc_e eIntSrc)
+{
+	csp_adc_int_disable(ptAdcBase, (adc_int_e)eIntSrc);
 }
 /** \brief fvr output config
  * 
