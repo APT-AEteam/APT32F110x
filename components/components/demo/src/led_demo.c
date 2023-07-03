@@ -7,6 +7,7 @@
  * <tr><th> Date  <th>Version    <th>Author  <th>Description
  * <tr><td> 2021-12-03 <td>V0.0  <td>WNN     <td>initial
  * <tr><td> 2023-5-10  <td>V0.1  <td>wch     <td>modify
+ * <tr><td> 2023-7-3   <td>V0.3  <td>wch     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -31,6 +32,7 @@ void io_config(uint8_t byGrp)
 	switch (byGrp) 
 	{
 		case 0: 
+		#if !defined(USE_GUI)
 			csi_pin_set_mux(PA014, PA014_LED_S0);
 			csi_pin_set_mux(PA015, PA015_LED_S1);
 			csi_pin_set_mux(PB03,  PB03_LED_S2);
@@ -39,9 +41,11 @@ void io_config(uint8_t byGrp)
 			csi_pin_set_mux(PA10,  PA10_LED_S5);
 			csi_pin_set_mux(PA11,  PA11_LED_S6);
 			csi_pin_set_mux(PA12,  PA12_LED_S7);
+		#endif	
 		break;
 		
 		case 1:
+		#if !defined(USE_GUI)
 			csi_pin_set_mux(PA06,  PA06_LED_S0);
 			csi_pin_set_mux(PA07,  PA07_LED_S1);
 			csi_pin_set_mux(PA08,  PA08_LED_S2);
@@ -50,9 +54,11 @@ void io_config(uint8_t byGrp)
 			csi_pin_set_mux(PA011, PA011_LED_S5);
 			csi_pin_set_mux(PA012, PA012_LED_S6);
 			csi_pin_set_mux(PA013, PA013_LED_S7);
+		#endif	
 		break;
 	
 		case 2:
+		#if !defined(USE_GUI)
 			csi_pin_set_mux(PA011, PA011_LED_S0);
 			csi_pin_set_mux(PA012, PA012_LED_S1);
 			csi_pin_set_mux(PB03,  PB03_LED_S2);
@@ -61,6 +67,7 @@ void io_config(uint8_t byGrp)
 			csi_pin_set_mux(PA10,  PA10_LED_S5);
 			csi_pin_set_mux(PA11,  PA11_LED_S6);
 			csi_pin_set_mux(PA12,  PA12_LED_S7);
+		#endif	
 		break;
 		
 		default:
@@ -71,6 +78,7 @@ void io_config(uint8_t byGrp)
 	mdelay(3000);
 	csi_swd_unlock();//如果要使用SWD口(PA17/PA18)，前面一定要加delay函数，否则复位后将很难连上芯片。
 	
+#if !defined(USE_GUI)
 	//COM0~9
 	csi_pin_set_mux(PA16,  PA16_LED_COM0);
 	csi_pin_set_mux(PB05,  PB05_LED_COM1);
@@ -94,6 +102,7 @@ void io_config(uint8_t byGrp)
 	csi_pin_drive(PA111, GPIO_DRIVE_STRONG);
 	csi_pin_drive(PA112, GPIO_DRIVE_STRONG);
 	csi_pin_drive(PA113, GPIO_DRIVE_STRONG);
+#endif	
 }
 
 /**

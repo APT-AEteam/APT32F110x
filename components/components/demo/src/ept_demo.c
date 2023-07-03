@@ -4,8 +4,9 @@
  * \copyright Copyright (C) 2015-2020 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2021-5-11  <td>V0.0 <td>ljy     <td>initial
- * <tr><td> 2023-5-10  <td>V0.1 <td>wch     <td>modify
+ * <tr><td> 2021-5-11  <td>V0.0  <td>ljy     <td>initial
+ * <tr><td> 2023-5-10  <td>V0.1  <td>wch     <td>modify
+ * <tr><td> 2023-7-3   <td>V0.3  <td>wch     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -45,12 +46,7 @@ int ept_capture_sync_demo0(void)
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
 	csi_pin_irq_enable(PA01, ENABLE);							//使能GPIO中断	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);	
-//------------------------------------------------------------------------------------------------------------------------	
-//	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//PIN17
-//	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//PIN18
-//	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//PIN19
-//	csi_pin_set_mux(PA16, PA16_EPT_CHD);						//PIN20
-//------------------------------------------------------------------------------------------------------------------------		
+//------------------------------------------------------------------------------------------------------------------------			
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
 	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
 	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
@@ -183,10 +179,12 @@ int ept_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//PIN17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//PIN18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//PIN19
 	csi_pin_set_mux(PA16, PA16_EPT_CHD);						//PIN20
+#endif
 //------------------------------------------------------------------------------------------------------------------------
     csi_ept_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod        = EPT_WAVE;                        //WAVE  波形模式
@@ -281,7 +279,8 @@ int ept_pwm_demo(void)
 int ept_pwm_dz_demo(void)
 {
 	int iRet = 0;	
-//------------------------------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------------------
+#if !defined(USE_GUI)	
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						
@@ -290,6 +289,7 @@ int ept_pwm_dz_demo(void)
 	csi_pin_set_mux(PA10, PA10_EPT_CHAY);						
 	csi_pin_set_mux(PA11, PA11_EPT_CHBY);						
 	csi_pin_set_mux(PA12, PA12_EPT_CHCY);
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_config_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
@@ -371,7 +371,8 @@ int ept_pwm_dz_demo(void)
 int ept_pwm_dz_em_demo(void)
 {
 	int iRet = 0;	
-//------------------------------------------------------------------------------------------------------------------------	
+//------------------------------------------------------------------------------------------------------------------------
+#if !defined(USE_GUI)	
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//19
@@ -383,6 +384,7 @@ int ept_pwm_dz_em_demo(void)
 	
 	csi_pin_set_mux(PA09,PA09_EBI0);csi_pin_pull_mode(PA09, GPIO_PULLUP);
 	csi_pin_set_mux(PB04,PB04_EBI1);csi_pin_pull_mode(PB04, GPIO_PULLUP);
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	

@@ -4,8 +4,9 @@
  * \copyright Copyright (C) 2015-2020 @ APTCHIP
  * <table>
  * <tr><th> Date  <th>Version  <th>Author  <th>Description
- * <tr><td> 2021-5-11  <td>V0.0 <td>ljy     <td>initial
- * <tr><td> 2023-5-10  <td>V0.1 <td>wch     <td>modify
+ * <tr><td> 2021-5-11  <td>V0.0  <td>ljy     <td>initial
+ * <tr><td> 2023-5-10  <td>V0.1  <td>wch     <td>modify
+ * <tr><td> 2023-7-3   <td>V0.3  <td>wch     <td>modify
  * </table>
  * *********************************************************************
 */
@@ -201,9 +202,11 @@ int gptb_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
     csi_pin_set_mux(PB04,  PB04_GPTB0_CHB  );                       //PIN:13 
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
     csi_gptb_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod        = GPTB_WAVE;                       //WAVE  波形模式
@@ -282,9 +285,11 @@ int gptb_pwm_dz_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
 	csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
     csi_pin_set_mux(PB04,  PB04_GPTB0_CHB  );                       //PIN:13 
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = GPTB_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
@@ -359,11 +364,13 @@ int gptb_pwm_dz_em_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)
     csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
 
 	csi_pin_set_mux(PA09,PA09_EBI0);csi_pin_pull_mode(PA09,GPIO_PULLUP);
 	csi_pin_set_mux(PB04,PB04_EBI1);csi_pin_pull_mode(PB04,GPIO_PULLUP);
+#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_pwmconfig_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = GPTB_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
