@@ -31,12 +31,12 @@ int cmp_base_demo(void)
 {
 	int iRet = 0;
 	csi_cmp_config_t tCmpCfg;
-	
-	csi_pin_set_mux(PA02, PA02_OUTPUT);	  
 
+#if !defined(USE_GUI)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	
+#endif
 	
 	tCmpCfg.byNsel = CMP_N_SEL_CP0;                   //N- 端口选择
 	tCmpCfg.byPsel = CMP_P_SEL_CP1;	                  //P+ 端口选择
@@ -68,9 +68,11 @@ int cmp_dfcr_demo(void)
 {
 	int iRet = 0;
 	
+#if !defined(USE_GUI)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	
+#endif	
 	
 	csi_cmp_config_t tCmpCfg;
 	tCmpCfg.byNsel = CMP_N_SEL_CP0;                    //N- 端口选择
@@ -115,10 +117,12 @@ int cmp_wfcr_demo(void)
 	csi_pin_set_mux(PA02, PA02_OUTPUT);	  
 	csi_pin_set_mux(PA03, PA03_OUTPUT);	 
 	csi_pin_set_low(PA02);	
-	
+
+#if !defined(USE_GUI)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	
+#endif	
 	
 	csi_cmp_config_t tCmpCfg;
 	tCmpCfg.byNsel = CMP_N_SEL_CP0;                    //N- 端口选择
