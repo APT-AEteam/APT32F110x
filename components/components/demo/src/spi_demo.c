@@ -32,6 +32,8 @@
 //PB0.11    PB0.8   PB0.9   PB0.10
 //          PA1.13  
 
+#define SPI_NSS_PIN PA07  //define spi nss pin here,users can change to other pins
+
 /** \brief spi master send a bunch of data; polling(sync,no interrupt)mode
  *  \brief spi 主机发送一串数据，TX使用轮询
  * 
@@ -54,7 +56,7 @@ void spi_master_send_demo(void)
 	csi_pin_set_mux(PA06,PA06_SPI0_MOSI);					//PA06 = SPI0_MOSI
 #endif	
 	t_SpiConfig.bySpiMode = SPI_MASTER;						 //作为主机
-	t_SpiConfig.bySpiPolarityPhase = SPI_FORMAT_CPOL0_CPHA0; //clk空闲电平为0，相位为在第二个边沿采集数据
+	t_SpiConfig.bySpiPolarityPhase = SPI_FORMAT_CPOL1_CPHA0; //clk空闲电平为0，相位为在第二个边沿采集数据
 	t_SpiConfig.bySpiFrameLen = SPI_FRAME_LEN_8;             //帧数据长度为8bit
 	t_SpiConfig.wSpiBaud = 2000000; 						 //通讯速率2兆			
 	t_SpiConfig.byInt= SPI_INTSRC_NONE;					     //初始配置无中断
@@ -355,9 +357,9 @@ static void spi_flash_write_enable(void)
 {
 	uint8_t byCmd = WREN_CMD;		//write enable cmd = 0x06
 	
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0,(void *)&byCmd, NULL, 1);	
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 }
 
 /** \brief flash read status reg
@@ -380,9 +382,9 @@ static uint8_t spi_flash_read_status(void)
 	uint8_t bySend[2] = {RDSR0_CMD, 0x00};		//read status cmd0 = 0x05
 	uint8_t byRecv[2];
 
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0, (void *)bySend, (void *)byRecv, 2);
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 	
 	return byRecv[1];
 }
@@ -407,9 +409,9 @@ static void spi_flash_write_Status(uint8_t byStatus)
 	uint8_t bySend[2] = {WRSR_CMD, byStatus};		//write status cmd = 0x01
 
 	spi_flash_write_enable();		//write enable cmd
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0, (void *)bySend, NULL, 2);
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 	spi_flash_wait_busy();
 }
 /** \brief flash read chip id
@@ -423,11 +425,11 @@ static uint32_t spi_flash_read_id(void)
 	uint8_t bySend[6] = {RDDEVICEID_CMD, 0, 0, 0};
 	uint8_t byRecv[2];
 	
-	csi_spi_nss_low(PA07); 
+	csi_spi_nss_low(SPI_NSS_PIN); 
 	csi_spi_send_receive(SPI0, (void *)bySend, NULL, 4);	//send read id cmd and three bytes addr	
 	csi_spi_send_receive(SPI0, NULL, (void *)byRecv, 2);	//read id value; id value = 0xef14
 	hwId = ((byRecv[0] << 8) |  byRecv[1]);
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
    
 	return hwId;
 }
@@ -441,9 +443,9 @@ static void spi_flash_chip_erase(void)
 	uint8_t byCmd = CHIPERASE_CMD;
 	
 	spi_flash_write_enable();		//write enable
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0, (void *)&byCmd, NULL, 1);		//send chip erase cmd
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 	spi_flash_wait_busy();
 }
 /** \brief flash sector erase (sector = 4k bytes)
@@ -457,9 +459,9 @@ static void spi_flash_sector_erase(uint32_t wAddr)
 	uint8_t bySend[4] = {SECTORERASE_CMD, (wAddr >> 16), (wAddr >> 8), wAddr};
 	
 	spi_flash_write_enable();		//write enable
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0, (void *)bySend, NULL, 4);		//send sector erase cmd and data three bytes addr
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 	spi_flash_wait_busy();
 }
 
@@ -474,10 +476,10 @@ static void spi_flash_read_bytes(uint8_t *pbyBuf, uint32_t wAddr, uint16_t hwNum
 {
 	uint8_t bySend[4] = {READ_CMD, (wAddr >> 16), (wAddr >> 8), wAddr};
 	
-	csi_spi_nss_low(PA07); 
+	csi_spi_nss_low(SPI_NSS_PIN); 
 	csi_spi_send_receive(SPI0, (void *)bySend, NULL, 4);		//send read bytes cmd and data three bytes addr
 	csi_spi_send_receive(SPI0, NULL,(void *)pbyBuf, hwNum);		//read hwNum bytes 
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 }
 
 /** \brief flash write enable 
@@ -492,10 +494,10 @@ static void spi_flash_write_bytes(uint8_t *pbyBuf, uint32_t wAddr, uint16_t hwNu
 	uint8_t bySend[4] = {PGPRO_CMD, (wAddr >> 16), (wAddr >> 8), wAddr};
 
 	spi_flash_write_enable();		//write enable
-	csi_spi_nss_low(PA07);
+	csi_spi_nss_low(SPI_NSS_PIN);
 	csi_spi_send_receive(SPI0, (void *)bySend, NULL, 4);		//send write bytes cmd and data three bytes addr
 	csi_spi_send_receive(SPI0, (void *)pbyBuf, NULL, hwNum);	//write hwNum bytes
-	csi_spi_nss_high(PA07);
+	csi_spi_nss_high(SPI_NSS_PIN);
 	spi_flash_wait_busy();
 }
 
@@ -513,9 +515,10 @@ int16_t spi_w25q16jvsiq_write_read_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置
-	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-	csi_spi_nss_high(PA07);									//PA07 NSS init high												    
+	csi_pin_set_mux(SPI_NSS_PIN, PIN_OUTPUT);               //PA07 as output
+	csi_pin_output_mode(SPI_NSS_PIN, GPIO_PUSH_PULL);       //PA07 push pull mode
+	csi_spi_nss_high(SPI_NSS_PIN);							//PA07 NSS init high	
+
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
 	csi_pin_set_mux(PA06,PA06_SPI0_MOSI);					//PA06 = SPI0_MOSI
