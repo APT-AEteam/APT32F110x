@@ -94,7 +94,7 @@ csi_error_t csi_cnta_timer_init(csp_cnta_t *ptCntaBase,uint32_t wTimeOut)
 	csp_cnta_set_datal(ptCntaBase, wTempLoad);
 	csp_cnta_set_datah(ptCntaBase, wTempLoad);
 	csp_cnta_soft_updata(ptCntaBase);	
-	csp_cnta_int_enable(ptCntaBase,(cnta_int_e)CNTA_PENDL_INT, true);
+	csp_cnta_int_enable(ptCntaBase,(cnta_int_e)CNTA_PENDL_INT);
 	csi_irq_enable((uint32_t *)ptCntaBase);
 
 	csp_cnta_set_carrier(ptCntaBase,(cnta_carrier_e)CNTA_CARRIER_EN);
@@ -125,7 +125,26 @@ void csi_cnta_stop(csp_cnta_t *ptCntaBase)
 {	
     csp_cnta_stop(ptCntaBase);
 }
-
+/** \brief cnta interrupt enable
+ * 
+ *  \param[in] ptCntaBase: pointer of cnta register structure
+ *  \param[in] eIntSrc: cnta interrupt source
+ *  \return none
+ */ 
+void csi_cnta_int_enable(csp_cnta_t *ptCntaBase, csi_cnta_intsrc_e eIntSrc)
+{
+	csp_cnta_int_enable(ptCntaBase, (cnta_int_e)eIntSrc);	
+}
+/** \brief cnta interrupt disable
+ * 
+ *  \param[in] ptCntaBase: pointer of cnta register structure
+ *  \param[in] eIntSrc: cnta interrupt source
+ *  \return none
+ */ 
+void csi_cnta_int_disable(csp_cnta_t *ptCntaBase, csi_cnta_intsrc_e eIntSrc)
+{
+	csp_cnta_int_disable(ptCntaBase, (cnta_int_e)eIntSrc);		
+}
 /** \brief get cnta datah load value
  * 
  *  \param[in] ptCntaBase: pointer of cnta register structure
@@ -222,7 +241,11 @@ csi_error_t csi_cnta_pwm_init(csp_cnta_t *ptCntaBase,csi_cnta_pwm_config_t *ptCn
 	csp_cnta_set_datah(ptCntaBase, wDatahLoad);
 	csp_cnta_set_datal(ptCntaBase, wDatalLoad);
 	csp_cnta_soft_updata(ptCntaBase);
-	csp_cnta_int_enable(ptCntaBase, (cnta_int_e)ptCntaPwmCfg->byInt, true);
+	if(ptCntaPwmCfg->byInt)
+	{
+		csp_cnta_int_enable(ptCntaBase, (cnta_int_e)ptCntaPwmCfg->byInt);
+		csi_irq_enable((uint32_t *)ptCntaBase);
+	}
 
 	return ret;
 }

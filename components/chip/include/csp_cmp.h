@@ -36,14 +36,13 @@ typedef struct
 
 #define CMP_INT_MSK         (0x01)
 
-#define	CMP_INT_RAWDET_POS		(16)
-#define	CMP_INT_RAWDET_MSK	(0x01ul << CMP_INT_RAWDET_POS	)
+#define	CMP_INT_RAWDET_POS	(16)
+#define	CMP_INT_RAWDET_MSK	(0x01ul << CMP_INT_RAWDET_POS)
 
 typedef enum
 {
 	CMP_EDGEDET_INT  =  (0x01ul << 0),  
 	CMP_RAWDET_INT   =  (0x01ul << 16),  
-	
 }
 cmp_int_e;
 
@@ -54,7 +53,7 @@ cmp_int_e;
 #define CMP_SOFTRESET       (0x01<<CMP_SWRST_POS)
 
 #define	CMP_PHYSTPOL_POS	    (1)
-#define	CMP_PHYSTPOL_MSK		(0x07ul << CMP_PHYSTPOL_POS	)
+#define	CMP_PHYSTPOL_MSK		(0x07ul << CMP_PHYSTPOL_POS)
 typedef enum
 {
 	PHYST_0mv			=	0x00,
@@ -370,27 +369,39 @@ static inline uint8_t csp_cmp_get_risr(csp_cmp_t *ptCmpBase)
 	return (uint8_t)((ptCmpBase-> RISR)&0x03);
 }
 
-static inline void csp_cmp_int_enable(csp_cmp_t *ptCmpBase, cmp_int_e eCmpInt,bool bEnable)
+static inline void csp_cmp_int_enable(csp_cmp_t *ptCmpBase, cmp_int_e eCmpInt)
 {
-	if(bEnable)
-		ptCmpBase->IMCR |= eCmpInt; 
-	else
-	    ptCmpBase->IMCR &= ~eCmpInt; 
+	ptCmpBase->IMCR |= eCmpInt; 
+}
+
+static inline void csp_cmp_int_disable(csp_cmp_t *ptCmpBase, cmp_int_e eCmpInt)
+{
+	ptCmpBase->IMCR &= ~eCmpInt; 
 }
 
 static inline void csp_cmp_clr_isr(csp_cmp_t *ptCmpBase,cmp_int_e eCmpInt)
 {
-	ptCmpBase->ICR|= eCmpInt;
+	ptCmpBase->ICR = eCmpInt;
 }
 
-static inline  void csp_cmp_edgedet_int_enable(csp_cmp_t *ptCmpBase,bool bEnable)
+static inline  void csp_cmp_edgedet_int_enable(csp_cmp_t *ptCmpBase)
 {
-	ptCmpBase->IMCR = (ptCmpBase->IMCR & ~CMP_INT_MSK) | bEnable;
+	ptCmpBase->IMCR |= CMP_INT_MSK;
 }
 
-static inline  void csp_cmp_rawdet_int_enable(csp_cmp_t *ptCmpBase,bool bEnable)
+static inline  void csp_cmp_edgedet_int_disable(csp_cmp_t *ptCmpBase)
 {
-	ptCmpBase->IMCR = (ptCmpBase->IMCR & ~CMP_INT_RAWDET_MSK) | (bEnable<<CMP_INT_RAWDET_POS);
+	ptCmpBase->IMCR &= ~CMP_INT_MSK;
+}
+
+static inline  void csp_cmp_rawdet_int_enable(csp_cmp_t *ptCmpBase)
+{
+	ptCmpBase->IMCR |= CMP_INT_RAWDET_MSK;
+}
+
+static inline  void csp_cmp_rawdet_int_disable(csp_cmp_t *ptCmpBase)
+{
+	ptCmpBase->IMCR &= ~CMP_INT_RAWDET_MSK;
 }
 
 static inline uint32_t csp_cmp_get_imcr(csp_cmp_t *ptCmpBase)

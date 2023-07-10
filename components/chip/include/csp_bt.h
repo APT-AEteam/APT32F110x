@@ -311,12 +311,13 @@ static inline uint32_t csp_bt_get_isr(csp_bt_t *ptBtBase)
 {
 	return ptBtBase->MISR;
 }
-static inline void csp_bt_int_enable(csp_bt_t *ptBtBase, bt_int_e eBtInt,bool bEnable)
+static inline void csp_bt_int_enable(csp_bt_t *ptBtBase, bt_int_e eBtInt)
 {
-	if(bEnable)
-		ptBtBase->IMCR |= eBtInt; 
-	else
-		ptBtBase->IMCR &= ~eBtInt; 
+	ptBtBase->IMCR |= eBtInt; 
+}
+static inline void csp_bt_int_disable(csp_bt_t *ptBtBase, bt_int_e eBtInt)
+{
+	ptBtBase->IMCR &= ~eBtInt; 
 }
 //
 static inline void csp_bt_rearm_sync(csp_bt_t *ptBtBase, bt_rearm_e eRearm)

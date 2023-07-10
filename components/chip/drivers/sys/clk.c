@@ -478,9 +478,9 @@ csi_error_t csi_clk_calib(void)
 	{
 		byDiv = 0;
 	}
-	csp_bt_set_pscr(BT0, byDiv);						                    //bt clk div
+	csp_bt_set_pscr(BT0, byDiv);						                //bt clk div
 	csp_bt_set_prdr(BT0, 65535);
-	csp_bt_int_enable(BT0, BT_PEND_INT, true);					        //enable PEND interrupt
+	csp_bt_int_enable(BT0, BT_PEND_INT);					        	//enable PEND interrupt
 	csi_irq_enable((uint32_t *)BT0);									//enable bt irq	
 	
 	csi_clk_enable((uint32_t *)LPT);

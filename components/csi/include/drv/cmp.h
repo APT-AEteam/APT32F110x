@@ -185,12 +185,18 @@ typedef struct
 
 
 /**
- *  \brief       Enable cmp power manage
+ *  \brief       Enable cmp interrupt 
  *  \param[in]   ptCmpBase:pointer of cmp register structure
  *  \param[in]   eIntSrc:cmp interrupt source
- *  \param[in]   bEnable:cmp irq enable or disable
  */
-void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc,bool bEnable);
+void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc);
+
+/**
+ *  \brief       Disable cmp interrupt 
+ *  \param[in]   ptCmpBase:pointer of cmp register structure
+ *  \param[in]   eIntSrc:cmp interrupt source
+ */
+void csi_cmp_int_disable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc);
 
 /**
  *  \brief       init cmp

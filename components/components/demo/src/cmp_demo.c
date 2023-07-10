@@ -44,7 +44,7 @@ int cmp_base_demo(void)
 	tCmpCfg.byPhystsel = CMP_PHYST_POL_DIS;	          //比较器输入迟滞特性极性选择
 	tCmpCfg.byPolarity = CMP_POL_OUT_DIRECT;          //比较器输出极性选择 0:不反向
 	tCmpCfg.byCpoSel  = CMP_CPOS_OUT_IN;	          //CMP_OUT管脚上输出信号选择 0h：滤波前信号直接输出 	1h：滤波后信号输出 
-	tCmpCfg.wInt = CMP_INTSRC_EDGEDET;	      	  //中断模式
+	tCmpCfg.wInt = CMP_INTSRC_EDGEDET;	      	 	  //中断模式
 	csi_cmp_init(CMP0,&tCmpCfg);
 	csi_cmp_start(CMP0);
 	return iRet;	

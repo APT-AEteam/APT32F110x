@@ -236,21 +236,25 @@ static inline void csp_gpio_int_enable(csp_gpio_t *ptGpioBase, gpio_int_e eIoInt
 	else
 		ptGpioBase->IEDR  =  (1 << eIoInt);
 }
-static inline void csp_gpio_port_int_enable(csp_gpio_t *ptGpioBase, uint32_t wValue, bool bEnable)
+
+static inline void csp_gpio_port_int_enable(csp_gpio_t *ptGpioBase, uint32_t wValue)
 {
-	if(bEnable)	
-		ptGpioBase->IEER = wValue;
-	else 
-		ptGpioBase->IEDR = wValue;
+	ptGpioBase->IEER = wValue;
+}
+static inline void csp_gpio_port_int_disable(csp_gpio_t *ptGpioBase, uint32_t wValue)
+{
+	ptGpioBase->IEDR = wValue;
 }
 //
-static inline void csp_exi_int_enable(csp_syscon_t *ptSysconBase, gpio_igrp_e eExiGrp, bool bEnable)
+static inline void csp_exi_int_enable(csp_syscon_t *ptSysconBase, gpio_igrp_e eExiGrp)
 {
-	if(bEnable)
-		ptSysconBase->EXIER =  (0x01ul << eExiGrp);
-	else
-		ptSysconBase->EXIDR = (0x01ul << eExiGrp);
+	ptSysconBase->EXIER =  (0x01ul << eExiGrp);
 }
+static inline void csp_exi_int_disable(csp_syscon_t *ptSysconBase, gpio_igrp_e eExiGrp)
+{
+	ptSysconBase->EXIDR = (0x01ul << eExiGrp);
+}
+//
 static inline void csp_exi_port_clr_isr(csp_syscon_t *ptSysconBase, uint32_t wValue)
 {
     ptSysconBase->EXICR = wValue;
@@ -261,14 +265,16 @@ static inline uint32_t csp_exi_port_get_isr(csp_syscon_t *ptSysconBase)
 }
 static inline void csp_exi_port_int_enable(csp_syscon_t *ptSysconBase,uint32_t wValue, bool bEnable)
 {
-   	if(bEnable)
+	if(bEnable)
 	{
 		ptSysconBase->EXIER = wValue;				//EXI interrupt enable
 		while(!(ptSysconBase->EXIMR & wValue));		//Check EXI is enabled or not
 		ptSysconBase->EXICR = wValue;				//Clear EXI status bit
 	}
-	else
+	else 
+	{
 		ptSysconBase ->EXIDR = wValue;
+	}
 }
 
 /*************************************************************************
