@@ -772,14 +772,21 @@ csi_error_t csi_gptb_onetimesoftware_output(csp_gptb_t *ptGptbBase, uint16_t hwC
  */
 void csi_gptb_aqcsfload_config(csp_gptb_t *ptGptbBase, csi_gptb_aqosf_e eLoadtime);
 
-/** \brief gptb  int  config  
+/** \brief gptb interrupt enable 
  * 
  *  \param[in] ptGptbBase: pointer of gptb register structure
  *  \param[in] eInt:     refer to to csi_gptb_int_e
- *  \param[in] bEnable:  ENABLE/DISABLE
- *  \return CSI_OK;
+ *  \return none
  */
-void csi_gptb_int_enable(csp_gptb_t *ptGptbBase, csi_gptb_int_e eInt, bool bEnable);
+void csi_gptb_int_enable(csp_gptb_t *ptGptbBase, csi_gptb_int_e eInt);
+
+/** \brief gptb interrupt disable 
+ * 
+ *  \param[in] ptGptbBase: pointer of gptb register structure
+ *  \param[in] eInt:     refer to to csi_gptb_int_e
+ *  \return none
+ */
+void csi_gptb_int_disable(csp_gptb_t *ptGptbBase, csi_gptb_int_e eInt);
 
  /** \brief Continuous software waveform control
  * 

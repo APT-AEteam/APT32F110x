@@ -1047,16 +1047,22 @@ void csi_ept_debug_enable(csp_ept_t *ptEptBase, bool bEnable);
  *  \return none
  */
 void csi_ept_emint_en(csp_ept_t *ptEptBase, csi_ept_emint_e eEm);
-/** \brief ept  int  config 
+
+/** \brief ept interrupt enable 
  *
  *  \param[in] ptEptBase: pointer of ept register structure
  *  \param[in] eInt: refer to to csi_ept_intsrc_e
- *  \param[in] bEnable: ENABLE/DISABLE
  *  \return none;
  */
-void csi_ept_int_enable(csp_ept_t *ptEptBase, csi_ept_intsrc_e eInt, bool bEnable);
+void csi_ept_int_enable(csp_ept_t *ptEptBase, csi_ept_intsrc_e eInt);
 
-__attribute__((weak)) void ept_initen_irqhandler(csp_ept_t *ptEptBase);
+/** \brief ept interrupt disable 
+ *
+ *  \param[in] ptEptBase: pointer of ept register structure
+ *  \param[in] eInt: refer to to csi_ept_intsrc_e
+ *  \return none;
+ */
+void csi_ept_int_disable(csp_ept_t *ptEptBase, csi_ept_intsrc_e eInt);
 
 /**
  \brief  ept configuration Loading

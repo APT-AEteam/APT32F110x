@@ -1199,22 +1199,6 @@ static inline void csp_ept_force_em(csp_ept_t *ptEptBase, csp_ept_ep_e eEp)
 	ptEptBase -> EMFRCR = 0x1 << eEp;
 }
 
-
-static inline uint32_t csp_ept_get_emrisr(csp_ept_t *ptEptBase)
-{
-	return (ptEptBase -> EMRISR);
-}
-
-static inline uint32_t csp_ept_get_emisr(csp_ept_t *ptEptBase)
-{
-	return (ptEptBase -> EMMISR);
-}
-
-static inline void csp_ept_clr_emisr(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
-{
-	ptEptBase -> EMICR = eInt;
-}
-
 static inline void csp_ept_set_evtrg(csp_ept_t *ptEptBase ,uint32_t wVal)
 {
 	ptEptBase -> EVTRG = wVal ;
@@ -1252,13 +1236,16 @@ static inline void csp_ept_init_trgtime(csp_ept_t *ptEptBase, uint8_t byCh,uint8
 {
 	ptEptBase -> EVCNTINIT = (ptEptBase -> EVCNTINIT & (~EPT_CNT_INIT_MSK_EV(byCh)))| ((byInitTime&0xf)<< EPT_CNT_INIT_POS_EV(byCh));
 }
-static inline void csp_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt, bool bEnable)
+
+static inline void csp_ept_int_enable(csp_ept_t *ptEptBase, csp_ept_int_e eInt)
 {
-	ptEptBase -> IMCR = (ptEptBase -> IMCR & ( ~eInt));
-	if (bEnable)
-		ptEptBase ->IMCR |= eInt;
-	
+	ptEptBase ->IMCR |= eInt;
 }
+static inline void csp_ept_int_disable(csp_ept_t *ptEptBase, csp_ept_int_e eInt)
+{
+	ptEptBase -> IMCR &= ~eInt;
+}
+
 static inline uint32_t csp_ept_get_risr(csp_ept_t *ptEptBase)
 {
 	return (ptEptBase -> RISR);
@@ -1272,12 +1259,28 @@ static inline void csp_ept_clr_isr(csp_ept_t *ptEptBase, csp_ept_int_e eInt)
 {
 	ptEptBase -> ICR = eInt;
 }
-
-static inline void csp_ept_Emergency_emimcr(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
+//
+static inline uint32_t csp_ept_get_emrisr(csp_ept_t *ptEptBase)
 {
-	ptEptBase -> EMIMCR  =  eInt;
+	return (ptEptBase -> EMRISR);
 }
 
+static inline uint32_t csp_ept_get_emisr(csp_ept_t *ptEptBase)
+{
+	return (ptEptBase -> EMMISR);
+}
+static inline void csp_ept_clr_emisr(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
+{
+	ptEptBase -> EMICR = eInt;
+}
+static inline void csp_ept_emint_enable(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
+{
+	ptEptBase -> EMIMCR  |=  eInt;
+}
+static inline void csp_ept_emint_disable(csp_ept_t *ptEptBase, csp_ept_emint_e eInt)
+{
+	ptEptBase -> EMIMCR  &=  ~eInt;
+}
 static inline void csp_ept_set_trgsrc01(csp_ept_t *ptEptBase, uint8_t byCh, csp_ept_trgsrc01_e eSrc)
 {
 	ptEptBase -> EVTRG = (ptEptBase -> EVTRG & (~EPT_SEL_MSK_TRG(byCh))) | (eSrc << EPT_SEL_POS_TRG(byCh));

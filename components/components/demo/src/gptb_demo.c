@@ -252,8 +252,9 @@ int gptb_pwm_demo(void)
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT0, GPTB_TRGSRC_ZRO);      //TRGSEL0
 	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT1, GPTB_TRGSRC_PRD);      //TRGSEL1
-	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV0 , ENABLE);
-	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV1 , ENABLE);
+	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV0);
+	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV1);
+	csi_irq_enable(GPTB0);
 	
 	csi_gptb_start(GPTB0);//start  timer
 //------------------------------------------------------------------------------------------------------------------------	
