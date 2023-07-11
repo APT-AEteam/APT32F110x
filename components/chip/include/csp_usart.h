@@ -25,7 +25,7 @@ typedef struct
     __OM  uint32_t  SRR;        //0x0008    Software Reset Register        
     __OM  uint32_t  CR;         //0x000C    Control Register                
     __IOM uint32_t  MR;         //0x0010    Mode Register                   
-    __IOM uint32_t  IMSCR;      //0x0014    Interrupt Set/Clear Register       
+    __IOM uint32_t  IMCR;       //0x0014    Interrupt Set/Clear Register       
     __IM  uint32_t  RISR;       //0x0018    Raw Interrupt Status Register      
     __IM  uint32_t  MISR;       //0x001C    Masked Interrupt Status Register   
     __OM  uint32_t  ICR;        //0x0020    Clear Status Register              
@@ -564,12 +564,13 @@ static inline void csp_usart_clr_isr(csp_usart_t *ptUsartBase, usart_int_e eUsar
 {
 	ptUsartBase->ICR = eUsartInt;
 }
-static inline void csp_usart_int_enable(csp_usart_t *ptUsartBase,usart_int_e eUsartInt, bool bEnable)
+static inline void csp_usart_int_enable(csp_usart_t *ptUsartBase,usart_int_e eUsartInt)
 {
-	if(bEnable)
-		ptUsartBase->IMSCR |= eUsartInt;
-	else
-		ptUsartBase->IMSCR &= ~eUsartInt;
+	ptUsartBase->IMCR |= eUsartInt;
+}
+static inline void csp_usart_int_disable(csp_usart_t *ptUsartBase,usart_int_e eUsartInt)
+{
+	ptUsartBase->IMCR &= ~eUsartInt;
 }
 //
 static inline void csp_usart_set_rxdma(csp_usart_t *ptUsartBase, usart_rdma_en_e eRxDmaEn, usart_rdma_md_e eRxDmaMode) 

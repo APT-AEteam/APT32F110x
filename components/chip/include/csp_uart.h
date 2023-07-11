@@ -322,12 +322,13 @@ static inline void csp_uart_clr_isr(csp_uart_t *ptUartBase, uart_isr_e eIsr)
 {
 	ptUartBase->ISR = eIsr;
 }
-static inline void csp_uart_int_enable(csp_uart_t *ptUartBase, uart_int_e eUartInt, bool bEnable)
+static inline void csp_uart_int_enable(csp_uart_t *ptUartBase, uart_int_e eUartInt)
 {
-	if(bEnable)
-		ptUartBase->CTRL |= eUartInt;
-	else
-		ptUartBase->CTRL &= ~eUartInt;
+	ptUartBase->CTRL |= eUartInt;
+}
+static inline void csp_uart_int_disable(csp_uart_t *ptUartBase, uart_int_e eUartInt)
+{
+	ptUartBase->CTRL &= ~eUartInt;
 }
 //
 static inline uint32_t csp_uart_get_ctrl(csp_uart_t *ptUartBase)

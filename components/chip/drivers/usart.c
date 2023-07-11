@@ -131,7 +131,7 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 		{
 			//csp_usart_cr_cmd(ptUsartBase, US_STTTO | US_FIFO_EN | US_RXFIFO_1_2);	//enable receive timeover
 			//ptUsartCfg->wInt |= US_TIMEOUT_INT;									//open receive timeout interrupt
-			csp_usart_int_enable(ptUsartBase, ptUsartCfg->wInt, ENABLE);			//enable usart interrupt
+			csp_usart_int_enable(ptUsartBase, ptUsartCfg->wInt);					//enable usart interrupt
 		}
 		csi_irq_enable(ptUsartBase);												//enable usart irq			
 	}
@@ -143,21 +143,26 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 	
 	return CSI_OK;
 }
-/** \brief enable/disable usart interrupt 
+/** \brief enable usart interrupt 
  * 
  *  \param[in] ptSioBase: pointer of usart register structure
  *  \param[in] eIntSrc: usart interrupt source
- *  \param[in] bEnable: enable/disable interrupt
  *  \return none
  */
-void csi_usart_int_enable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc, bool bEnable)
+void csi_usart_int_enable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc)
 {
-	csp_usart_int_enable(ptUsartBase, (usart_int_e)eIntSrc, bEnable);
-	
-	if(bEnable)
-		csi_irq_enable((uint32_t *)ptUsartBase);
-	else
-		csi_irq_disable((uint32_t *)ptUsartBase);
+	csp_usart_clr_isr(ptUsartBase, (usart_int_e)eIntSrc);
+	csp_usart_int_enable(ptUsartBase, (usart_int_e)eIntSrc);
+}
+/** \brief disable usart interrupt 
+ * 
+ *  \param[in] ptSioBase: pointer of usart register structure
+ *  \param[in] eIntSrc: usart interrupt source
+ *  \return none
+ */
+void csi_usart_int_disable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc)
+{
+	csp_usart_int_disable(ptUsartBase, (usart_int_e)eIntSrc);
 }
 /** \brief start(enable) usart rx/tx
  * 
@@ -287,7 +292,7 @@ int16_t csi_usart_send(csp_usart_t *ptUsartBase, const void *pData, uint16_t hwS
 			else
 			{
 				g_tUsartTran[byIdx].bySendStat = USART_STATE_SEND;				//set usart send status, sending
-				csp_usart_int_enable(ptUsartBase, USART_INTSRC_TXRIS, ENABLE);	//enable usart txfifo interrupt
+				csp_usart_int_enable(ptUsartBase, US_TXRIS_INT);				//enable usart txfifo interrupt
 			}
 			return CSI_OK;
 			

@@ -261,7 +261,7 @@ csi_error_t csi_lin_init(csp_lin_t *ptLinBase, csi_lin_config_t *ptLinCfg)
 	
 	if(ptLinCfg->wInt >= LIN_INTSRC_ENDHEADER)
 	{
-		csp_usart_int_enable(ptLinBase, ptLinCfg->wInt, ENABLE);				//enable lin interrupt
+		csp_usart_int_enable(ptLinBase, ptLinCfg->wInt);						//enable lin interrupt
 		csi_irq_enable((uint32_t *)ptLinBase);									//enable lin irq	
 	}
 	

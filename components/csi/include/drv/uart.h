@@ -168,13 +168,20 @@ extern csi_uart_trans_t g_tUartTran[UART_IDX_NUM];
 csi_error_t csi_uart_init(csp_uart_t *ptUartBase, csi_uart_config_t *ptUartCfg);
 
 /** 
-  \brief 	   enable/disable uart interrupt 
+  \brief 	   disable uart interrupt 
   \param[in]   ptUartBase	pointer of uart register structure
   \param[in]   eIntSrc		uart interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return 	   none
  */
-void csi_uart_int_enable(csp_uart_t *ptUartBase, csi_uart_intsrc_e eIntSrc, bool bEnable);
+void csi_uart_int_enable(csp_uart_t *ptUartBase, csi_uart_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   disable uart interrupt 
+  \param[in]   ptUartBase	pointer of uart register structure
+  \param[in]   eIntSrc		uart interrupt source
+  \return 	   none
+ */
+void csi_uart_int_disable(csp_uart_t *ptUartBase, csi_uart_intsrc_e eIntSrc);
 
 /** 
   \brief 	   start(enable) uart rx/tx

@@ -200,13 +200,20 @@ extern csi_usart_trans_t g_tUsartTran[USART_IDX_NUM];
 csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUartCfg);
 
 /** 
-  \brief 	   enable/disable usart interrupt 
+  \brief 	   enable usart interrupt 
   \param[in]   ptSioBase	pointer of usart register structure
   \param[in]   eIntSrc		usart interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return 	   none
  */
-void csi_usart_int_enable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc, bool bEnable);
+void csi_usart_int_enable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   disable usart interrupt 
+  \param[in]   ptSioBase	pointer of usart register structure
+  \param[in]   eIntSrc		usart interrupt source
+  \return 	   none
+ */
+void csi_usart_int_disable(csp_usart_t *ptUsartBase, csi_usart_intsrc_e eIntSrc);
 
 /** 
   \brief 	   start(enable) usart rx/tx
