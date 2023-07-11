@@ -141,6 +141,22 @@ void csi_iic_enable(csp_i2c_t *ptIicBase);
  */ 
 void csi_iic_disable(csp_i2c_t *ptIicBase);
 
+/** \brief i2c interrupt enable
+ * 
+ *  \param[in] ptIicBase: pointer of i2c register structure
+ *  \param[in] eIntSrc: i2c interrupt source
+ *  \return none
+ */ 
+void csi_i2c_int_enable(csp_i2c_t *ptIicBase, csi_iic_intsrc_e eIntSrc);
+
+/** \brief i2c interrupt disable
+ * 
+ *  \param[in] ptIicBase: pointer of i2c register structure
+ *  \param[in] eIntSrc: i2c interrupt source
+ *  \return none
+ */ 
+void csi_i2c_int_disable(csp_i2c_t *ptIicBase, csi_iic_intsrc_e eIntSrc);
+
 /** \brief  iic  master  write n byte data
  * 
  *  \param[in] ptIicBase: pointer of iic register structure

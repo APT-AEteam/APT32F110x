@@ -29,7 +29,7 @@ typedef struct
 	__IOM uint32_t  MOD;       	//0x0014    LCD mode control register        
 	__IOM uint32_t  SR;        	//0x0018    LCD status register              
 	__IOM uint32_t  ICR;       	//0x001C    LCD Interrupt Clear Register     
-	__IOM uint32_t  IER;       	//0x0020    LCD Interrupt Enable Register 
+	__IOM uint32_t  IMCR;       //0x0020    LCD Interrupt Enable Register 
 	__IM  uint32_t	MISR;       //0x0024    LCD Interrupt Flag Register
 	__IOM uint32_t  CR2;        //0x0028    LCD Control Register2
 	__IM  uint32_t	RSVD[245]; 	//0x002c->0x03fc 
@@ -331,13 +331,14 @@ static inline uint8_t csp_lcd_get_sr(csp_lcd_t *ptLcdBase)
 	return (uint8_t)ptLcdBase->SR;
 }
 
-static inline void csp_lcd_int_enable(csp_lcd_t *ptLcdBase, lcd_int_e eLcdInt, bool bEnable)
+static inline void csp_lcd_int_enable(csp_lcd_t *ptLcdBase, lcd_int_e eLcdInt)
 {
-	if(bEnable)
-		ptLcdBase->IER |= eLcdInt;
-	else
-		ptLcdBase->IER &= ~eLcdInt;
+	ptLcdBase->IMCR |= eLcdInt;
+}
 
+static inline void csp_lcd_int_disable(csp_lcd_t *ptLcdBase, lcd_int_e eLcdInt)
+{
+	ptLcdBase->IMCR &= ~eLcdInt;
 }
 
 static inline uint8_t csp_lcd_get_isr(csp_lcd_t *ptLcdBase)

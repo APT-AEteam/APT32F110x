@@ -488,7 +488,8 @@ csi_error_t csi_clk_calib(void)
 	csp_lpt_clk_enable(LPT, ENABLE);	
 	csp_lpt_set_clk(LPT, LPT_ISCLK, LPT_PSC_DIV1);
 	csp_lpt_set_prdr(LPT, 216);                                         // 27*8  
-	csi_lpt_int_enable(LPT,LPT_PEND_INT,ENABLE);	
+	csi_lpt_int_enable(LPT,LPT_INTSRC_PEND);	
+	csi_irq_enable(LPT);
 		
 	wCheckData = wPclkValue/(125*(byDiv + 1));                         //(wPclkValue*8)/(1000*(byDiv + 1))
 	if(wCheckData <= 1200)

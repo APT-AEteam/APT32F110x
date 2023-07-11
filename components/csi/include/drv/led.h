@@ -74,14 +74,21 @@ typedef struct csi_led_config {
 csi_error_t csi_led_init(csp_led_t *ptLedBase, csi_led_config_t *tLedCfg);
 
 /** 
-  \brief 	   LED interrupt enable/disable control
+  \brief 	   LED interrupt enable
   \param[in]   ptLedBase	pointer of bt register structure
   \param[in]   eIntSrc		bt interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return none
  */ 
-void csi_led_int_enable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc, bool bEnable);
- 
+void csi_led_int_enable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   LED interrupt disable 
+  \param[in]   ptLedBase	pointer of bt register structure
+  \param[in]   eIntSrc		bt interrupt source
+  \return none
+ */ 
+void csi_led_int_disable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc);
+
 /**
   \brief   	   write led data
   \param[in]   ptLedBase    pointer of LED register structure

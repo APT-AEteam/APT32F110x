@@ -195,7 +195,7 @@ csi_error_t csi_lcd_init(csp_lcd_t *ptLcdBase, csi_lcd_config_t *ptLcdCFg)
 	
 	if(ptLcdCFg->byInt)
 	{
-		csp_lcd_int_enable(ptLcdBase, ptLcdCFg->byInt, ENABLE);
+		csp_lcd_int_enable(ptLcdBase, ptLcdCFg->byInt);
 		csi_irq_enable((uint32_t *)ptLcdBase);							//enable bt irq
 	}
 	
@@ -210,21 +210,26 @@ void csi_lcd_start(csp_lcd_t *ptLcdBase)
 {
 	csp_lcd_en(ptLcdBase);
 }
-/** \brief enable/disable lcd interrupt 
+/** \brief enable lcd interrupt 
  * 
  *  \param[in] ptLcdBase: pointer of lcd register structure
  *  \param[in] eIntSrc: lcd interrupt source
- *  \param[in] bEnable: enable/disable interrupt
  *  \return none
  */
-void csi_lcd_int_enable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc, bool bEnable)
+void csi_lcd_int_enable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc)
 {
-	csp_lcd_int_enable(ptLcdBase, eIntSrc, bEnable);
-	
-	if(bEnable)
-		csi_irq_enable((uint32_t *)ptLcdBase);
-	else
-		csi_irq_disable((uint32_t *)ptLcdBase);
+	csp_lcd_clr_isr(ptLcdBase, (lcd_int_e)eIntSrc);
+	csp_lcd_int_enable(ptLcdBase, (lcd_int_e)eIntSrc);
+}
+/** \brief disable lcd interrupt 
+ * 
+ *  \param[in] ptLcdBase: pointer of lcd register structure
+ *  \param[in] eIntSrc: lcd interrupt source
+ *  \return none
+ */
+void csi_lcd_int_disable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc)
+{
+	csp_lcd_int_disable(ptLcdBase, (lcd_int_e)eIntSrc);
 }
 /** \brief lcd blink config
  * 
@@ -240,7 +245,7 @@ csi_error_t csi_lcd_set_blink(csp_lcd_t *ptLcdBase, csi_lcd_blink_md_e eBkMode, 
 		return CSI_ERROR;
 	else
 	{
-		csp_lcd_set_blink(ptLcdBase, eBkMode, eBkFre);
+		csp_lcd_set_blink(ptLcdBase, (lcd_blink_e)eBkMode, (lcd_blink_fre_e)eBkFre);
 		if(eBkFre == LCD_BLINK_FRE_F2)
 		{
 			uint16_t hwBkF2;
@@ -252,7 +257,7 @@ csi_error_t csi_lcd_set_blink(csp_lcd_t *ptLcdBase, csi_lcd_blink_md_e eBkMode, 
 			if(hwBkF2 < 8)
 				hwBkF2 = 8;
 			csp_lcd_set_blinkf2(ptLcdBase, hwBkF2);
-			csp_lcd_set_blink(ptLcdBase, eBkMode, eBkFre);
+			csp_lcd_set_blink(ptLcdBase, (lcd_blink_e)eBkMode, (lcd_blink_fre_e)eBkFre);
 		}
 	}
 		

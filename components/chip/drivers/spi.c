@@ -69,14 +69,14 @@ static void apt_spi_int_set(csp_spi_t *ptSpiBase,csi_spi_intsrc_e eSpiInt)
 	{
 		csi_irq_enable((uint32_t *)ptSpiBase);
 		if(eSpiInt & SPI_RXIM_INT)
-			csp_spi_int_enable(ptSpiBase, (spi_int_e)eSpiInt | SPI_RTIM_INT,true);
+			csp_spi_int_enable(ptSpiBase, (spi_int_e)eSpiInt | SPI_RTIM_INT);
 		else
-			csp_spi_int_enable(ptSpiBase, (spi_int_e)eSpiInt,true);
+			csp_spi_int_enable(ptSpiBase, (spi_int_e)eSpiInt);
 	}
 	else
 	{
 		csi_irq_disable((uint32_t *)ptSpiBase);
-		csp_spi_int_enable(ptSpiBase, 0x0f,false);
+		csp_spi_int_disable(ptSpiBase, 0x0f);
 	}
 }
 
@@ -225,7 +225,7 @@ csi_error_t csi_spi_frame_len(csp_spi_t *ptSpiBase, csi_spi_frame_len_e eLength)
 {	
     csi_error_t   tRet = CSI_OK;
 
-    if ((eLength < SPI_FRAME_LEN_4) || (eLength > SPI_FRAME_LEN_16)) 
+	if((eLength < SPI_FRAME_LEN_4) || (eLength > SPI_FRAME_LEN_16)) 
         tRet = CSI_ERROR;
 	else 
 	{
@@ -253,7 +253,27 @@ int8_t csi_spi_get_state(csi_spi_work_mode_e eWorkMode)
 			return CSI_ERROR;
    }
 }
-
+/** \brief enable spi interrupt 
+ * 
+ *  \param[in] ptSpiBase: pointer of spi register structure
+ *  \param[in] eIntSrc: spi interrupt source
+ *  \return none
+ */
+void csi_spi_int_enable(csp_spi_t *ptSpiBase, csi_spi_intsrc_e eIntSrc)
+{
+	csp_spi_clr_isr(ptSpiBase, (spi_int_e)eIntSrc);
+	csp_spi_int_enable(ptSpiBase, (spi_int_e)eIntSrc);
+}
+/** \brief disable spi interrupt 
+ * 
+ *  \param[in] ptSpiBase: pointer of spi register structure
+ *  \param[in] eIntSrc: spi interrupt source
+ *  \return none
+ */
+void csi_spi_int_disable(csp_spi_t *ptSpiBase, csi_spi_intsrc_e eIntSrc)
+{
+	csp_spi_int_disable(ptSpiBase, (spi_int_e)eIntSrc);
+}
 /** \brief sending data to spi transmitter
  * 
  *  \param[in] ptSpiBase: pointer of spi register structure
@@ -308,7 +328,7 @@ int32_t csi_spi_send(csp_spi_t *ptSpiBase, void *pData, uint32_t wSize)
 			return wCount;
 		
 		case SPI_TX_MODE_INT:
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT,true);
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT);
 			return CSI_OK;
 		default:
 			return CSI_ERROR;
@@ -339,7 +359,7 @@ csi_error_t csi_spi_send_async(csp_spi_t *ptSpiBase, void *pData, uint32_t wSize
 		g_tSpiTransmit.pbyTxData = (uint8_t *)pData;
 		csi_spi_clr_rxfifo(ptSpiBase);
 		csp_spi_en(ptSpiBase);
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT,true);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT);
 	}
 	
 	return tRet;
@@ -389,8 +409,8 @@ int32_t csi_spi_receive(csp_spi_t *ptSpiBase, void *pData, uint32_t wSize)
 			return wCount;
 			
 		case SPI_RX_MODE_INT:
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT,true);
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT,true);
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT);
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT);
 			return CSI_OK;
 		default:
 			return CSI_ERROR;
@@ -421,8 +441,8 @@ csi_error_t csi_spi_receive_async(csp_spi_t *ptSpiBase, void *pData, uint32_t wS
 		g_tSpiTransmit.pbyRxData = (uint8_t *)pData;
 		csp_spi_en(ptSpiBase);
 		csi_spi_clr_rxfifo(ptSpiBase);
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT,true);
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT,true);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT);
 	}
 	
 	return tRet;
@@ -512,9 +532,9 @@ int32_t csi_spi_send_receive(csp_spi_t *ptSpiBase, void *pDataout, void *pDatain
 		case SPI_TX_RX_MODE_INT:
 			csi_spi_clr_rxfifo(ptSpiBase);
 			g_tSpiTransmit.byTxFifoLength = 0x02;
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT,true);
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT,true);
-			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT,true);		
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT);
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT);
+			csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT);		
 			return CSI_OK;
 			
 		default: return CSI_ERROR;
@@ -554,9 +574,9 @@ csi_error_t csi_spi_send_receive_async(csp_spi_t *ptSpiBase, void *pDataout, voi
 		csi_spi_clr_rxfifo(ptSpiBase);
 	
 		g_tSpiTransmit.byTxFifoLength = 0x02;
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT,true);
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT,true);
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT,true);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RTIM_INT);
+		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_TXIM_INT);
     } 
 	return tRet;
 }
@@ -618,8 +638,8 @@ void apt_spi_intr_recv_data(csp_spi_t *ptSpiBase)
 	{
 		csi_spi_clr_rxfifo(ptSpiBase); 
 		g_tSpiTransmit.byReadable = SPI_STATE_IDLE;
-		csp_spi_int_enable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT,false);
-		csp_spi_int_enable(ptSpiBase, SPI_RTIM_INT,false);
+		csp_spi_int_disable(ptSpiBase, g_tSpiTransmit.byInt & SPI_RXIM_INT);
+		csp_spi_int_disable(ptSpiBase, SPI_RTIM_INT);
 	}
 	else
 	{
@@ -637,7 +657,7 @@ void apt_spi_intr_recv_data(csp_spi_t *ptSpiBase)
 		if(g_tSpiTransmit.byRxSize == 0)
 		{
 			g_tSpiTransmit.byReadable = SPI_STATE_IDLE;
-			csp_spi_int_enable(ptSpiBase, SPI_RXIM_INT | SPI_RTIM_INT, false);
+			csp_spi_int_disable(ptSpiBase, SPI_RXIM_INT | SPI_RTIM_INT);
 		}
 	}
 }
@@ -691,14 +711,14 @@ void apt_spi_intr_send_data(csp_spi_t *ptSpiBase)
 		{
 			while((csp_spi_get_sr(ptSpiBase) & SPI_BSY) && (wTimeStart --) );
 			g_tSpiTransmit.byWriteable =  SPI_STATE_IDLE;
-			csp_spi_int_enable(ptSpiBase,SPI_TXIM_INT, false);
+			csp_spi_int_disable(ptSpiBase,SPI_TXIM_INT);
 		}
 	}
 	else
 	{
 		while((csp_spi_get_sr(ptSpiBase) & SPI_BSY) && (wTimeStart --) );
 		g_tSpiTransmit.byWriteable =  SPI_STATE_IDLE;
-		csp_spi_int_enable(ptSpiBase, SPI_TXIM_INT, false);	
+		csp_spi_int_disable(ptSpiBase, SPI_TXIM_INT);	
 	}
 }
 

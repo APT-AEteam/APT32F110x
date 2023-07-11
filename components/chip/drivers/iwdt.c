@@ -107,11 +107,11 @@ void csi_iwdt_feed(void)
  */
 void csi_iwdt_irq_enable(csi_iwdt_alarm_e eAlarmTo, bool bEnable)
 {
-	csp_iwdt_set_intt(SYSCON, (iwdt_intv_e)eAlarmTo);					//iwdt interrupt timer, 1/2/3/4/5/6/7_8
-	csp_syscon_int_enable(SYSCON, IWDT_INT, bEnable);	//enable iwdt interrupt
+	csp_iwdt_set_intt(SYSCON, (iwdt_intv_e)eAlarmTo);		//iwdt interrupt timer, 1/2/3/4/5/6/7_8
+	csp_syscon_int_enable(SYSCON, IWDT_INT, bEnable);		//enable iwdt interrupt
 	
 	if(bEnable)
-		csi_vic_enable_irq(SYSCON_IRQ_NUM);				//enable iwdt irq
+		csi_vic_enable_irq(SYSCON_IRQ_NUM);					//enable iwdt irq
 	else
 		csi_vic_disable_irq(SYSCON_IRQ_NUM);				//disable iwdt irq
 }

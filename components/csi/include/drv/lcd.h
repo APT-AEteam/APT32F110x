@@ -155,13 +155,20 @@ csi_error_t csi_lcd_init(csp_lcd_t *ptLcdBase, csi_lcd_config_t *ptLcdCFg);
 void csi_lcd_start(csp_lcd_t *ptLcdBase);
 
 /** 
-  \brief 	   enable/disable lcd interrupt 
+  \brief 	   enable lcd interrupt 
   \param[in]   ptLcdBase	pointer of lcd register structure
   \param[in]   eIntSrc		lcd interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return 	   none
  */
-void csi_lcd_int_enable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc, bool bEnable);
+void csi_lcd_int_enable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   disable lcd interrupt 
+  \param[in]   ptLcdBase	pointer of lcd register structure
+  \param[in]   eIntSrc		lcd interrupt source
+  \return 	   none
+ */
+void csi_lcd_int_disable(csp_lcd_t *ptLcdBase, csi_lcd_intsrc_e eIntSrc);
 
 /** 
   \brief lcd blink config

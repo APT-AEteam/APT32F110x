@@ -833,7 +833,7 @@ __attribute__((weak)) void spi_irqhandler(csp_spi_t *ptSpiBase)
 		}		
 		g_tSpiTransmit.byRxSize = 0;
 		g_tSpiTransmit.byReadable = SPI_STATE_IDLE;
-		csp_spi_int_enable(ptSpiBase, SPI_RXIM_INT | SPI_RTIM_INT, false);
+		csp_spi_int_disable(ptSpiBase, SPI_RXIM_INT | SPI_RTIM_INT);
 
 	}
 }

@@ -300,13 +300,20 @@ csi_error_t csi_sio_rx_init(csp_sio_t *ptSioBase, csi_sio_rx_config_t *ptRxCfg);
 void csi_sio_set_mode(csp_sio_t *ptSioBase, csi_sio_wkmode_e eWorkMd);
 
 /** 
-  \brief 	   enable/disable sio interrupt 
+  \brief 	   enable sio interrupt 
   \param[in]   ptSioBase	pointer of sio register structure
   \param[in]   eIntSrc		sio interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return 	   none
  */
-void csi_sio_int_enable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc, bool bEnable);
+void csi_sio_int_enable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   disable sio interrupt 
+  \param[in]   ptSioBase	pointer of sio register structure
+  \param[in]   eIntSrc		sio interrupt source
+  \return 	   none
+ */
+void csi_sio_int_disable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc);
 
 /**
   \brief       sio receive break reset config

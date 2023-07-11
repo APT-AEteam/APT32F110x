@@ -107,7 +107,7 @@ csi_error_t csi_sio_rx_init(csp_sio_t *ptSioBase, csi_sio_rx_config_t *ptRxCfg)
 			if(ptRxCfg->byRxCnt > 256)									//byRxCnt > 32 ,the mode work error
 				return CSI_ERROR;
 		}
-		csp_sio_int_enable(ptSioBase, ptRxCfg->byInt, ENABLE);		//enable sio interrupt
+		csp_sio_int_enable(ptSioBase, ptRxCfg->byInt);					//enable sio interrupt
 		csi_irq_enable((uint32_t*)ptSioBase);							//enable sio irq 
 	}
 	else
@@ -159,21 +159,26 @@ void csi_sio_set_mode(csp_sio_t *ptSioBase, csi_sio_wkmode_e eWorkMd)
 {
 	csp_sio_set_mode(ptSioBase, (sio_mode_e)eWorkMd);
 }
-/** \brief enable/disable sio interrupt 
+/** \brief enable sio interrupt 
  * 
  *  \param[in] ptSioBase: pointer of sio register structure
  *  \param[in] eIntSrc: sio interrupt source
- *  \param[in] bEnable: enable/disable interrupt
  *  \return none
  */
-void csi_sio_int_enable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc, bool bEnable)
+void csi_sio_int_enable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc)
 {
-	csp_sio_int_enable(ptSioBase, (sio_int_e)eIntSrc, bEnable);
-	
-	if(bEnable)
-		csi_irq_enable((uint32_t *)ptSioBase);
-	else
-		csi_irq_disable((uint32_t *)ptSioBase);
+	csp_sio_clr_isr(ptSioBase, (sio_int_e)eIntSrc);
+	csp_sio_int_enable(ptSioBase, (sio_int_e)eIntSrc);
+}
+/** \brief disable sio interrupt 
+ * 
+ *  \param[in] ptSioBase: pointer of sio register structure
+ *  \param[in] eIntSrc: sio interrupt source
+ *  \return none
+ */
+void csi_sio_int_disable(csp_sio_t *ptSioBase, csi_sio_intsrc_e eIntSrc)
+{
+	csp_sio_int_disable(ptSioBase, (sio_int_e)eIntSrc);
 }
 /** \brief send data from sio, this function is polling mode(sync mode)
  * 
@@ -207,7 +212,7 @@ int32_t csi_sio_send(csp_sio_t *ptSioBase, const uint32_t *pwData, uint16_t hwSi
 			g_tSioTran.hwSize 	 = hwSize;
 			g_tSioTran.hwTranLen = 0;
 			g_tSioTran.byTxStat  = SIO_STATE_SEND;
-			csp_sio_int_enable(SIO0,SIO_TXBUFEMPT, ENABLE);
+			csp_sio_int_enable(SIO0,SIO_TXBUFEMPT);
 			return CSI_OK;	
 		default:
 			return CSI_UNSUPPORTED;
@@ -230,7 +235,7 @@ int32_t csi_sio_send_async(uint32_t *pwData, uint16_t hwSize)
 	g_tSioTran.hwSize 	 = hwSize;
 	g_tSioTran.hwTranLen = 0;
 	g_tSioTran.byTxStat  = SIO_STATE_SEND;
-	csp_sio_int_enable(SIO0,SIO_TXBUFEMPT, ENABLE);
+	csp_sio_int_enable(SIO0,SIO_TXBUFEMPT);
 	return CSI_OK;
 }
 

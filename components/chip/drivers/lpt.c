@@ -29,8 +29,6 @@ uint32_t g_wLptPrd = 0;
 uint8_t g_byStartpolBack;
 
 
-
-
 /** \brief get lpt clk
  * 
  *  \param[in] eClk: clk source selection
@@ -137,30 +135,27 @@ static uint32_t apt_set_lpt_clk(csp_lpt_t *ptLptBase,csi_lpt_clksrc_e eClk,uint3
 	return hg_wLptPrd;	
 }
 
-/** \brief Enable lpt power manage
+/** \brief Enable lpt interrupt 
  * 
  *  \param[in] ptLptBase: pointer of lpt register structure
- *  \param[in] eLptInt: irq mode
- *  \param[in] bEnable: lpt irq enable or disable
- *  \return lpt prd
+ *  \param[in] eLptInt: interrupt source
+ *  \return none
 */
-void csi_lpt_int_enable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt,bool bEnable)
+void csi_lpt_int_enable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt)
 {
-	csp_lpt_int_enable(ptLptBase, (lpt_int_e)eLptInt, bEnable);
-	
-	if (bEnable) 
-	{
-		csi_irq_enable((uint32_t *)ptLptBase);
-	}
-	else 
-	{
-		if (eLptInt == csp_lpt_get_imcr(ptLptBase)) 
-		{
-			csi_irq_disable((uint32_t *)ptLptBase);
-		}
-	}
+	csp_lpt_clr_isr(ptLptBase, (lpt_int_e)eLptInt);
+	csp_lpt_int_enable(ptLptBase, (lpt_int_e)eLptInt);
 }
-
+/** \brief Disable lpt interrupt 
+ * 
+ *  \param[in] ptLptBase: pointer of lpt register structure
+ *  \param[in] eLptInt: interrupt source
+ *  \return none
+*/
+void csi_lpt_int_disable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt)
+{
+	csp_lpt_int_disable(ptLptBase, (lpt_int_e)eLptInt);
+}
 /** \brief initialize lpt data structure
  * 
  *  \param[in] ptLptBase:pointer of lpt register structure
@@ -191,7 +186,9 @@ csi_error_t csi_lpt_timer_init(csp_lpt_t *ptLptBase,csi_lpt_clksrc_e eClk, uint3
 	{
 		csp_lpt_set_prdr(ptLptBase, (uint16_t)g_wLptPrd);
 	}
-	csi_lpt_int_enable(ptLptBase,(csi_lpt_intsrc_e)LPT_PEND_INT,ENABLE);	 //enable PEND interrupt
+	csp_lpt_int_enable(ptLptBase, LPT_PEND_INT);			 //enable PEND interrupt
+	csi_irq_enable(ptLptBase);
+	
 	return tRet;	
 }
 
@@ -435,7 +432,8 @@ csi_error_t csi_lpt_pwm_init(csp_lpt_t *ptLptBase, csi_lpt_pwm_config_t *ptLptPa
 	
 	if(ptLptPara->byInt != LPT_NONE_INT)
 	{
-		csi_lpt_int_enable(ptLptBase,ptLptPara->byInt,ENABLE);	 //enable interrupt
+		csp_lpt_int_enable(ptLptBase,ptLptPara->byInt);	 	//enable interrupt
+		csi_irq_enable(ptLptBase);
 	}
 
 	return tRet;	
@@ -575,7 +573,10 @@ csi_error_t csi_lpt_start_sync(csp_lpt_t *ptLptBase, csi_lpt_clksrc_e eClk, uint
 		csp_lpt_prdr_ldmode(ptLptBase, LPT_PRDLD_IM);
 		csp_lpt_set_prdr(ptLptBase, (uint16_t)g_wLptPrd);
 	}
-	csi_lpt_int_enable(ptLptBase,(csi_lpt_intsrc_e )LPT_PEND_INT,ENABLE);	 //enable PEND interrupt
+	
+	csp_lpt_int_enable(ptLptBase, LPT_PEND_INT);			 //enable PEND interrupt
+	csi_irq_enable(ptLptBase);
+	
 	return tRet;
 }
 

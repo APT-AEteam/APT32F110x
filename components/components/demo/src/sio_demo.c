@@ -669,7 +669,7 @@ __attribute__((weak)) void sio_irqhandler(csp_sio_t *ptSioBase)
 			g_tSioTran.hwTranLen++;
 			if(g_tSioTran.hwTranLen >= g_tSioTran.hwSize)
 			{
-				csp_sio_int_enable(ptSioBase,SIO_INTSRC_TXBUFEMPT, DISABLE);
+				csp_sio_int_disable(ptSioBase,SIO_TXBUFEMPT);
 				g_tSioTran.hwTranLen = 0;
 				g_tSioTran.byTxStat = SIO_STATE_IDLE;
 			}

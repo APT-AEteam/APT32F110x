@@ -27,7 +27,7 @@ typedef struct
 	__IOM  uint32_t  DR; 		//0x0008	Receive/transmit  data register 
 	__IM   uint32_t  SR;		//0x000C	Status register 
 	__IOM  uint32_t  CPSR;		//0x0010	Clock prescale register         
-	__IOM  uint32_t  IMSCR;		//0x0014	Interrupt set/clear register    
+	__IOM  uint32_t  IMCR;		//0x0014	Interrupt set/clear register    
 	__IM   uint32_t  RISR;		//0x0018	Raw interrupt status register   
 	__IM   uint32_t  MISR;		//0x001C	Mask interrupt status register  
 	__OM   uint32_t  ICR;		//0x0020	Interrupt clear register 
@@ -306,14 +306,6 @@ static inline uint32_t csp_spi_get_sr(csp_spi_t *ptSpiBase)
 {
 	return (uint32_t)(ptSpiBase->SR);
 }
-static inline uint32_t csp_spi_get_isr(csp_spi_t *ptSpiBase)
-{
-	return (uint32_t)(ptSpiBase->MISR);
-}
-static inline void csp_spi_clr_isr(csp_spi_t *ptSpiBase, spi_int_e eSpiInt)
-{
-	ptSpiBase->ICR = eSpiInt;
-}
 
 //lin add
 static inline uint8_t csp_spi_get_rxifl(csp_spi_t *ptSpiBase)
@@ -350,21 +342,29 @@ static inline void csp_spi_default_init(csp_spi_t *ptSpiBase)
     //ptSpiBase->DR    = SPI_DR_RST;
     //ptSpiBase->SR    = SPI_SR_RST;
     ptSpiBase->CPSR  = SPI_CPSR_RST;
-    ptSpiBase->IMSCR = SPI_IMSCR_RST;
+    ptSpiBase->IMCR = SPI_IMSCR_RST;
    //ptSpiBase->RISR  = SPI_RISR_RST;
     //ptSpiBase->MISR  = SPI_MISR_RST;
     ptSpiBase->ICR	 = SPI_ICR_RST; 
 }
-
-static inline void csp_spi_int_enable(csp_spi_t *ptSpiBase,spi_int_e eSpiInt,bool bEnable)
+//
+static inline void csp_spi_int_enable(csp_spi_t *ptSpiBase,spi_int_e eSpiInt)
 {
-	if(bEnable)
-		ptSpiBase->IMSCR |= eSpiInt;
-	else
-		ptSpiBase->IMSCR &= ~eSpiInt;
-
+	ptSpiBase->IMCR |= eSpiInt;
 }
-
+static inline void csp_spi_int_disable(csp_spi_t *ptSpiBase,spi_int_e eSpiInt)
+{
+	ptSpiBase->IMCR &= ~eSpiInt;
+}
+static inline uint32_t csp_spi_get_isr(csp_spi_t *ptSpiBase)
+{
+	return (uint32_t)(ptSpiBase->MISR);
+}
+static inline void csp_spi_clr_isr(csp_spi_t *ptSpiBase, spi_int_e eSpiInt)
+{
+	ptSpiBase->ICR = eSpiInt;
+}
+//
 static inline uint8_t csp_spi_read_ready(csp_spi_t *ptSpiBase)
 {
 	if(csp_spi_get_sr(ptSpiBase) & SPI_RNE)
