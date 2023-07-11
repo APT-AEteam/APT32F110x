@@ -259,11 +259,11 @@ csi_error_t csi_lin_init(csp_lin_t *ptLinBase, csi_lin_config_t *ptLinCfg)
 	csp_usart_lin_set_lcp1(ptLinBase, ptLinCfg->byLcp1);						//lpc1;
 	csp_usart_lin_set_lcp2(ptLinBase, ptLinCfg->byLcp2);						//lpc2;
 	
+	csi_irq_enable(ptLinBase);													//enable lin vic interrupt
 	if(ptLinCfg->wInt >= LIN_INTSRC_ENDHEADER)
-	{
 		csp_usart_int_enable(ptLinBase, ptLinCfg->wInt);						//enable lin interrupt
-		csi_irq_enable((uint32_t *)ptLinBase);									//enable lin irq	
-	}
+	else
+		 csp_usart_int_disable(ptLinBase, LIN_ALL_INT);							//disable all lin interrupt
 	
 	csp_usart_lin_en(ptLinBase);
 	

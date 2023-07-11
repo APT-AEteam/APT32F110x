@@ -107,12 +107,12 @@ csi_error_t csi_dma_ch_init(csp_dma_t *ptDmaBase, csi_dma_ch_e eDmaCh, csi_dma_c
 	csp_dma_set_ch(ptDmaChBase, ptChCfg->byDataWidth, ptChCfg->byReload, ptChCfg->byTransMode, ptChCfg->byTsizeMode);	//dma ch para config
 	csp_dma_set_ch_req(ptDmaChBase, ptChCfg->byReqMode);																//software or hardware request
 	
+	csi_irq_enable(ptDmaBase);										//enable dma vic interrupt	
 	if(ptChCfg->wInt)
-	{
 		csp_dma_int_enable(ptDmaChBase, ptChCfg->wInt);				//enable dma xxx interrupt
-		csi_irq_enable((uint32_t *)ptDmaBase);						//enable dma vic interrupt		
-	}
-	
+	else
+		csp_dma_int_disable(ptDmaChBase, (DMA_LTCIT | DMA_TCIT));	//disable dma all interrupt
+		 ;		
 	return CSI_OK;	
 }
 /** \brief dma channel transfer start

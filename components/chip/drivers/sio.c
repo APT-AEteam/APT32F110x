@@ -58,14 +58,17 @@ csi_error_t csi_sio_tx_init(csp_sio_t *ptSioBase, csi_sio_tx_config_t *ptTxCfg)
 	csp_sio_set_dl(ptSioBase, ptTxCfg->byDLLen - 1, ptTxCfg->byDLLsq);	//set dl clk len and lsq
 	csp_sio_set_dh(ptSioBase, ptTxCfg->byDHLen - 1, ptTxCfg->byDHHsq);	//set dl clk len and hsq
 	
+	csi_irq_enable(ptSioBase);											//enable sio vic interrupt
 	if(ptTxCfg->byInt)	
 	{	
 		g_tSioTran.bySendMode = SIO_TX_MODE_INT;						//interrupt, unsupport
-		csi_irq_enable((uint32_t*)ptSioBase);							//enable sio irq 
-		//csp_sio_int_enable(ptSioBase,ptTxCfg->byInt, ENABLE);       //this open in function[csi_sio_send_async]
+		//csp_sio_int_enable(ptSioBase,ptTxCfg->byInt);       			//this open in function[csi_sio_send_async]
 	}
 	else
+	{
 		g_tSioTran.bySendMode = SIO_TX_MODE_POLL;						//polling mode
+		csp_sio_int_disable(ptSioBase, 0x3f);							//disable all interrupt
+	}
 
 	return CSI_OK;
 }
@@ -98,6 +101,7 @@ csi_error_t csi_sio_rx_init(csp_sio_t *ptSioBase, csi_sio_rx_config_t *ptRxCfg)
 	csp_sio_set_sample(ptSioBase, ptRxCfg->bySpExtra, SIO_ALIGN_EN, ptRxCfg->bySpBitLen - 1, ptRxCfg->byHithr);		//set rx samping control
 	csp_sio_set_recv(ptSioBase, ptRxCfg->byRxDir, ptRxCfg->byRxBufLen - 1, ptRxCfg->byRxCnt - 1);					//set receive para
 	
+	csi_irq_enable(ptSioBase);											//enable sio vic interrupt
 	if(ptRxCfg->byInt)	
 	{
 		g_tSioTran.byRecvMode = SIO_RX_MODE_INT;						//interrupt mode						
@@ -107,11 +111,14 @@ csi_error_t csi_sio_rx_init(csp_sio_t *ptSioBase, csi_sio_rx_config_t *ptRxCfg)
 			if(ptRxCfg->byRxCnt > 256)									//byRxCnt > 32 ,the mode work error
 				return CSI_ERROR;
 		}
+		csp_sio_clr_isr(ptSioBase, ptRxCfg->byInt);
 		csp_sio_int_enable(ptSioBase, ptRxCfg->byInt);					//enable sio interrupt
-		csi_irq_enable((uint32_t*)ptSioBase);							//enable sio irq 
 	}
 	else
+	{
 		g_tSioTran.byRecvMode = SIO_RX_MODE_POLL;						//polling mode, unsupport
+		csp_sio_int_disable(ptSioBase, 0x3f);							//disable all interrupt
+	}
 
 	return CSI_OK;
 }

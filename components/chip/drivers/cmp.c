@@ -61,12 +61,13 @@ csi_error_t csi_cmp_init(csp_cmp_t *ptCmpBase,csi_cmp_config_t *ptCmpCfg)
 	csp_cmp_hystpol(ptCmpBase , ptCmpCfg->byPhystpol,ptCmpCfg->byPhystsel);
 	csp_cmp_polarity(ptCmpBase , ptCmpCfg->byPolarity);
 	csp_cmp_out(ptCmpBase , ptCmpCfg->byCpoSel);
-	if(ptCmpCfg->wInt)
-	{
-		csp_cmp_int_enable(ptCmpBase, (cmp_int_e)ptCmpCfg->wInt);
-		csi_irq_enable((uint32_t *)ptCmpBase);
-	}
 	
+	csi_irq_enable(ptCmpBase);												//enable cmp vic interrupt
+	if(ptCmpCfg->wInt)
+		csp_cmp_int_enable(ptCmpBase, (cmp_int_e)ptCmpCfg->wInt);			//enable cmp interrupt
+	else
+		csp_cmp_int_disable(ptCmpBase, (CMP_EDGEDET_INT | CMP_RAWDET_INT)); //disable cmp all interrupt
+		
 	return tRet;
 }
 

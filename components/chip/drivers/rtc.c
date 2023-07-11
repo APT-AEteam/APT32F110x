@@ -104,7 +104,7 @@ void csi_rtc_init(csp_rtc_t *ptRtc, csi_rtc_config_t *tConfig)
 	csp_rtc_int_disable(ptRtc, RTC_INTSRC_ALMA|RTC_INTSRC_ALMB|RTC_INTSRC_CPRD|RTC_INTSRC_TRGEV0|RTC_INTSRC_TRGEV1);
 	csp_rtc_clr_isr(ptRtc, RTC_INTSRC_ALMA|RTC_INTSRC_ALMB|RTC_INTSRC_CPRD|RTC_INTSRC_TRGEV0|RTC_INTSRC_TRGEV1);
 	
-	csi_irq_enable((uint32_t *)ptRtc);	
+	csi_irq_enable(ptRtc);	
 }
 
 /** \brief Read back function enable control. To save current, disable read back.

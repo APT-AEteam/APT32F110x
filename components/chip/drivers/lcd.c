@@ -193,11 +193,11 @@ csi_error_t csi_lcd_init(csp_lcd_t *ptLcdBase, csi_lcd_config_t *ptLcdCFg)
 	else
 		return CSI_ERROR;
 	
+	csi_irq_enable(ptLcdBase);								//enable lcd vic interrupt
 	if(ptLcdCFg->byInt)
-	{
 		csp_lcd_int_enable(ptLcdBase, ptLcdCFg->byInt);
-		csi_irq_enable((uint32_t *)ptLcdBase);							//enable bt irq
-	}
+	else
+		csp_lcd_int_disable(ptLcdBase, 0x0a);				//disable lcd all interrupt
 	
 	return CSI_OK;
 }

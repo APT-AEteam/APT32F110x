@@ -297,7 +297,6 @@ static inline uint16_t csp_bt_get_cnt(csp_bt_t *ptBtBase)
 {
 	return (uint16_t)ptBtBase->CNT;
 }
-
 //
 static inline void csp_bt_clr_isr(csp_bt_t *ptBtBase, bt_int_e eIntNum)
 {

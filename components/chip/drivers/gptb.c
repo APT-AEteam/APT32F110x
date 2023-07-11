@@ -57,11 +57,11 @@ csi_error_t csi_gptb_capture_init(csp_gptb_t *ptGptbBase, csi_gptb_captureconfig
 	csp_gptb_set_pscr(ptGptbBase, (uint16_t)wClkDiv - 1);				// clk div
 	csp_gptb_set_prdr(ptGptbBase, (uint16_t)wPrdrLoad);				    // prdr load value
 	
+	csi_irq_enable((uint32_t *)ptGptbBase);								//enable gptb vic interrupt
 	if(ptGptbCapCfg->wInt)
-	{
-		csp_gptb_int_enable(ptGptbBase, ptGptbCapCfg->wInt);   			//enable interrupt
-		csi_irq_enable((uint32_t *)ptGptbBase);							//enable  irq
-	}
+		csp_gptb_int_enable(ptGptbBase, ptGptbCapCfg->wInt);   			//enable gptb interrupt
+	else 
+		csp_gptb_int_disable(ptGptbBase, 0x10ff3);   					//disable gptb all interrupt
 	
 	g_wGptb0Prd=wPrdrLoad;
 	
@@ -117,11 +117,11 @@ csi_error_t  csi_gptb_wave_init(csp_gptb_t *ptGptbBase, csi_gptb_pwmconfig_t *pt
 
 	}
 	
+	csi_irq_enable((uint32_t *)ptGptbBase);								//enable gptb vic interrupt
 	if(ptGptbPwmCfg->wInt)
-	{
 		csp_gptb_int_enable(ptGptbBase, ptGptbPwmCfg->wInt);			//enable interrupt
-		csi_irq_enable((uint32_t *)ptGptbBase);							//enable  irq
-	}
+	else 
+		csp_gptb_int_disable(ptGptbBase, 0x10ff3);   					//disable gptb all interrupt
 	
 	g_wGptb0Prd=wPrdrLoad;
 	
@@ -163,8 +163,9 @@ csi_error_t csi_gptb_timer_init(csp_gptb_t *ptGptbBase, uint32_t wTimeOut)
 	csp_gptb_set_pscr(ptGptbBase, (uint16_t)wClkDiv - 1);				// clk div
 	csp_gptb_set_prdr(ptGptbBase, (uint16_t)wPrdrLoad);				    // prdr load value
 
+	csp_gptb_clr_isr(ptGptbBase, GPTB_INT_PEND);
 	csp_gptb_int_enable(ptGptbBase, GPTB_INT_PEND);		        		//enable interrupt
-	csi_irq_enable((uint32_t *)ptGptbBase);							    //enable  irq
+	csi_irq_enable((uint32_t *)ptGptbBase);							    //enable vic interrupt
 	
 	return CSI_OK;					
 }

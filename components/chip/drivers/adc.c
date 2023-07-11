@@ -58,11 +58,11 @@ csi_error_t csi_adc_init(csp_adc_t *ptAdcBase, csi_adc_config_t *ptAdcCfg)
 	csp_adc_set_vref(ptAdcBase,ptAdcCfg->byVrefSrc);		//adc vref
 	
 	//adc interrupt
+	csi_irq_enable(ptAdcBase);								//enable adc vic interrupt
 	if(ptAdcCfg->wInt)
-	{
 		csp_adc_int_enable(ptAdcBase, ptAdcCfg->wInt);		//enable adc interrupt
-		csi_irq_enable((uint32_t *)ptAdcBase);				//enable adc irq	
-	}
+	else 
+		csp_adc_int_disable(ptAdcBase, 0xffff00ff);			//disable adc all interrupt
 	
 	return ret;
 }

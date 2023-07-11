@@ -56,7 +56,7 @@ void iic_master_eeprom_demo(void)
 	{
 		csi_iic_write_nbyte(I2C0,0xa0,0x0001,2,&data[0],9);
 		mdelay(100);
-//		csi_iic_read_nbyte(I2C0,0xa0,0x0001,2,&data1[0],9);
+		csi_iic_read_nbyte(I2C0,0xa0,0x0001,2,&data1[0],9);
 //		mdelay(100);
 	}
 }

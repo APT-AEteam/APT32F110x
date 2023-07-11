@@ -65,9 +65,9 @@ void csi_spi_start(csp_spi_t *ptSpiBase)
  */ 
 static void apt_spi_int_set(csp_spi_t *ptSpiBase,csi_spi_intsrc_e eSpiInt)
 {
+	csi_irq_enable(ptSpiBase);
 	if((spi_int_e)eSpiInt != SPI_NONE_INT)
 	{
-		csi_irq_enable((uint32_t *)ptSpiBase);
 		if(eSpiInt & SPI_RXIM_INT)
 			csp_spi_int_enable(ptSpiBase, (spi_int_e)eSpiInt | SPI_RTIM_INT);
 		else
@@ -75,7 +75,6 @@ static void apt_spi_int_set(csp_spi_t *ptSpiBase,csi_spi_intsrc_e eSpiInt)
 	}
 	else
 	{
-		csi_irq_disable((uint32_t *)ptSpiBase);
 		csp_spi_int_disable(ptSpiBase, 0x0f);
 	}
 }

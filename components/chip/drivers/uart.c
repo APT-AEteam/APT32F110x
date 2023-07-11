@@ -113,6 +113,7 @@ csi_error_t csi_uart_init(csp_uart_t *ptUartBase, csi_uart_config_t *ptUartCfg)
 	csp_uart_set_fifo(ptUartBase, UART_RXFIFO_1_8, ENABLE);				//set /fx fifo = 1_2/fifo enable
 	csp_uart_set_rtor(ptUartBase, ptUartCfg->hwRecvTo);					//set receive timeout(8 bytes, one byte = 11bit) 
 	
+	csi_irq_enable(ptUartBase);											//enable uart vic interrupt	
 	if(ptUartCfg->wInt)													//use interrupt				
 	{
 		if(ptUartCfg->wInt & UART_RX_INT)								//use rx interrupt
@@ -123,11 +124,11 @@ csi_error_t csi_uart_init(csp_uart_t *ptUartBase, csi_uart_config_t *ptUartCfg)
 		if((ptUartCfg->byTxMode == UART_TX_MODE_POLL) && (ptUartCfg->byRxMode == UART_RX_MODE_POLL))
 			return CSI_ERROR;
 
-		csp_uart_int_enable(ptUartBase, ptUartCfg->wInt);	
-		csi_irq_enable((uint32_t *)ptUartBase);							//enable uart vic irq			
+		csp_uart_int_enable(ptUartBase, ptUartCfg->wInt);				//enable uart interrupt
 	}
 	else
 	{
+		csp_uart_int_disable(ptUartBase, 0x6c30bc);						//disable all interrupt
 		if((ptUartCfg->byRxMode != UART_RX_MODE_POLL) || (ptUartCfg->byTxMode != UART_TX_MODE_POLL))
 			return CSI_ERROR;
 	}

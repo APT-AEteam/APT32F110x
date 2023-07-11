@@ -95,7 +95,7 @@ csi_error_t csi_cnta_timer_init(csp_cnta_t *ptCntaBase,uint32_t wTimeOut)
 	csp_cnta_set_datah(ptCntaBase, wTempLoad);
 	csp_cnta_soft_updata(ptCntaBase);	
 	csp_cnta_int_enable(ptCntaBase,(cnta_int_e)CNTA_PENDL_INT);
-	csi_irq_enable((uint32_t *)ptCntaBase);
+	csi_irq_enable(ptCntaBase);
 
 	csp_cnta_set_carrier(ptCntaBase,(cnta_carrier_e)CNTA_CARRIER_EN);
 	csp_cnta_set_envelope(ptCntaBase,(cnta_envelope_e)CNTA_CARRIER_OUT);
@@ -241,11 +241,12 @@ csi_error_t csi_cnta_pwm_init(csp_cnta_t *ptCntaBase,csi_cnta_pwm_config_t *ptCn
 	csp_cnta_set_datah(ptCntaBase, wDatahLoad);
 	csp_cnta_set_datal(ptCntaBase, wDatalLoad);
 	csp_cnta_soft_updata(ptCntaBase);
+	
+	csi_irq_enable(ptCntaBase);												//enable vic
 	if(ptCntaPwmCfg->byInt)
-	{
-		csp_cnta_int_enable(ptCntaBase, (cnta_int_e)ptCntaPwmCfg->byInt);
-		csi_irq_enable((uint32_t *)ptCntaBase);
-	}
+		csp_cnta_int_enable(ptCntaBase, (cnta_int_e)ptCntaPwmCfg->byInt);	//enable cnta interrupt
+	else
+		csp_cnta_int_disable(ptCntaBase, 0x03);								//disable cnta all interrupt
 
 	return ret;
 }

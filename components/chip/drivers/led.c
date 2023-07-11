@@ -32,10 +32,12 @@ csi_error_t csi_led_init(csp_led_t *ptLedBase, csi_led_config_t *ptLedCfg)
 	csp_led_set_dcomcnt(ptLedBase, (ptLedCfg->byOnTime/8 - 7));
 	csp_led_set_novcnt(ptLedBase, (ptLedCfg->byBreakTime/2 -7));
 	
-	if(ptLedCfg->byInt) {
+	csi_irq_enable((uint32_t *)ptLedBase);				//enable led vic interrupt
+	if(ptLedCfg->byInt) 
 		csp_led_int_enable(ptLedBase, ptLedCfg->byInt);
-		csi_irq_enable((uint32_t *)ptLedBase);
-	}
+	else
+		csp_led_int_disable(ptLedBase, 0x03);			//disable led all interrupt
+		
 	return CSI_OK;
 	
 }

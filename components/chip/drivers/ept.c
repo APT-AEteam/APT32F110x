@@ -84,12 +84,11 @@ csi_error_t csi_ept_config_init(csp_ept_t *ptEptBase, csi_ept_config_t *ptEptCfg
 	csp_ept_set_cmpc(ptEptBase, (uint16_t)wCmpLoad);
 	csp_ept_set_cmpd(ptEptBase, (uint16_t)wCmpLoad);
 	
-	
+	csi_irq_enable((uint32_t *)ptEptBase);								//enable ept vic interrupt
 	if(ptEptCfg->wInt)
-	{
-		csp_ept_int_enable(ptEptBase, ptEptCfg->wInt);					//enable interrupt
-		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
-	}
+		csp_ept_int_enable(ptEptBase, ptEptCfg->wInt);					//enable ept interrupt
+	else
+		csp_ept_int_disable(ptEptBase, 0x1ffff);						//disable ept all interrupt
 	
 	g_wEptPrd=wPrdrLoad;
 	
@@ -137,12 +136,12 @@ csi_error_t csi_ept_capture_init(csp_ept_t *ptEptBase, csi_ept_captureconfig_t *
 	csp_ept_set_pscr(ptEptBase, (uint16_t)wClkDiv);						// clk div
 	csp_ept_set_prdr(ptEptBase, (uint16_t)wPrdrLoad);				    // prdr load value
 	
+	csi_irq_enable((uint32_t *)ptEptBase);								//enable ept vic interrupt
 	if(ptEptCapCfg->wInt)
-	{
-		csp_ept_int_enable(ptEptBase, ptEptCapCfg->wInt);				//enable interrupt
-		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
-	}
-	
+		csp_ept_int_enable(ptEptBase, ptEptCapCfg->wInt);				//enable ept interrupt
+	else
+		csp_ept_int_disable(ptEptBase, 0x1ffff);						//disable ept all interrupt
+		
 	g_wEptPrd=wPrdrLoad;
 	
 	return CSI_OK;
@@ -199,13 +198,12 @@ csi_error_t  csi_ept_wave_init(csp_ept_t *ptEptBase, csi_ept_pwmconfig_t *ptEptP
 	csp_ept_set_cmpc(ptEptBase, (uint16_t)wCmpLoad);
 	csp_ept_set_cmpd(ptEptBase, (uint16_t)wCmpLoad);
 	
-	
+	csi_irq_enable((uint32_t *)ptEptBase);								//enable ept vic interrupt
 	if(ptEptPwmCfg->wInt)
-	{
-		csp_ept_int_enable(ptEptBase, ptEptPwmCfg->wInt);				//enable interrupt
-		csi_irq_enable((uint32_t *)ptEptBase);							//enable  irq
-	}
-	
+		csp_ept_int_enable(ptEptBase, ptEptPwmCfg->wInt);				//enable ept interrupt
+	else 
+		csp_ept_int_disable(ptEptBase, 0x1ffff);						//disable ept all interrupt
+
 	g_wEptPrd=wPrdrLoad;
 	
 	return CSI_OK;	
