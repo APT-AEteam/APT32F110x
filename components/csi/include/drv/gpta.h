@@ -534,15 +534,15 @@ csi_error_t csi_gpta_continuous_software_waveform(csp_gpta_t *ptGptaBase, csi_gp
 
 /** \brief gpta interrupt enable
  *  \param[in] ptGptaBase:pointer of gpta register structure
- *  \param[in] eInt:     refer to to csp_gpta_int_e
- *  \return CSI_OK;
+ *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
+ *  \return none;
  */
 void csi_gpta_int_enable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt);
 
 /** \brief gpta interrupt disable
  *  \param[in] ptGptaBase:pointer of gpta register structure
- *  \param[in] eInt:     refer to to csp_gpta_int_e
- *  \return CSI_OK;
+ *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
+ *  \return none;
  */
 void csi_gpta_int_disable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt);
 

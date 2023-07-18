@@ -428,7 +428,6 @@ csi_error_t csi_lpt_pwm_init(csp_lpt_t *ptLptBase, csi_lpt_pwm_config_t *ptLptPa
 	csp_lpt_set_idle_st(ptLptBase, ptLptPara->byIdlepol);
 	csp_lpt_out_enable(ptLptBase, ENABLE);
 	
-	
 	csp_lpt_set_cmp(ptLptBase, (uint16_t)wCmp);
 	
 	csi_irq_enable(ptLptBase);								//enable lpt vic interrupt

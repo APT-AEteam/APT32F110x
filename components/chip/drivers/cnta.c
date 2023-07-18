@@ -242,7 +242,7 @@ csi_error_t csi_cnta_pwm_init(csp_cnta_t *ptCntaBase,csi_cnta_pwm_config_t *ptCn
 	csp_cnta_set_datal(ptCntaBase, wDatalLoad);
 	csp_cnta_soft_updata(ptCntaBase);
 	
-	csi_irq_enable(ptCntaBase);												//enable vic
+	csi_irq_enable(ptCntaBase);												//enable vic interrupt
 	if(ptCntaPwmCfg->byInt)
 		csp_cnta_int_enable(ptCntaBase, (cnta_int_e)ptCntaPwmCfg->byInt);	//enable cnta interrupt
 	else

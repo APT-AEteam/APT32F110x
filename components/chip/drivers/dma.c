@@ -112,7 +112,7 @@ csi_error_t csi_dma_ch_init(csp_dma_t *ptDmaBase, csi_dma_ch_e eDmaCh, csi_dma_c
 		csp_dma_int_enable(ptDmaChBase, ptChCfg->wInt);				//enable dma xxx interrupt
 	else
 		csp_dma_int_disable(ptDmaChBase, (DMA_LTCIT | DMA_TCIT));	//disable dma all interrupt
-		 ;		
+	
 	return CSI_OK;	
 }
 /** \brief dma channel transfer start

@@ -124,7 +124,7 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 	g_tUsartTran[byIdx].byRecvStat = USART_STATE_IDLE;
 	g_tUsartTran[byIdx].bySendStat = USART_STATE_IDLE;
 	
-	csi_irq_enable(ptUsartBase);												//enable usart vic interrupt												
+	csi_irq_enable(ptUsartBase);													//enable usart vic interrupt												
 	if(ptUsartCfg->wInt)
 	{
 		ptUsartCfg->wInt &= 0xbdfd;													//clear tx all interrupt
@@ -135,7 +135,6 @@ csi_error_t csi_usart_init(csp_usart_t *ptUsartBase, csi_usart_config_t *ptUsart
 			csp_usart_clr_isr(ptUsartBase, ptUsartCfg->wInt);						//clr usart interrupt status
 			csp_usart_int_enable(ptUsartBase, ptUsartCfg->wInt);					//enable usart interrupt
 		}
-		//csi_irq_enable(ptUsartBase);												//enable usart vic interrupt			
 	}
 	else
 	{

@@ -239,7 +239,7 @@ csi_error_t csi_bt_pwm_init(csp_bt_t *ptBtBase, csi_bt_pwm_config_t *ptBtPwmCfg)
 	if(ptBtPwmCfg->byInt)
 		csp_bt_int_enable(ptBtBase, ptBtPwmCfg->byInt);						//enable bt interrupt
 	else
-		csp_bt_int_disable(ptBtBase, 0x0f);									//disable bt all interrup
+		csp_bt_int_disable(ptBtBase, 0x0f);									//disable bt all interrupt
 		
 	return CSI_OK;
 }
@@ -481,5 +481,5 @@ void csi_bt_start_sync(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	csp_bt_set_pscr(ptBtBase, (uint16_t)wClkDiv - 1);						//bt clk div	
 	csp_bt_set_prdr(ptBtBase, (uint16_t)wTmLoad);							//bt prdr load value
 	csp_bt_int_enable(ptBtBase, BT_PEND_INT);								//enable PEND interrupt
-	csi_irq_enable((uint32_t *)ptBtBase);									//enable bt irq
+	csi_irq_enable((uint32_t *)ptBtBase);									//enable bt vic interrupt
 }

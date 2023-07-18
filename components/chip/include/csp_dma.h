@@ -345,7 +345,6 @@ static inline uint32_t csp_dma_get_isr(csp_dma_t *ptDmaBase)
 	return (uint32_t)(ptDmaBase->ISR);
 }
 
-
 static inline void csp_dma_clr_isr(csp_dma_t *ptDmaBase, dma_icr_e eDmaIcr)
 {
 	ptDmaBase->ICR = eDmaIcr;

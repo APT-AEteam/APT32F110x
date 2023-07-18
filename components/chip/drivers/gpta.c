@@ -60,7 +60,7 @@ csi_error_t csi_gpta_capture_init(csp_gpta_t *ptGptaBase, csi_gpta_captureconfig
 	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv-1);				// clk div
 	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				        // prdr load value
 	
-	csi_irq_enable((uint32_t *)ptGptaBase);							//enable gpta vic interrupt
+	csi_irq_enable(ptGptaBase);										//enable gpta vic interrupt
 	if(ptGptaPwmCfg->wInt)
 		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt);		//enable gpta interrupt
 	else 
@@ -133,7 +133,7 @@ csi_error_t  csi_gpta_wave_init(csp_gpta_t *ptGptaBase, csi_gpta_pwmconfig_t *pt
 	csp_gpta_set_cmpa(ptGptaBase, wCmpLoad);							// cmp load value
 	csp_gpta_set_cmpb(ptGptaBase, wCmpLoad);
 		
-	csi_irq_enable((uint32_t *)ptGptaBase);								//enable vic interrupt
+	csi_irq_enable(ptGptaBase);											//enable vic interrupt
 	if(ptGptaPwmCfg->wInt)
 		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt);			//enable interrupt
 	else 
@@ -185,7 +185,7 @@ csi_error_t csi_gpta_timer_init(csp_gpta_t *ptGptaBase, uint32_t wTimeOut)
 
 	csp_gpta_clr_isr(ptGptaBase, GPTA_INT_PEND);
 	csp_gpta_int_enable(ptGptaBase, GPTA_INT_PEND);		        		//enable interrupt
-	csi_irq_enable((uint32_t *)ptGptaBase);							    //enable  irq
+	csi_irq_enable(ptGptaBase);							    			//enable vic interrupt
 	
 	return CSI_OK;					
 }
@@ -554,7 +554,7 @@ csi_error_t csi_gpta_continuous_software_waveform(csp_gpta_t *ptGptaBase, csi_gp
 /** \brief gpta interrupt enable
  *  \param[in] ptGptaBase:pointer of gpta register structure
  *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
- *  \return CSI_OK;
+ *  \return none;
  */
 void csi_gpta_int_enable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt)
 {   
@@ -565,7 +565,7 @@ void csi_gpta_int_enable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt)
 /** \brief gpta interrupt disable
  *  \param[in] ptGptaBase:pointer of gpta register structure
  *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
- *  \return CSI_OK;
+ *  \return none;
  */
 void csi_gpta_int_disable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt)
 {   
