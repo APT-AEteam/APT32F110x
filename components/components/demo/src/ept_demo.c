@@ -451,7 +451,7 @@ int ept_pwm_dz_em_demo(void)
 	csi_ept_emergency_pinout(EPT0,EMCOBY,EPT_EM_OUT_L);
 	csi_ept_emergency_pinout(EPT0,EMCOCY,EPT_EM_OUT_L);
 	
-	csi_ept_emint_en(EPT0,EPT_INTSRC_EP6);        //紧急状态输入中断使能
+	csi_ept_emint_enable(EPT0,EPT_INTSRC_EP6);        //紧急状态输入中断使能
 //------------------------------------------------------------------------------------------------------------------------	
 
 //	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN3, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);	
