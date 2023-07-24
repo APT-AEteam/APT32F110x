@@ -1489,8 +1489,8 @@
         <Bit Name="READY" Authority="RO" Bits="1" Description="READY : ADC已准备好可以转换&#xD;&#xA;0: ADC忽略开始或者停止指令：因为它还没有准备好或者转换未结束它还在工作中&#xD;&#xA;1: ADC已经准备好，可以开始一个转换" />
         <Bit Name="EOC" Authority="RO" Bits="0" Description="EOC : 转换结束&#xD;&#xA;0: 转换未结束，仍在进行中&#xD;&#xA;1: 转换完成，ADC_DR中的数据有效。当ADC_DR被读取时该位自动清零 " />
       </Register>
-      <Register Name="ADC_IER" Authority="RW" Address="0x40030024" Width="32" Description="中断使能寄存器">
-        <Bit Name="SEQ_END15" Authority="RW" Bits="31" Description="SEQ_END[x] : SEQx序列转换完成中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
+      <Register Name="ADC_IMCR" Authority="RW" Address="0x40030024" Width="32" Description="中断使能寄存器">
+        <Bit Name="SEQ_END15" Authority="RW" Bits="31" Description="SEQ_END[x] : SEQx序列转换完成中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
         <Bit Name="SEQ_END14" Authority="RW" Bits="30" Description="" />
         <Bit Name="SEQ_END13" Authority="RW" Bits="29" Description="" />
         <Bit Name="SEQ_END12" Authority="RW" Bits="28" Description="" />
@@ -1506,41 +1506,16 @@
         <Bit Name="SEQ_END2" Authority="RW" Bits="18" Description="" />
         <Bit Name="SEQ_END1" Authority="RW" Bits="17" Description="" />
         <Bit Name="SEQ_END0" Authority="RW" Bits="16" Description="" />
-        <Bit Name="CMP1L" Authority="RW" Bits="7" Description="CMP1L : 转换结果低于ADC_CMP1中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="CMP1H" Authority="RW" Bits="6" Description="CMP1H : 转换结果高于ADC_CMP1中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="CMP0L" Authority="RW" Bits="5" Description="CMP0L : 转换结果低于ADC_CMP0中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="CMP0H" Authority="RW" Bits="4" Description="CMP0H : 转换结果高于ADC_CMP0中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="OVR" Authority="RW" Bits="2" Description="OVR : 转换溢出中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="READY" Authority="RW" Bits="1" Description="READY : ADC READY中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
-        <Bit Name="EOC" Authority="RW" Bits="0" Description="EOC : 转换结束中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="CMP1L" Authority="RW" Bits="7" Description="CMP1L : 转换结果低于ADC_CMP1中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="CMP1H" Authority="RW" Bits="6" Description="CMP1H : 转换结果高于ADC_CMP1中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="CMP0L" Authority="RW" Bits="5" Description="CMP0L : 转换结果低于ADC_CMP0中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="CMP0H" Authority="RW" Bits="4" Description="CMP0H : 转换结果高于ADC_CMP0中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="OVR" Authority="RW" Bits="2" Description="OVR : 转换溢出中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="READY" Authority="RW" Bits="1" Description="READY : ADC READY中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
+        <Bit Name="EOC" Authority="RW" Bits="0" Description="EOC : 转换结束中断&#xD;&#xA;0: 禁止该中断&#xD;&#xA;1: 使能该中断" />
       </Register>
-      <Register Name="ADC_IDR" Authority="RW" Address="0x40030028" Width="32" Description="中断禁止寄存器">
-        <Bit Name="SEQ_END15" Authority="RW" Bits="31" Description="SEQ_END[x] : SEQx序列转换完成中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="SEQ_END14" Authority="RW" Bits="30" Description="" />
-        <Bit Name="SEQ_END13" Authority="RW" Bits="29" Description="" />
-        <Bit Name="SEQ_END12" Authority="RW" Bits="28" Description="" />
-        <Bit Name="SEQ_END11" Authority="RW" Bits="27" Description="" />
-        <Bit Name="SEQ_END10" Authority="RW" Bits="26" Description="" />
-        <Bit Name="SEQ_END9" Authority="RW" Bits="25" Description="" />
-        <Bit Name="SEQ_END8" Authority="RW" Bits="24" Description="" />
-        <Bit Name="SEQ_END7" Authority="RW" Bits="23" Description="" />
-        <Bit Name="SEQ_END6" Authority="RW" Bits="22" Description="" />
-        <Bit Name="SEQ_END5" Authority="RW" Bits="21" Description="" />
-        <Bit Name="SEQ_END4" Authority="RW" Bits="20" Description="" />
-        <Bit Name="SEQ_END3" Authority="RW" Bits="19" Description="" />
-        <Bit Name="SEQ_END2" Authority="RW" Bits="18" Description="" />
-        <Bit Name="SEQ_END1" Authority="RW" Bits="17" Description="" />
-        <Bit Name="SEQ_END0" Authority="RW" Bits="16" Description="" />
-        <Bit Name="CMP1L" Authority="RW" Bits="7" Description="CMP1L : 转换结果低于ADC_CMP1中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="CMP1H" Authority="RW" Bits="6" Description="CMP1H : 转换结果高于ADC_CMP1中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="CMP0L" Authority="RW" Bits="5" Description="CMP0L : 转换结果低于ADC_CMP0中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="CMP0H" Authority="RW" Bits="4" Description="CMP0H : 转换结果高于ADC_CMP0中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="OVR" Authority="RW" Bits="2" Description="OVR : 转换溢出中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="READY" Authority="RW" Bits="1" Description="READY : ADC READY中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-        <Bit Name="EOC" Authority="RW" Bits="0" Description="EOC : 转换结束中断&#xD;&#xA;0: 无效&#xD;&#xA;1: 禁止该中断" />
-      </Register>
-      <Register Name="ADC_IMR" Authority="RW" Address="0x4003002c" Width="32" Description="中断使能状态寄存器">
-        <Bit Name="SEQ_END15" Authority="RO" Bits="31" Description="SEQ_END[x] : SEQx序列转换完成中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
+      <Register Name="ADC_MISR" Authority="RW" Address="0x4003002c" Width="32" Description="中断状态寄存器">
+        <Bit Name="SEQ_END15" Authority="RO" Bits="31" Description="SEQ_END[x] : SEQx序列转换完成中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
         <Bit Name="SEQ_END14" Authority="RO" Bits="30" Description="" />
         <Bit Name="SEQ_END13" Authority="RO" Bits="29" Description="" />
         <Bit Name="SEQ_END12" Authority="RO" Bits="28" Description="" />
@@ -1556,13 +1531,13 @@
         <Bit Name="SEQ_END2" Authority="RO" Bits="18" Description="" />
         <Bit Name="SEQ_END1" Authority="RO" Bits="17" Description="" />
         <Bit Name="SEQ_END0" Authority="RO" Bits="16" Description="" />
-        <Bit Name="CMP1L" Authority="RO" Bits="7" Description="CMP1L : 转换结果低于ADC_CMP1中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="CMP1H" Authority="RO" Bits="6" Description="CMP1H : 转换结果高于ADC_CMP1中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="CMP0L" Authority="RO" Bits="5" Description="CMP0L : 转换结果低于ADC_CMP0中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="CMP0H" Authority="RO" Bits="4" Description="CMP0H : 转换结果高于ADC_CMP0中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="OVR" Authority="RO" Bits="2" Description="OVR : 转换溢出中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="READY" Authority="RO" Bits="1" Description="READY : ADC READY中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
-        <Bit Name="EOC" Authority="RO" Bits="0" Description="EOC : 转换结束中断&#xD;&#xA;0: 该中断没有使能&#xD;&#xA;1: 该中断使能" />
+        <Bit Name="CMP1L" Authority="RO" Bits="7" Description="CMP1L : 转换结果低于ADC_CMP1中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="CMP1H" Authority="RO" Bits="6" Description="CMP1H : 转换结果高于ADC_CMP1中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="CMP0L" Authority="RO" Bits="5" Description="CMP0L : 转换结果低于ADC_CMP0中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="CMP0H" Authority="RO" Bits="4" Description="CMP0H : 转换结果高于ADC_CMP0中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="OVR" Authority="RO" Bits="2" Description="OVR : 转换溢出中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="READY" Authority="RO" Bits="1" Description="READY : ADC READY中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
+        <Bit Name="EOC" Authority="RO" Bits="0" Description="EOC : 转换结束中断&#xD;&#xA;0: 该中断没有发生&#xD;&#xA;1: 该中断发生" />
       </Register>
       <Register Name="ADC_SEQ0" Authority="RW" Address="0x40030030" Width="32" Description="转换序列寄存器x (x=0~15)">
         <Bit Name="TRG_SRC" Authority="RW" Bits="19-17" Description="TRG_SRC : 触发源选择&#xD;&#xA;000 : 无触发&#xD;&#xA;001 : 软件触发(ADC_CR中的SWTRG位)&#xD;&#xA;010 : ADC_SYNCIN0 (ETCB)&#xD;&#xA;011 : ADC_SYNCIN1 (ETCB)&#xD;&#xA;100 : ADC_SYNCIN2 (ETCB)&#xD;&#xA;101 : ADC_SYNCIN3 (ETCB)&#xD;&#xA;110 : ADC_SYNCIN4 (ETCB)&#xD;&#xA;111 : ADC_SYNCIN5 (ETCB)" />
@@ -2599,7 +2574,7 @@
       </Register>
       <Register Name="GPTB_GLDCR2" Authority="RW" Address="0x4005501c" Width="32" Description="全局载入控制寄存器2">
         <Bit Name="GFRCLD" Authority="RW" Bits="1" Description="软件产生一次GLD触发。&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：软件产生一次GLD触发事件" />
-        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
+        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
       </Register>
       <Register Name="GPTB_PRDR" Authority="RW" Address="0x40055024" Width="32" Description="周期设置寄存器">
         <Bit Name="PRDR" Authority="RW" Bits="15-0" Description="时基控制周期寄存器。&#xD;&#xA;此控制位决定了PWM输出波形的周期值。通过设置GPTA_CR[PRDLD]可以选择Shadow到Active载入的触发条件。" />
@@ -3017,7 +2992,7 @@
       </Register>
       <Register Name="GPTB_GLDCR2" Authority="RW" Address="0x4005601c" Width="32" Description="全局载入控制寄存器2">
         <Bit Name="GFRCLD" Authority="RW" Bits="1" Description="软件产生一次GLD触发。&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：软件产生一次GLD触发事件" />
-        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
+        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
       </Register>
       <Register Name="GPTB_PRDR" Authority="RW" Address="0x40056024" Width="32" Description="周期设置寄存器">
         <Bit Name="PRDR" Authority="RW" Bits="15-0" Description="时基控制周期寄存器。&#xD;&#xA;此控制位决定了PWM输出波形的周期值。通过设置GPTA_CR[PRDLD]可以选择Shadow到Active载入的触发条件。" />
@@ -3429,7 +3404,7 @@
       </Register>
       <Register Name="EPT_GLDCR2" Authority="RW" Address="0x4005701c" Width="32" Description="全局载入控制寄存器2">
         <Bit Name="GFRCLD" Authority="RW" Bits="1" Description="软件产生一次GLD触发。&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：软件产生一次GLD触发事件" />
-        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效，读取时总是返回‘0’&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
+        <Bit Name="OSREARM" Authority="RW" Bits="0" Description="重置ONE SHOT模式&#xD;&#xA;0：写入‘0’无效&#xD;&#xA;1：重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发" />
       </Register>
       <Register Name="EPT_PRDR" Authority="RW" Address="0x40057024" Width="32" Description="周期设置寄存器">
         <Bit Name="PRDR" Authority="RW" Bits="15-0" Description="时基控制周期寄存器。&#xD;&#xA;此控制位决定了PWM输出波形的周期值。通过设置CR[PRDLD]可以选择Shadow到Active载入的触发条件。" />
@@ -4017,8 +3992,8 @@
       <Register Name="RTC_EVTRG" Authority="RW" Address="0x40060034" Width="32" Description="同步事件触发控制寄存器">
         <Bit Name="TRG1OE" Authority="RW" Bits="21" Description="外部触发端口TRGOUT1使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
         <Bit Name="TRG0OE" Authority="RW" Bits="20" Description="外部触发端口TRGOUT0使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
-        <Bit Name="TRGSEL1" Authority="RW" Bits="7-4" Description="TRGEV1事件的触发源选择。&#xD;&#xA;0h：禁止TRGSRC触发输出&#xD;&#xA;1h：AlarmA事件产生ESYNC事件&#xD;&#xA;2h：AlarmB事件产生ESYNC事件&#xD;&#xA;3h：AlarmA或AlarmB事件产生ESYNC事件&#xD;&#xA;4h：CPRD事件产生ESYNC事件&#xD;&#xA;其他：保留" />
-        <Bit Name="TRGSEL0" Authority="RW" Bits="3-0" Description="TRGEV0事件的触发源选择。&#xD;&#xA;0h：禁止TRGSRC触发输出&#xD;&#xA;1h：AlarmA事件产生ESYNC事件&#xD;&#xA;2h：AlarmB事件产生ESYNC事件&#xD;&#xA;3h：AlarmA或AlarmB事件产生ESYNC事件&#xD;&#xA;4h：CPRD事件产生ESYNC事件&#xD;&#xA;其他：保留" />
+        <Bit Name="TRGSEL1" Authority="RW" Bits="7-4" Description="TRGEV1事件的触发源选择。&#xD;&#xA;0h：禁止TRGSRC触发输出&#xD;&#xA;1h：AlarmA事件产生ESYNC事件&#xD;&#xA;2h：AlarmB事件产生ESYNC事件&#xD;&#xA;3h：AlarmA或AlarmB事件产生ESYNC事件&#xD;&#xA;4h：CPRD事件产生ESYNC事件&#xD;&#xA;其他：保留&#xD;&#xA;注意：Sleep模式下如果PCLK关闭，trigger事件不能用作唤醒源。&#xD;&#xA;DeepSleep模式、Snooze、ShutDown模式Ttrigger事件也不能用作唤醒源。" />
+        <Bit Name="TRGSEL0" Authority="RW" Bits="3-0" Description="TRGEV0事件的触发源选择。&#xD;&#xA;0h：禁止TRGSRC触发输出&#xD;&#xA;1h：AlarmA事件产生ESYNC事件&#xD;&#xA;2h：AlarmB事件产生ESYNC事件&#xD;&#xA;3h：AlarmA或AlarmB事件产生ESYNC事件&#xD;&#xA;4h：CPRD事件产生ESYNC事件&#xD;&#xA;其他：保留&#xD;&#xA;注意：Sleep模式下如果PCLK关闭，trigger事件不能用作唤醒源。&#xD;&#xA;DeepSleep模式、Snooze、ShutDown模式trigger事件也不能用作唤醒源。" />
       </Register>
       <Register Name="RTC_EVPS" Authority="RW" Address="0x40060038" Width="32" Description="同步事件计数控制器">
         <Bit Name="TRGEV1CNT" Authority="RW" Bits="23-20" Description="TRGEV1事件计数器设置。&#xD;&#xA;读取时，返回当前事件计数器值；&#xD;&#xA;写入时，直接更新事件计数器值。" />
@@ -4152,8 +4127,8 @@
         <Bit Name="BRT" Authority="RW" Bits="2-0" Description="显示亮度的设置。&#xD;&#xA;000：COM的宽度为100%&#xD;&#xA;001：COM的宽度为87.5%&#xD;&#xA;010：COM的宽度为75%&#xD;&#xA;011：COM的宽度为62.5%&#xD;&#xA;100：COM的宽度为50%&#xD;&#xA;101：COM的宽度为37.5%&#xD;&#xA;110：COM的宽度为25%&#xD;&#xA;111：COM的宽度为12.5%" />
       </Register>
       <Register Name="LED_RISR" Authority="RW" Address="0x40070008" Width="32" Description="原始中断状态标志寄存器">
-        <Bit Name="IPEND" Authority="RW" Bits="1" Description="所有COM扫描结束中断。&#xD;&#xA;0：中断事件未发生&#xD;&#xA;1：中断事件已发生" />
-        <Bit Name="ICEND" Authority="RW" Bits="0" Description="一个COM扫描结束中断。&#xD;&#xA;0：中断事件未发生&#xD;&#xA;1：中断事件已发生" />
+        <Bit Name="IPEND" Authority="RO" Bits="1" Description="所有COM扫描结束中断。&#xD;&#xA;0：中断事件未发生&#xD;&#xA;1：中断事件已发生" />
+        <Bit Name="ICEND" Authority="RO" Bits="0" Description="一个COM扫描结束中断。&#xD;&#xA;0：中断事件未发生&#xD;&#xA;1：中断事件已发生" />
       </Register>
       <Register Name="LED_IMCR" Authority="RW" Address="0x4007000c" Width="32" Description="中断使能控制寄存器">
         <Bit Name="IPEND" Authority="RW" Bits="1" Description="所有COM扫描结束中断使能控制。&#xD;&#xA;0：禁止中断&#xD;&#xA;1：使能中断" />
@@ -4178,7 +4153,7 @@
         <Bit Name="COMx_CLR" Authority="RW" Bits="9-0" Description="COM扫描周期内输出使能（只写寄存器）&#xD;&#xA;0：无效果&#xD;&#xA;1：使能该COM在扫描周期内输出" />
       </Register>
       <Register Name="LED_BLKST" Authority="RW" Address="0x40070028" Width="32" Description="闪烁位状态寄存器">
-        <Bit Name="COMx_ST" Authority="RW" Bits="9-0" Description="COM扫描周期内输出禁止状态&#xD;&#xA;0：扫描输出使能&#xD;&#xA;1：扫描输出禁止" />
+        <Bit Name="COMx_ST" Authority="RO" Bits="9-0" Description="COM扫描周期内输出禁止状态&#xD;&#xA;0：扫描输出使能&#xD;&#xA;1：扫描输出禁止" />
       </Register>
       <Register Name="LED_SEGDAT0" Authority="RW" Address="0x4007002c" Width="32" Description="段码输出数据寄存器x">
         <Bit Name="SEGDATA" Authority="RW" Bits="7-0" Description="当COMx使能时，SEG端口输出的数据" />
@@ -4460,7 +4435,7 @@
         <Bit Name="CHRL" Authority="RW" Bits="7-6" Description="字节长度 (除开始位，停止位和校验位外的字节长度)&#xD;&#xA;• 字节长度位&#xD;&#xA;CHRL[1:0]	  字节长度&#xD;&#xA;0	0	  5位&#xD;&#xA;0	1	  6位&#xD;&#xA;1	0	  7位&#xD;&#xA;1	1	  8位" />
         <Bit Name="CLKS" Authority="RW" Bits="5-4" Description="时钟选择 (波特率发生器的输入时钟).&#xD;&#xA;• CLKS 时钟选择位&#xD;&#xA;CLKS[1:0]	    选择的时钟&#xD;&#xA;0	0	    PCLK&#xD;&#xA;0	1	    PCLK/8&#xD;&#xA;1	x	    USART0_CK输入的外部时钟" />
       </Register>
-      <Register Name="US_IMSCR" Authority="RW" Address="0x40083014" Width="32" Description="中断使能/禁止寄存器">
+      <Register Name="US_IMCR" Authority="RW" Address="0x40083014" Width="32" Description="中断使能控制寄存器">
         <Bit Name="TXRIS" Authority="RW" Bits="14" Description="发送FIFO中断&#xD;&#xA;0 = 禁止中断&#xD;&#xA;1 = 使能中断" />
         <Bit Name="RORRIS" Authority="RW" Bits="13" Description="接收FIFO溢出中断&#xD;&#xA;0 = 禁止中断&#xD;&#xA;1 = 使能中断" />
         <Bit Name="RXRIS" Authority="RW" Bits="12" Description="接收FIFO中断&#xD;&#xA;0 = 禁止中断&#xD;&#xA;1 = 使能中断" />
@@ -4582,7 +4557,7 @@
       <Register Name="SPI_CPSR" Authority="RW" Address="0x40090010" Width="32" Description="SPI时钟分频寄存器">
         <Bit Name="CPSDVSR" Authority="RW" Bits="7-0" Description="时钟分频位&#xD;&#xA;必须是2到254之间的偶数，根据PCLK的频率来决定。在读取的时候最低位总是返回0。&#xD;&#xA;&#xD;&#xA;SSPCPSR位时钟预分频寄存器，用来设置FPCLK 的分频系数，供下一分频器使用。寄存器的值必须是2到254之间的偶数。寄存器的最低位被硬件强制为0，即使将一个奇数写入该寄存器，读出来值的最低位也为0。" />
       </Register>
-      <Register Name="SPI_IMSCR" Authority="RW" Address="0x40090014" Width="32" Description="SPI中断使能/禁止寄存器">
+      <Register Name="SPI_IMCR" Authority="RW" Address="0x40090014" Width="32" Description="SPI中断使能控制寄存器">
         <Bit Name="TXIM" Authority="RW" Bits="3" Description="发送FIFO中断 &#xD;&#xA;0 = 禁止发送FIFO中断&#xD;&#xA;1 = 使能发送FIFO中断" />
         <Bit Name="RXIM" Authority="RW" Bits="2" Description="接收FIFO中断 &#xD;&#xA;0 = 禁止接收FIFO中断 (1/2, 1/4, or 1/8可选) &#xD;&#xA;1 = 使能接收FIFO中断 (1/2, 1/4, or 1/8可选)" />
         <Bit Name="RTIM" Authority="RW" Bits="1" Description="接收超时中断 &#xD;&#xA;0 = 禁止RxFIFO超时中断&#xD;&#xA;1 = 使能RxFIFO超时中断" />
@@ -4707,7 +4682,7 @@
         <Bit Name="RX_OVER" Authority="RO" Bits="1" Description="" />
         <Bit Name="RX_UNDER" Authority="RO" Bits="0" Description="" />
       </Register>
-      <Register Name="I2C_IMCR" Authority="RW" Address="0x400a005c" Width="32" Description="中断使能寄存器">
+      <Register Name="I2C_IMCR" Authority="RW" Address="0x400a005c" Width="32" Description="中断使能控制寄存器">
         <Bit Name="SCL_S_LOW" Authority="RW" Bits="14" Description="" />
         <Bit Name="RESTART_DET" Authority="RW" Bits="12" Description="" />
         <Bit Name="GEN_CALL" Authority="RW" Bits="11" Description="" />
@@ -4737,7 +4712,7 @@
         <Bit Name="TX_OVER" Authority="RO" Bits="3" Description="TX_OVER状态&#xD;&#xA;0: TX溢出中断未发生&#xD;&#xA;1: TX溢出中断发生&#xD;&#xA;&#xD;&#xA;如果发送缓冲被填满8个数据，而且处理器仍然尝试往I2C_DATA_CMD寄存器里写命令时置1。如果I2C模块被关闭 (I2C_ENABLE[0]=0)，那么这位的值会一直保持，直到主机或从机的状态机变为空闲状态。" />
         <Bit Name="RX_FULL" Authority="RO" Bits="2" Description="RX_FULL状态&#xD;&#xA;0: RX缓冲区未满 (&lt;RX_FLSEL)&#xD;&#xA;1: RX缓冲区已满 (&gt;=RX_FLSEL)&#xD;&#xA;&#xD;&#xA;当缓冲区数据个数等于或者大于I2C_RX_FLSEL寄存器中RX_FLSEL阈值时置1，当数据个数小于阈值时会自动清零。当该模块被禁止(I2C_ENABLE[0]=0)时，接收FIFO会被清除并且处于复位状态，也就是接收FIFO是未满状态，所以一旦I2C_ENABLE[0]=0，该位就会被清零。" />
         <Bit Name="RX_OVER" Authority="RO" Bits="1" Description="RX_OVER状态&#xD;&#xA;0：RX溢出中断未发生&#xD;&#xA;1：RX溢出中断发生" />
-        <Bit Name="RX_UNDER" Authority="RO" Bits="0" Description="RX_UNDER状态&#xD;&#xA;0: RX under-flow中断没有发生&#xD;&#xA;1: RX under-flow中断发生&#xD;&#xA;&#xD;&#xA;当接收FIFO为空，处理器尝试通过I2C_DATA_CMD寄存器去读取接收数据时置1。如果I2C模块被关闭 (I2C_ENABLE[0]=0)，那么这位的值会一直保持，直到主机或从机的状态机变为空闲状态。&#xD;&#xA;RX_UNDER状态&#xD;&#xA;0: RX under-flow中断没有发生&#xD;&#xA;1: RX under-flow中断发生&#xD;&#xA;&#xD;&#xA;当接收FIFO为空，处理器尝试通过I2C_DATA_CMD寄存器去读取接收数据时置1。如果I2C模块被关闭 (I2C_ENABLE[0]=0)，那么这位的值会一直保持，直到主机或从机的状态机变为空闲状态。&#xD;&#xA;" />
+        <Bit Name="RX_UNDER" Authority="RO" Bits="0" Description="RX_UNDER状态&#xD;&#xA;0: RX under-flow中断没有发生&#xD;&#xA;1: RX under-flow中断发生&#xD;&#xA;&#xD;&#xA;当接收FIFO为空，处理器尝试通过I2C_DATA_CMD寄存器去读取接收数据时置1。如果I2C模块被关闭 (I2C_ENABLE[0]=0)，那么这位的值会一直保持，直到主机或从机的状态机变为空闲状态。&#xD;&#xA;RX_UNDER状态" />
       </Register>
       <Register Name="I2C_ICR" Authority="RW" Address="0x400a0064" Width="32" Description="中断清除寄存器">
         <Bit Name="SCL_S_LOW" Authority="RW" Bits="14" Description="" />
@@ -4939,18 +4914,18 @@
         <Bit Name="SOF" Authority="RO" Bits="1" Description="帧开始标识位&#xD;&#xA; 0h：无事件&#xD;&#xA; 1h：发生过帧开始事件&#xD;&#xA;可以通过对LCD_ICR寄存器的SOFC位写0清除该寄存器位。" />
       </Register>
       <Register Name="LCD_ICR" Authority="RW" Address="0x400c001c" Width="32" Description="LCD 中断清除寄存器">
-        <Bit Name="UDDC" Authority="RO" Bits="3" Description="更新显示完成标识清除&#xD;&#xA;0h：无效&#xD;&#xA;1h：清除显示请求完成事件" />
-        <Bit Name="SOFC" Authority="RO" Bits="1" Description="帧开始标识清除&#xD;&#xA;0h：无效&#xD;&#xA;1h：清除SOF标识状态" />
+        <Bit Name="UDDC" Authority="RW" Bits="3" Description="更新显示完成标识清除&#xD;&#xA;0h：无效&#xD;&#xA;1h：清除显示请求完成事件" />
+        <Bit Name="SOFC" Authority="RW" Bits="1" Description="帧开始标识清除&#xD;&#xA;0h：无效&#xD;&#xA;1h：清除SOF标识状态" />
       </Register>
-      <Register Name="LCD_IER" Authority="RW" Address="0x400c0020" Width="32" Description="LCD 中断使能寄存器">
-        <Bit Name="UDDIE" Authority="RO" Bits="3" Description="更新显示完成中断使能位&#xD;&#xA;0h：禁止该中断&#xD;&#xA; 1h：使能该中断" />
-        <Bit Name="SOFIE" Authority="RO" Bits="1" Description="帧开始中断使能位&#xD;&#xA; 0h：禁止该中断&#xD;&#xA; 1h：使能该中断" />
+      <Register Name="LCD_IMCR" Authority="RW" Address="0x400c0020" Width="32" Description="LCD 中断使能控制寄存器">
+        <Bit Name="UDDIE" Authority="RW" Bits="3" Description="更新显示完成中断使能位&#xD;&#xA;0h：禁止该中断&#xD;&#xA;1h：使能该中断" />
+        <Bit Name="SOFIE" Authority="RW" Bits="1" Description="帧开始中断使能位&#xD;&#xA;0h：禁止该中断&#xD;&#xA;1h：使能该中断" />
       </Register>
-      <Register Name="LCD_MISR" Authority="RW" Address="0x400c0024" Width="32" Description="LCD中断状态寄存器">
+      <Register Name="LCD_MISR" Authority="RW" Address="0x400c0024" Width="32" Description="LCD 中断状态寄存器">
         <Bit Name="UDDC" Authority="RO" Bits="3" Description="更新显示完成标识中断使能&#xD;&#xA;0h：无事件&#xD;&#xA;1h：发生过更新显示完成事件" />
         <Bit Name="SOFC" Authority="RO" Bits="1" Description="帧开始标识中断使能&#xD;&#xA;0h：无事件&#xD;&#xA;1h：发生过帧开始事件" />
       </Register>
-      <Register Name="LCD_CR2" Authority="RW" Address="0x400c0028" Width="32" Description="LCD控制寄存器2">
+      <Register Name="LCD_CR2" Authority="RW" Address="0x400c0028" Width="32" Description="LCD 控制寄存器2">
         <Bit Name="BLINK_F2" Authority="RW" Bits="27-16" Description="闪烁频率选择2&#xD;&#xA;当LCD_CR(LCD控制寄存器)的BLINK_F为3’b111时，使用LCD_CR2(LCD控制寄存器2)的BLINK_F2为闪烁频率选择位。&#xD;&#xA;当LCD_CR(LCD控制寄存器)的BLINK_MD不等于2’b00时，使用BLINK_F2为分频数，即闪烁频率为FLCDDIV / BLINK_F2。&#xD;&#xA;注意当往BLINK_F2写入的值小于’h0008时，BLINK_F2会被强制设成’h0008。" />
         <Bit Name="UDR" Authority="RW" Bits="0" Description="更新显示请求&#xD;&#xA;每次修改LCD_RAM后，必须将UDR位置1以将更新的数据传送到第二级缓冲器，UDR位在更新结束之前保持1。在此期间LCD_RAM处于写保护状态。UDR位在更新结束之后自动清0。&#xD;&#xA;0h：无影响&#xD;&#xA; 1h：更新显示请求" />
       </Register>
