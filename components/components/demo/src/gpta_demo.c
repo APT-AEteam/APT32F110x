@@ -213,10 +213,13 @@ int gpta_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
+#if !defined(USE_GUI)	
 	csi_pin_set_mux(PB010,   PB010_GPTA0_CHA);//28
 	csi_pin_set_mux(PB011,   PB011_GPTA0_CHB);//29
 //	csi_pin_set_mux(PB04,   PB04_GPTA1_CHA);
 //	csi_pin_set_mux(PA10,   PA10_GPTA1_CHB);
+#endif
+
 //------------------------------------------------------------------------------------------------------------------------	
 //    csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPA);
 //	csi_gpta_channel_cmpload_config(GPTA0, GPTA_CMPLD_SHDW, GPTA_LDCMP_ZRO ,GPTA_CAMPB);

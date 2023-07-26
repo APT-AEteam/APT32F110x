@@ -200,13 +200,20 @@ void csi_rtc_stop(csp_rtc_t *ptRtc);
 void csi_rtc_change_fmt(csp_rtc_t *ptRtc,  csi_rtc_fmt_e eFmt);
 
 /**
-  \brief   RTC interrupt enable/disable
+  \brief   RTC interrupt enable
   \param   ptRtc      handle pointer of rtc register structure to operate
   \param   eIntSrc	  interrupt source	
-  \param   bEnable    ENABLE/DISABLE 
   \return  none
 */
-void csi_rtc_int_enable(csp_rtc_t *ptRtc, csi_rtc_intsrc_e eIntSrc, bool bEnable);
+void csi_rtc_int_enable(csp_rtc_t *ptRtc, csi_rtc_intsrc_e eIntSrc);
+
+/**
+  \brief   RTC interrupt disable
+  \param   ptRtc      handle pointer of rtc register structure to operate
+  \param   eIntSrc	  interrupt source	
+  \return  none
+*/
+void csi_rtc_int_disable(csp_rtc_t *ptRtc, csi_rtc_intsrc_e eIntSrc);
 
 /**
   \brief       get the RTC is interrupted

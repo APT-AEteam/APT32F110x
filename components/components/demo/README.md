@@ -4,6 +4,19 @@
 # Release Notes
 
 ======================================================
+Version: V1.2.6
+Release Date: 2023.06.26
+
+Release Notes
+1.修复I2C从机demo中的BUG
+2.整理EPT/GPTB的demo，更新注释；
+3.添加EPT/GPTB的捕获demo，完善捕获功能例程
+4.GPTA的demo升级，规范以及优化代码
+5.更新UART/USART的DMA接收demo，加入DMA发送，提供多种接收方式例程
+6.更新pin_irq_demo/gpio_port_irq_demo，解决por上电可能进入EXI中断问题
+======================================================
+
+======================================================
 Version: V1.2.5
 Release Date: 2023.05.12
 

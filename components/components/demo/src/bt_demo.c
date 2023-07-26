@@ -46,7 +46,9 @@ int bt_pwm_demo(void)
 	int iRet = 0;
 	csi_bt_pwm_config_t tPwmCfg;							//BT PWM输出参数初始化配置结构体
 	
-	csi_pin_set_mux(PA19, PA19_BT0_OUT);					//PB02 作为BT0 PWM输出引脚
+#if !defined(USE_GUI)										//用户未选择图形化编程		
+	csi_pin_set_mux(PA19, PA19_BT0_OUT);					//PA19 作为BT0 PWM输出引脚
+#endif
 	
 	//init timer pwm para config
 	tPwmCfg.byIdleLevel = BT_PWM_IDLE_HIGH;					//PWM 输出空闲电平
@@ -82,12 +84,14 @@ int bt_sync_start_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体		
-	
+
+#if !defined(USE_GUI)													//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP1, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组1
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能	
-	
+	csi_pin_irq_mode(PB01, EXI_GRP1, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组1
+#endif
+
 	csi_exi_set_evtrg(EXI_TRGOUT0, TRGSRC_EXI1, 3);						//EXI1 触发EXI_TRGOUT0
 	
 	csi_bt_timer_init(BT0,20000);										//BT 20ms定时
@@ -120,10 +124,12 @@ int bt_sync_count_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
 
+#if !defined(USE_GUI)													//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP18, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组18	
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
+	csi_pin_irq_mode(PB01, EXI_GRP18, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组18	
+#endif
 	
 	csi_exi_set_evtrg(EXI_TRGOUT4, TRGSRC_EXI18, 0);					//EXI18(PB01) 触发EXI_TRGOUT4(PB01用EXI18触发输出)
 	
@@ -156,10 +162,12 @@ int bt_sync_stop_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
 
+#if !defined(USE_GUI)													//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP16, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组16	
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
+	csi_pin_irq_mode(PB01, EXI_GRP16, GPIO_IRQ_FALLING_EDGE);			//PB01 下降沿产生中断，选择中断组16	
+#endif	
 	
 	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI16, 0);					//EXI16(PB01) 触发EXI_TRGOUT5(PB01用EXI16触发输出)
 	

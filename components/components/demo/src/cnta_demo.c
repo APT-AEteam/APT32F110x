@@ -30,10 +30,12 @@
 int cnta_timer_demo(void)
 {	
 	int iRet = 0;
-	
-	csi_pin_set_mux(PA110,PA110_CNTA_BUZ);//set counter output pin	该管脚的周期即为设置的时间
-	//csi_pin_set_mux(PA113,PA113_CNTA_REM);//set counter output pin
-	//csi_pin_set_mux(PA17,PA17_CNTA_REM);//set counter output pin,这个脚是烧录管脚的数据线，调试PA17_CNTA_REM功能，记得在测之前加个2-3秒的延时，除非是最终版本
+
+#if !defined(USE_GUI)							//用户未选择图形化编程		
+	csi_pin_set_mux(PA110,PA110_CNTA_BUZ);		//set counter output pin	该管脚的周期即为设置的时间
+	//csi_pin_set_mux(PA113,PA113_CNTA_REM);	//set counter output pin
+	//csi_pin_set_mux(PA17,PA17_CNTA_REM);		//set counter output pin,这个脚是烧录管脚的数据线，调试PA17_CNTA_REM功能，记得在测之前加个2-3秒的延时，除非是最终版本
+#endif
 	
 	// (byDivTemp / pclk) * (tmp_load) *1000000*2  单位us  byDivTemp只能为1，2，4，8
 	//极限时间最小:byDivTemp=1 tmp_load=1     代入得到 (1 / pclk) * (1+3) *1000000*2       
@@ -64,9 +66,11 @@ int cnta_pwm_demo(void)
 	tPwmCfg.byInt = CNTA_INTSRC_NONE;   		//无中断源
 	tPwmCfg.wFreq = 38000;              		//频率 hz
 	
-	csi_pin_set_mux(PA110,PA110_CNTA_BUZ);//set counter output pin	
-	//csi_pin_set_mux(PA113,PA113_CNTA_REM);//set counter output pin
-	//csi_pin_set_mux(PA17,PA17_CNTA_REM);//set counter output pin,这个脚是烧录管脚的数据线，调试PA17_CNTA_REM功能，记得在测之前加个2-3秒的延时，除非是最终版本
+#if !defined(USE_GUI)							//用户未选择图形化编程		
+	csi_pin_set_mux(PA110,PA110_CNTA_BUZ);		//set counter output pin	
+	//csi_pin_set_mux(PA113,PA113_CNTA_REM);	//set counter output pin
+	//csi_pin_set_mux(PA17,PA17_CNTA_REM);		//set counter output pin,这个脚是烧录管脚的数据线，调试PA17_CNTA_REM功能，记得在测之前加个2-3秒的延时，除非是最终版本
+#endif
 	
 	csi_cnta_pwm_init(CNTA,&tPwmCfg);
 	csi_cnta_bt0_sync(CNTA, CNTA_PEND_CARR_SET, CNTA_MATCH_CARR_CLR,CNTA_HW_DIS);//结合bt0的定时器和pwm示例，设置硬件自动打开或者关闭载波

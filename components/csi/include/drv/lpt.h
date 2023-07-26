@@ -163,13 +163,20 @@ uint32_t csi_lpt_get_load_value(csp_lpt_t *ptLptBase);
 bool csi_lpt_is_running(csp_lpt_t *ptLptBase);
 
 /**
-  \brief       Enable lpt power manage
+  \brief       Enable lpt interrupt
   \param[in]   ptLptBase:pointer of lpt register structure
-  \param[in]   eLptInt:irq mode
-  \param[in]   bEnable:lpt irq enable or disable
+  \param[in]   eLptInt: interrupt source
+  \return	   none  
 */
-void csi_lpt_int_enable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt,bool bEnable);
+void csi_lpt_int_enable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt);
 
+/**
+  \brief       Disable lpt interrupt
+  \param[in]   ptLptBase:pointer of lpt register structure
+  \param[in]   eLptInt: interrupt source
+  \return	   none  
+*/
+void csi_lpt_int_disable(csp_lpt_t *ptLptBase, csi_lpt_intsrc_e eLptInt);
 
 /** \brief lpt pwm init
  * 

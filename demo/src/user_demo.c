@@ -110,9 +110,20 @@ void user_demo(void)
 //	gpta_pwm_demo();
 
 /// ***************************************************
+///  GPTB相关的示例代码
+/// ***************************************************
+//	gptb_timer_demo();
+//	gptb_capture_sync_demo0();
+//	gptb_capture_sync_demo1();
+//	gptb_pwm_demo();
+//	gptb_pwm_dz_demo();
+//	gptb_pwm_dz_em_demo();
+
+/// ***************************************************
 ///  EPT相关的示例代码
 /// ***************************************************
-//	ept_capture_demo();
+//	ept_capture_sync_demo0();
+//	ept_capture_sync_demo1();
 //	ept_pwm_demo();
 //	ept_pwm_dz_demo();
 //	ept_pwm_dz_em_demo();
@@ -184,9 +195,9 @@ void user_demo(void)
 ///  IIC相关的示例代码
 /// ***************************************************
 //	iic_master_demo();
-//	iic_master_slave_demo();
-//	iic_slave_demo();
-
+//	iic_master_eeprom_demo( );
+	iic_slave_demo();
+//
 /// ***************************************************
 ///  SIO相关的示例代码
 /// ***************************************************

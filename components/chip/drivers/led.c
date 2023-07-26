@@ -32,32 +32,35 @@ csi_error_t csi_led_init(csp_led_t *ptLedBase, csi_led_config_t *ptLedCfg)
 	csp_led_set_dcomcnt(ptLedBase, (ptLedCfg->byOnTime/8 - 7));
 	csp_led_set_novcnt(ptLedBase, (ptLedCfg->byBreakTime/2 -7));
 	
-	if(ptLedCfg->byInt) {
-		csp_led_int_enable(ptLedBase, ptLedCfg->byInt, ENABLE);
-		csi_irq_enable((uint32_t *)ptLedBase);
-	}
+	csi_irq_enable((uint32_t *)ptLedBase);				//enable led vic interrupt
+	if(ptLedCfg->byInt) 
+		csp_led_int_enable(ptLedBase, ptLedCfg->byInt);
+	else
+		csp_led_int_disable(ptLedBase, 0x03);			//disable led all interrupt
+		
 	return CSI_OK;
 	
 }
-/** \brief LED interrupt enable/disable control
+/** \brief LED interrupt enable
  * 
  *  \param[in] ptLedBase: pointer of bt register structure
  *  \param[in] eIntSrc: led interrupt source
- *  \param[in] bEnable: enable/disable interrupt
  *  \return none
  */ 
-void csi_led_int_enable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc, bool bEnable)
+void csi_led_int_enable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc)
 {
-	csp_led_int_enable(ptLedBase, (csp_led_int_e)eIntSrc, bEnable);
-	
-	if (bEnable) {
-		csi_irq_enable((uint32_t *)ptLedBase);
-	}
-	else {
-		if (eIntSrc == csp_led_get_isr(ptLedBase)) {
-			csi_irq_disable((uint32_t *)ptLedBase);
-		}
-	}
+	csp_led_clr_isr(ptLedBase, (csp_led_int_e)eIntSrc);
+	csp_led_int_enable(ptLedBase, (csp_led_int_e)eIntSrc);
+}
+/** \brief LED interrupt disable 
+ * 
+ *  \param[in] ptLedBase: pointer of bt register structure
+ *  \param[in] eIntSrc: led interrupt source
+ *  \return none
+ */ 
+void csi_led_int_disable(csp_led_t *ptLedBase, csi_led_intsrc_e eIntSrc)
+{
+	csp_led_int_disable(ptLedBase, (csp_led_int_e)eIntSrc);
 }
 /** \brief   write led data
  * 

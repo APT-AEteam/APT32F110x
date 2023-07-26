@@ -135,13 +135,20 @@ csi_error_t csi_bt_start(csp_bt_t *ptBtBase);
 void csi_bt_stop(csp_bt_t *ptBtBase);
 
 /** 
-  \brief 	   enable/disable bt interrupt
+  \brief 	   enable bt interrupt
   \param[in]   ptBtBase	 	pointer of bt register structure
   \param[in]   eIntSrc		bt interrupt source
-  \param[in]   bEnable		enable/disable interrupt
   \return 	   none
  */ 
-void csi_bt_int_enable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc, bool bEnable);
+void csi_bt_int_enable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc);
+
+/** 
+  \brief 	   disable bt interrupt
+  \param[in]   ptBtBase	 	pointer of bt register structure
+  \param[in]   eIntSrc		bt interrupt source
+  \return 	   none
+ */ 
+void csi_bt_int_disable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc);
 
 /**
   \brief       Get bt remaining value

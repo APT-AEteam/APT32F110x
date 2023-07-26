@@ -117,6 +117,22 @@ void csi_cnta_start(csp_cnta_t *ptCntaBase);
 */
 void csi_cnta_stop(csp_cnta_t *ptCntaBase);
 
+/** 
+  \brief cnta interrupt enable
+  \param[in] ptCntaBase: pointer of cnta register structure
+  \param[in] eIntSrc: cnta interrupt source
+  \return none
+ */ 
+void csi_cnta_int_enable(csp_cnta_t *ptCntaBase, csi_cnta_intsrc_e eIntSrc);
+
+/** 
+  \brief cnta interrupt disable
+  \param[in] ptCntaBase: pointer of cnta register structure
+  \param[in] eIntSrc: cnta interrupt source
+  \return none
+ */ 
+void csi_cnta_int_disable(csp_cnta_t *ptCntaBase, csi_cnta_intsrc_e eIntSrc);
+
 /**
   \brief       Get cnta datah value
   \param[in]   ptCntaBase    pointer of cnta register structure

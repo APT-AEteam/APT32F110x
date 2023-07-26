@@ -478,9 +478,9 @@ csi_error_t csi_clk_calib(void)
 	{
 		byDiv = 0;
 	}
-	csp_bt_set_pscr(BT0, byDiv);						                    //bt clk div
+	csp_bt_set_pscr(BT0, byDiv);						                //bt clk div
 	csp_bt_set_prdr(BT0, 65535);
-	csp_bt_int_enable(BT0, BT_PEND_INT, true);					        //enable PEND interrupt
+	csp_bt_int_enable(BT0, BT_PEND_INT);					        	//enable PEND interrupt
 	csi_irq_enable((uint32_t *)BT0);									//enable bt irq	
 	
 	csi_clk_enable((uint32_t *)LPT);
@@ -488,7 +488,8 @@ csi_error_t csi_clk_calib(void)
 	csp_lpt_clk_enable(LPT, ENABLE);	
 	csp_lpt_set_clk(LPT, LPT_ISCLK, LPT_PSC_DIV1);
 	csp_lpt_set_prdr(LPT, 216);                                         // 27*8  
-	csi_lpt_int_enable(LPT,LPT_PEND_INT,ENABLE);	
+	csi_lpt_int_enable(LPT,LPT_INTSRC_PEND);	
+	csi_irq_enable(LPT);
 		
 	wCheckData = wPclkValue/(125*(byDiv + 1));                         //(wPclkValue*8)/(1000*(byDiv + 1))
 	if(wCheckData <= 1200)

@@ -345,18 +345,19 @@ static inline uint32_t csp_dma_get_isr(csp_dma_t *ptDmaBase)
 	return (uint32_t)(ptDmaBase->ISR);
 }
 
-
 static inline void csp_dma_clr_isr(csp_dma_t *ptDmaBase, dma_icr_e eDmaIcr)
 {
 	ptDmaBase->ICR = eDmaIcr;
 }
 
-static inline void csp_dma_int_enable(csp_dma_t *ptDmaBase, dma_int_e eDmaInt, bool bEnable) 
+static inline void csp_dma_int_enable(csp_dma_t *ptDmaBase, dma_int_e eDmaInt) 
 {
-	if(bEnable)
-		ptDmaBase->CRX |= eDmaInt; 
-	else
-		ptDmaBase->CRX &= ~eDmaInt;
+	ptDmaBase->CRX |= eDmaInt; 
+}
+
+static inline void csp_dma_int_disable(csp_dma_t *ptDmaBase, dma_int_e eDmaInt) 
+{
+	ptDmaBase->CRX &= ~eDmaInt;
 }
 
 #endif

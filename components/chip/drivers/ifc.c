@@ -41,14 +41,14 @@ __attribute__((weak)) void ifc_irqhandler(void)
 
 	if (csp_ifc_get_isr(IFC) == IFCINT_ERS_END)
 	{
-		csp_ifc_int_enable(IFC, IFCINT_ERS_END, DISABLE);
+		csp_ifc_int_disable(IFC, IFCINT_ERS_END);
 		csp_ifc_clr_isr(IFC, IFCINT_ERS_END);
 		///DFLASH step6
 		apt_ifc_step_async(IFC, PROGRAM, g_wPageStAddr);
 	}
 	if (csp_ifc_get_isr(IFC) == IFCINT_PGM_END)
 	{
-		csp_ifc_int_enable(IFC, IFCINT_PGM_END, DISABLE);
+		csp_ifc_int_disable(IFC, IFCINT_PGM_END);
 		csp_ifc_clr_isr(IFC, IFCINT_PGM_END);
 		///whole page check, only DFlash Write would use INT scheme
 		g_bFlashCheckPass = 1;
@@ -395,10 +395,10 @@ void apt_ifc_step_async(csp_ifc_t * ptIfcBase, ifc_cmd_e eStepn, uint32_t wPageS
 	switch (eStepn)
 	{
 		case (PAGE_ERASE):
-			csp_ifc_int_enable(ptIfcBase, IFCINT_ERS_END, ENABLE);
+			csp_ifc_int_enable(ptIfcBase, IFCINT_ERS_END);
 			break;
 		case (PROGRAM):
-			csp_ifc_int_enable(ptIfcBase, IFCINT_PGM_END, ENABLE);
+			csp_ifc_int_enable(ptIfcBase, IFCINT_PGM_END);
 			break;
 		default: 
 			break;

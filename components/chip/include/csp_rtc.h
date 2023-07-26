@@ -639,16 +639,15 @@ static inline void csp_rtc_alm_set_mode(csp_rtc_t *ptRtcBase, rtc_alarm_e eAlm, 
 	ptRtcBase->KEY = 0x0;
 }
 
-static inline void csp_rtc_int_enable(csp_rtc_t *ptRtcBase, rtc_int_e eInt, bool bEnable)
+static inline void csp_rtc_int_enable(csp_rtc_t *ptRtcBase, rtc_int_e eInt)
 {
-	//ptRtcBase->KEY = 0xCA53;	
-	if (bEnable)
-		ptRtcBase->IMCR |= eInt;
-	else
-		ptRtcBase->IMCR &= ~eInt;
-	//ptRtcBase->KEY = 0x0;
+	ptRtcBase->IMCR |= eInt;
 }
 
+static inline void csp_rtc_int_disable(csp_rtc_t *ptRtcBase, rtc_int_e eInt)
+{
+	ptRtcBase->IMCR &= ~eInt;
+}
 
 static inline void csp_rtc_clr_isr(csp_rtc_t *ptRtcBase, rtc_int_e eInt)
 {

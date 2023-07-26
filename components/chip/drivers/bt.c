@@ -72,8 +72,9 @@ csi_error_t csi_bt_timer_init(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 	csp_bt_set_pscr(ptBtBase, (uint16_t)wClkDiv - 1);						//bt clk div	
 	csp_bt_set_prdr(ptBtBase, (uint16_t)wTmLoad);							//bt prdr load value
 	csp_bt_set_cmp(ptBtBase, (uint16_t)(wTmLoad >> 1));						//bt prdr load value
-	csp_bt_int_enable(ptBtBase, BT_PEND_INT, true);							//enable PEND interrupt
-	csi_irq_enable((uint32_t *)ptBtBase);									//enable bt irq
+	csp_bt_clr_isr(ptBtBase, BT_PEND_INT);									//clear PEND interrupt
+	csp_bt_int_enable(ptBtBase, BT_PEND_INT);								//enable PEND interrupt
+	csi_irq_enable(ptBtBase);												//enable bt vic interrupt
 	
     return CSI_OK;
 }
@@ -117,25 +118,26 @@ void csi_bt_stop(csp_bt_t *ptBtBase)
     csp_bt_stop(ptBtBase);
 }
 
-/** \brief stop bt
+/** \brief bt interrupt enable
  * 
  *  \param[in] ptBtBase: pointer of bt register structure
  *  \param[in] eIntSrc: bt interrupt source
- *  \param[in] bEnable: enable/disable interrupt
  *  \return none
  */ 
-void csi_bt_int_enable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc, bool bEnable)
+void csi_bt_int_enable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc)
 {
-	csp_bt_int_enable(ptBtBase, (bt_int_e)eIntSrc, bEnable);	
-	
-	if (bEnable) {
-		csi_irq_enable((uint32_t *)ptBtBase);
-	}
-	else {
-		if (eIntSrc == csp_bt_get_isr(ptBtBase)) {
-			csi_irq_disable((uint32_t *)ptBtBase);
-		}
-	}
+	csp_bt_clr_isr(ptBtBase, (bt_int_e)eIntSrc);
+	csp_bt_int_enable(ptBtBase, (bt_int_e)eIntSrc);	
+}
+/** \brief bt interrupt disable
+ * 
+ *  \param[in] ptBtBase: pointer of bt register structure
+ *  \param[in] eIntSrc: bt interrupt source
+ *  \return none
+ */ 
+void csi_bt_int_disable(csp_bt_t *ptBtBase, csi_bt_intsrc_e eIntSrc)
+{
+	csp_bt_int_disable(ptBtBase, (bt_int_e)eIntSrc);	
 }
 /** \brief get bt remaining value
  * 
@@ -233,12 +235,12 @@ csi_error_t csi_bt_pwm_init(csp_bt_t *ptBtBase, csi_bt_pwm_config_t *ptBtPwmCfg)
 	csp_bt_set_prdr(ptBtBase, (uint16_t)s_wPrdrVal[byIdx]);					//bt prdr load value
 	csp_bt_set_cmp(ptBtBase, (uint16_t)s_wCmpVal[byIdx]);					//bt cmp load value
 	
+	csi_irq_enable(ptBtBase);												//enable bt vic interrupt
 	if(ptBtPwmCfg->byInt)
-	{
-		csp_bt_int_enable(ptBtBase, ptBtPwmCfg->byInt, true);				//enable interrupt
-		csi_irq_enable((uint32_t *)ptBtBase);								//enable bt irq
-	}
-	
+		csp_bt_int_enable(ptBtBase, ptBtPwmCfg->byInt);						//enable bt interrupt
+	else
+		csp_bt_int_disable(ptBtBase, 0x0f);									//disable bt all interrupt
+		
 	return CSI_OK;
 }
 /** \brief  updata bt para and cmp reg value
@@ -478,6 +480,6 @@ void csi_bt_start_sync(csp_bt_t *ptBtBase, uint32_t wTimeOut)
 			(BT_PCLKDIV << BT_EXTCKM_POS) | (BT_CNTRLD_EN << BT_CNTRLD_POS) | BT_CLK_EN );
 	csp_bt_set_pscr(ptBtBase, (uint16_t)wClkDiv - 1);						//bt clk div	
 	csp_bt_set_prdr(ptBtBase, (uint16_t)wTmLoad);							//bt prdr load value
-	csp_bt_int_enable(ptBtBase, BT_PEND_INT, true);							//enable PEND interrupt
-	csi_irq_enable((uint32_t *)ptBtBase);									//enable bt irq
+	csp_bt_int_enable(ptBtBase, BT_PEND_INT);								//enable PEND interrupt
+	csi_irq_enable((uint32_t *)ptBtBase);									//enable bt vic interrupt
 }

@@ -338,15 +338,7 @@ static inline uint32_t csp_lpt_get_imcr(csp_lpt_t *ptLptBase)
 {
 	return ptLptBase->IMCR; 
 }
-
-static inline void csp_lpt_int_enable(csp_lpt_t *ptLptBase, lpt_int_e eLptInt,bool bEnable)
-{
-	if(bEnable)
-		ptLptBase->IMCR |= eLptInt; 
-	else
-		ptLptBase->IMCR &= ~eLptInt; 
-}
-
+//
 static inline void csp_lpt_data_update(csp_lpt_t *ptLptBase,uint16_t hwPrdr, uint16_t hwCmp)
 {
 	ptLptBase->PRDR = hwPrdr;
@@ -484,6 +476,14 @@ static inline void csp_lpt_clr_isr(csp_lpt_t *ptLptBase, lpt_int_e eIntNum)
 static inline void csp_lpt_clr_all_isr(csp_lpt_t *ptLptBase)
 {
 	ptLptBase->ICR = 0x07;
+}
+static inline void csp_lpt_int_enable(csp_lpt_t *ptLptBase, lpt_int_e eLptInt)
+{
+	ptLptBase->IMCR |= eLptInt; 
+}
+static inline void csp_lpt_int_disable(csp_lpt_t *ptLptBase, lpt_int_e eLptInt)
+{
+	ptLptBase->IMCR &= ~eLptInt; 
 }
 //
 static inline void csp_lpt_vic_irq_en(void)

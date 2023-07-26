@@ -1295,15 +1295,14 @@ static inline uint16_t csp_gptb_get_phsr(csp_gptb_t *ptGptbBase)
 	return (ptGptbBase -> PHSR);
 }
 
-
-static inline void csp_gptb_int_enable(csp_gptb_t *ptGptbBase, csp_gptb_int_e eInt, bool bEnable)
+static inline void csp_gptb_int_enable(csp_gptb_t *ptGptbBase, csp_gptb_int_e eInt)
 {
-	ptGptbBase -> IMCR = ptGptbBase -> IMCR & ( ~eInt);
-	if (bEnable)
-		ptGptbBase ->IMCR |= eInt;
-	
+	ptGptbBase ->IMCR |= eInt;
 }
-
+static inline void csp_gptb_int_disable(csp_gptb_t *ptGptbBase, csp_gptb_int_e eInt)
+{
+	ptGptbBase ->IMCR &= ~eInt;
+}
 static inline uint32_t csp_gptb_get_risr(csp_gptb_t *ptGptbBase)
 {
 	return (ptGptbBase -> RISR);

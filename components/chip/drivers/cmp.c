@@ -21,29 +21,27 @@
 /* externs variablesr------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief Enable cmp power manage
+/** \brief Enable cmp interrupt
  * 
  *  \param[in] ptCmpBase: pointer of cmp register structure
  *  \param[in] eIntSrc: cmp interrupt source
- *  \param[in] bEnable: cmp irq enable or disable
  *  \return none
  */
-void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc,bool bEnable)
+void csi_cmp_int_enable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc)
 {
-	csp_cmp_int_enable(ptCmpBase, (cmp_int_e)eIntSrc,bEnable);
-	if (bEnable) 
-	{
-		csi_irq_enable((uint32_t *)ptCmpBase);
-	}
-	else 
-	{
-		if (csp_cmp_get_imcr(ptCmpBase)) 
-		{
-			csi_irq_disable((uint32_t *)ptCmpBase);
-		}
-	}
+	csp_cmp_clr_isr(ptCmpBase, (cmp_int_e)eIntSrc);
+	csp_cmp_int_enable(ptCmpBase, (cmp_int_e)eIntSrc);
 }
-
+/** \brief Disable cmp interrupt
+ * 
+ *  \param[in] ptCmpBase: pointer of cmp register structure
+ *  \param[in] eIntSrc: cmp interrupt source
+ *  \return none
+ */
+void csi_cmp_int_disable(csp_cmp_t *ptCmpBase, csi_cmp_intsrc_e eIntSrc)
+{
+	csp_cmp_int_disable(ptCmpBase, (cmp_int_e)eIntSrc);
+}
 /** \brief init cmp
  * 
  *  \param[in] ptCmpBase: pointer of cmp register structure
@@ -63,7 +61,13 @@ csi_error_t csi_cmp_init(csp_cmp_t *ptCmpBase,csi_cmp_config_t *ptCmpCfg)
 	csp_cmp_hystpol(ptCmpBase , ptCmpCfg->byPhystpol,ptCmpCfg->byPhystsel);
 	csp_cmp_polarity(ptCmpBase , ptCmpCfg->byPolarity);
 	csp_cmp_out(ptCmpBase , ptCmpCfg->byCpoSel);
-	csi_cmp_int_enable(ptCmpBase, ptCmpCfg->wInt,ENABLE);
+	
+	csi_irq_enable(ptCmpBase);												//enable cmp vic interrupt
+	if(ptCmpCfg->wInt)
+		csp_cmp_int_enable(ptCmpBase, (cmp_int_e)ptCmpCfg->wInt);			//enable cmp interrupt
+	else
+		csp_cmp_int_disable(ptCmpBase, (CMP_EDGEDET_INT | CMP_RAWDET_INT)); //disable cmp all interrupt
+		
 	return tRet;
 }
 

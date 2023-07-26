@@ -240,6 +240,22 @@ void csi_spi_nss_low(pin_name_e ePinName);
  */ 
 int8_t csi_spi_get_state(csi_spi_work_mode_e eWorkMode);
 
+/** \brief enable spi interrupt 
+ * 
+ *  \param[in] ptSpiBase: pointer of spi register structure
+ *  \param[in] eIntSrc: spi interrupt source
+ *  \return none
+ */
+void csi_spi_int_enable(csp_spi_t *ptSpiBase, csi_spi_intsrc_e eIntSrc);
+
+/** \brief disable spi interrupt 
+ * 
+ *  \param[in] ptSpiBase: pointer of spi register structure
+ *  \param[in] eIntSrc: spi interrupt source
+ *  \return none
+ */
+void csi_spi_int_disable(csp_spi_t *ptSpiBase, csi_spi_intsrc_e eIntSrc);
+
 /** \brief sending data to spi transmitter
  * 
  *  \param[in] ptSpiBase: pointer of spi register structure

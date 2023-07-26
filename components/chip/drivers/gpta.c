@@ -55,16 +55,16 @@ csi_error_t csi_gpta_capture_init(csp_gpta_t *ptGptaBase, csi_gpta_captureconfig
 		wPrdrLoad = TIMER_16BIT_MAX;
 	}
 
-    csp_gpta_clken(ptGptaBase);                                             // clkEN
-	csp_gpta_set_cr(ptGptaBase, wCrVal);									// set bt work mode
-	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv-1);					    // clk div
+    csp_gpta_clken(ptGptaBase);                                     // clkEN
+	csp_gpta_set_cr(ptGptaBase, wCrVal);							// set bt work mode
+	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv-1);				// clk div
 	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				        // prdr load value
 	
+	csi_irq_enable(ptGptaBase);										//enable gpta vic interrupt
 	if(ptGptaPwmCfg->wInt)
-	{
-		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt, ENABLE);		//enable interrupt
-		csi_irq_enable((uint32_t *)ptGptaBase);							//enable  irq
-	}
+		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt);		//enable gpta interrupt
+	else 
+		csp_gpta_int_disable(ptGptaBase, 0x10ff3);					//disable gpta all interrupt
 	
 	return CSI_OK;
 }
@@ -122,22 +122,23 @@ csi_error_t  csi_gpta_wave_init(csp_gpta_t *ptGptaBase, csi_gpta_pwmconfig_t *pt
     
 	wCrVal=(wCrVal & ~(GPTA_PSCLD_MSK))   |((ptGptaPwmCfg->byPscld&0x03)   <<GPTA_PSCLD_POS);
 	
-    csp_gpta_clken(ptGptaBase);                                           // clkEN
-	csp_gpta_set_cr(ptGptaBase, wCrVal);									// set bt work mode
-	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv - 1);					// clk div
-	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				    // prdr load value
+    csp_gpta_clken(ptGptaBase);                                         // clkEN
+	csp_gpta_set_cr(ptGptaBase, wCrVal);								// set bt work mode
+	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv - 1);				// clk div
+	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				    		// prdr load value
 		
 	if(ptGptaPwmCfg->byDutyCycle>=100){wCmpLoad=0;}
 	else if(ptGptaPwmCfg->byDutyCycle==0){wCmpLoad=wPrdrLoad+1;}
 	else{wCmpLoad =wPrdrLoad-(wPrdrLoad * ptGptaPwmCfg->byDutyCycle /100);}		
-	csp_gpta_set_cmpa(ptGptaBase, wCmpLoad);					// cmp load value
+	csp_gpta_set_cmpa(ptGptaBase, wCmpLoad);							// cmp load value
 	csp_gpta_set_cmpb(ptGptaBase, wCmpLoad);
 		
+	csi_irq_enable(ptGptaBase);											//enable vic interrupt
 	if(ptGptaPwmCfg->wInt)
-	{
-		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt, ENABLE);		//enable interrupt
-		csi_irq_enable((uint32_t *)ptGptaBase);							    //enable  irq
-	}
+		csp_gpta_int_enable(ptGptaBase, ptGptaPwmCfg->wInt);			//enable interrupt
+	else 
+		csp_gpta_int_disable(ptGptaBase, 0x10ff3);						//disable gpta all interrupt
+
 	return CSI_OK;	
 }
 
@@ -180,10 +181,11 @@ csi_error_t csi_gpta_timer_init(csp_gpta_t *ptGptaBase, uint32_t wTimeOut)
 	csp_gpta_set_cr(ptGptaBase, wCrVal);								// set gpta work mode
 	csi_gpta_count_mode(ptGptaBase, GPTA_OP_CONT);                      // gpta count mode
 	csp_gpta_set_pscr(ptGptaBase, (uint16_t)wClkDiv - 1);				// clk div
-	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				    // prdr load value
+	csp_gpta_set_prdr(ptGptaBase, wPrdrLoad);				    		// prdr load value
 
-	csp_gpta_int_enable(ptGptaBase, GPTA_INT_PEND, ENABLE);		        //enable interrupt
-	csi_irq_enable((uint32_t *)ptGptaBase);							    //enable  irq
+	csp_gpta_clr_isr(ptGptaBase, GPTA_INT_PEND);
+	csp_gpta_int_enable(ptGptaBase, GPTA_INT_PEND);		        		//enable interrupt
+	csi_irq_enable(ptGptaBase);							    			//enable vic interrupt
 	
 	return CSI_OK;					
 }
@@ -549,15 +551,25 @@ csi_error_t csi_gpta_continuous_software_waveform(csp_gpta_t *ptGptaBase, csi_gp
 	return CSI_OK;
 }
 
-/** \brief gpta  input  config  
+/** \brief gpta interrupt enable
  *  \param[in] ptGptaBase:pointer of gpta register structure
  *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
- *  \param[in] bEnable:  ENABLE/DISABLE
- *  \return CSI_OK;
+ *  \return none;
  */
-void csi_gpta_int_enable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt, bool bEnable)
-{   csi_irq_enable((uint32_t *)ptGptaBase);
-	csp_gpta_int_enable(ptGptaBase,(csp_gpta_int_e)eInt,bEnable);
+void csi_gpta_int_enable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt)
+{   
+	csp_gpta_clr_isr(ptGptaBase,(csp_gpta_int_e)eInt);
+	csp_gpta_int_enable(ptGptaBase,(csp_gpta_int_e)eInt);
+}
+
+/** \brief gpta interrupt disable
+ *  \param[in] ptGptaBase:pointer of gpta register structure
+ *  \param[in] eInt:     refer to to csi_gpta_intsrc_e
+ *  \return none;
+ */
+void csi_gpta_int_disable(csp_gpta_t *ptGptaBase, csi_gpta_intsrc_e eInt)
+{   
+	csp_gpta_int_disable(ptGptaBase,(csp_gpta_int_e)eInt);
 }
 
 /** \brief gpta sync input evtrg config  

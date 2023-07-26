@@ -63,7 +63,27 @@ void csi_iic_disable(csp_i2c_t *ptIicBase)
 {
 	csp_i2c_disable(ptIicBase);
 }
-
+/** \brief i2c interrupt enable
+ * 
+ *  \param[in] ptIicBase: pointer of i2c register structure
+ *  \param[in] eIntSrc: i2c interrupt source
+ *  \return none
+ */ 
+void csi_i2c_int_enable(csp_i2c_t *ptIicBase, csi_iic_intsrc_e eIntSrc)
+{
+	csp_i2c_clr_isr(ptIicBase, (i2c_int_e)eIntSrc);
+	csp_i2c_int_enable(ptIicBase, (i2c_int_e)eIntSrc);	
+}
+/** \brief i2c interrupt disable
+ * 
+ *  \param[in] ptIicBase: pointer of i2c register structure
+ *  \param[in] eIntSrc: i2c interrupt source
+ *  \return none
+ */ 
+void csi_i2c_int_disable(csp_i2c_t *ptIicBase, csi_iic_intsrc_e eIntSrc)
+{
+	csp_i2c_int_disable(ptIicBase, (i2c_int_e)eIntSrc);	
+}
 /** \brief SET iic Tsetup  
  * 
  *  \param[in] ptIicBase: pointer of iic register structure
@@ -539,7 +559,7 @@ void csi_iic_slave_receive_send(csp_i2c_t *ptIicBase)
 		g_bySendIndex=0;
 		csp_i2c_clr_isr(ptIicBase,I2C_SCL_SLOW_INT|I2C_TX_ABRT_INT);
 		g_wIicErrorCont=0;
-		csp_i2c_imcr_disable(ptIicBase,I2C_TX_EMPTY_INT);
+		csp_i2c_int_disable(ptIicBase,I2C_TX_EMPTY_INT);
 		
 	}else
 	{
@@ -573,7 +593,7 @@ void csi_iic_slave_receive_send(csp_i2c_t *ptIicBase)
 			if(g_bySendIndex==0)
 			{
 				g_bySendIndex=1;
-				csp_i2c_imcr_enable(ptIicBase,I2C_TX_EMPTY_INT);
+				csp_i2c_int_enable(ptIicBase,I2C_TX_EMPTY_INT);
 				if(g_byWriteIndex<g_tSlave.hwTxSize)
 				{
 					csp_i2c_set_data_cmd(ptIicBase, *(g_tSlave.pbySlaveTxBuf+g_byWriteIndex));
@@ -604,7 +624,7 @@ void csi_iic_slave_receive_send(csp_i2c_t *ptIicBase)
 			}
 			else
 			{
-				csp_i2c_imcr_disable(ptIicBase,I2C_TX_EMPTY_INT);
+				csp_i2c_int_disable(ptIicBase,I2C_TX_EMPTY_INT);
 				if(g_wIicErrorCont>10000)
 				{
 					csi_iic_disable(ptIicBase);
@@ -621,7 +641,7 @@ void csi_iic_slave_receive_send(csp_i2c_t *ptIicBase)
 		}
 		if(csp_i2c_get_isr(ptIicBase)&I2C_STOP_DET_INT)
 		{
-			csp_i2c_imcr_disable(ptIicBase,I2C_TX_EMPTY_INT);
+			csp_i2c_int_disable(ptIicBase,I2C_TX_EMPTY_INT);
 			csp_i2c_clr_isr(ptIicBase,I2C_STOP_DET_INT);
 			if(g_bySendIndex!=0)
 			{

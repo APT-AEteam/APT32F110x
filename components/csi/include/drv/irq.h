@@ -9,6 +9,8 @@
  * @date     16. Mar 2020
  * @model    irq
  ******************************************************************************/
+#ifndef _DRV_IRQ_H_
+#define _DRV_IRQ_H_
 
 #include <stdint.h>
 #include <drv/common.h>
@@ -144,3 +146,4 @@ void do_irq(uint32_t irq_num) __attribute__((isr));
 
 
 
+#endif

@@ -35,13 +35,13 @@ int etcb_one_trg_one_demo0(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
 	csi_pin_irq_enable(PA01, ENABLE);							//使能GPIO中断	
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);
-	
+	#endif
 	csi_bt_start_sync(BT0, 10);
 	csi_bt_set_sync(BT0,BT_TRG_SYNCIN0, BT_TRG_ONCE, ENABLE);  
 	csi_bt_set_evtrg(BT0, 0, BT_TRGSRC_PEND);
@@ -93,7 +93,7 @@ const csi_adc_seq_t SeqCfg1[] =
 int16_t hwAdc_Data[6] = {0};
 void apt_etcb_adc_irqhandler(csp_adc_t *ptAdcBase)
 {
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
+	uint32_t wIntStat = csp_adc_get_isr(ptAdcBase);
 	
 	csi_pin_toggle(PA05);
 	
@@ -108,7 +108,6 @@ void apt_etcb_adc_irqhandler(csp_adc_t *ptAdcBase)
 	}
 }
 
-
 /**
 *  \brief ETCB触发，一对一模式，目标事件ADC配置
 *  \param[in] none
@@ -118,6 +117,7 @@ void etcb_adc_config(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
+	#if !defined(USE_GUI)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
@@ -126,7 +126,7 @@ void etcb_adc_config(void)
 	csi_pin_set_mux(PA010, PA010_ADC_AIN10);
 	csi_pin_set_mux(PA011, PA011_ADC_AIN11);
 	csi_pin_set_mux(PA012, PA012_ADC_AIN12);
-
+	#endif
 	byAdcChnlNum = 6;                                           //通道数配置为6路                               
 	
 	//adc 参数配置初始化
@@ -152,6 +152,8 @@ void etcb_adc_config(void)
 void etcb_ept_config(void)
 {
 //------------------------------------------------------------------------------------------------------------------------	
+	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//PIN17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//PIN18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//PIN19
@@ -159,6 +161,7 @@ void etcb_ept_config(void)
 	csi_pin_set_mux(PA10, PA10_EPT_CHAY);						//PIN14	
 	csi_pin_set_mux(PA11, PA11_EPT_CHBY);						//PIN15
 	csi_pin_set_mux(PA12, PA12_EPT_CHCY);						//PIN16
+	#endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_config_t tPwmCfg;								  
 	tPwmCfg.byWorkmod       = EPT_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
@@ -204,8 +207,9 @@ int etcb_one_trg_one_demo1(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
+	#endif
 	etcb_ept_config();
 	etcb_adc_config();
 
@@ -242,9 +246,10 @@ void etcb_adc_config12(void)
 	csi_adc_config_t tAdcConfig;
 	
 	//adc 输入管脚配置
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
-
+	#endif
 	byAdcChnlNum = 2;                                
 	
 	//adc 参数配置初始化
@@ -273,9 +278,9 @@ int etcb_one_trg_more_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
-	
+	#endif
 	etcb_ept_config();
 	etcb_adc_config12();
 
@@ -313,12 +318,12 @@ const csi_adc_seq_t SeqCfg3[] =
 void etcb_adc_config13(void)
 {
 	csi_adc_config_t tAdcConfig;
-	
+	#if !defined(USE_GUI)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA010, PA010_ADC_AIN10);
 	csi_pin_set_mux(PA011, PA011_ADC_AIN11);
 	csi_pin_set_mux(PA012, PA012_ADC_AIN12);
-
+	#endif
 	byAdcChnlNum = 3;                                           //通道数配置为3路                               
 	
 	//adc 参数配置初始化
@@ -347,7 +352,7 @@ int etcb_more_trg_one_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               //ETB 参数配置结构体		
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	
 	csi_pin_set_mux(PA00,PA00_INPUT);	
@@ -368,7 +373,7 @@ int etcb_more_trg_one_demo(void)
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI0, 4);                       //PA00 4次上升沿触发目标事件     
 	csi_exi_set_evtrg(EXI_TRGOUT2, TRGSRC_EXI1, 1);
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI3, 1);
-
+	#endif
 	etcb_adc_config13();
 	
 	tEtbConfig.byChType = ETB_MORE_TRG_ONE;  		//多个源触发单个目标
@@ -401,7 +406,7 @@ int etcb_mix_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               //ETB 参数配置结构体		
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	
 	csi_pin_set_mux(PA00,PA00_INPUT);	
@@ -422,7 +427,7 @@ int etcb_mix_demo(void)
 	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI0, 4);                       //PA00 4次上升沿触发目标事件     
 	csi_exi_set_evtrg(EXI_TRGOUT2, TRGSRC_EXI1, 1);
 	csi_exi_set_evtrg(EXI_TRGOUT3, TRGSRC_EXI3, 1);
-
+	#endif
 	csi_bt_start_sync(BT0, 200);
 	csi_bt_set_sync(BT0,BT_TRG_SYNCIN0, BT_TRG_ONCE, ENABLE);  
 	

@@ -182,7 +182,7 @@ __attribute__((weak)) void usart_irqhandler(csp_usart_t *ptUsartBase,uint8_t byI
 			if(g_tUsartTran[byIdx].hwTxSize == 0)
 			{	
 				//disable usart tx interrupt
-				csp_usart_int_enable(ptUsartBase, US_TXRIS_INT, DISABLE);		
+				csp_usart_int_disable(ptUsartBase, US_TXRIS_INT);		
 				g_tUsartTran[byIdx].bySendStat = USART_STATE_DONE;					//send complete
 				
 			}

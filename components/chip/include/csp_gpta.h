@@ -801,12 +801,13 @@ static inline void csp_gpta_trg_cntxinit(csp_gpta_t *ptGptaBase, uint8_t byCh, u
 	ptGptaBase -> EVCNTINIT = (ptGptaBase -> EVCNTINIT & ~GPTA_CNT_INIT_MSK_EV(byCh)) | GPTA_CNT_INIT(byVal,byCh);
 }
 
-static inline void csp_gpta_int_enable(csp_gpta_t *ptGptaBase, csp_gpta_int_e byInt, bool bEnable)
+static inline void csp_gpta_int_enable(csp_gpta_t *ptGptaBase, csp_gpta_int_e eInt)
 {
-	ptGptaBase -> IMCR = ptGptaBase -> IMCR & ( ~byInt);
-	if (bEnable)
-		ptGptaBase ->IMCR |= byInt;
-	
+	ptGptaBase ->IMCR |= eInt;
+}
+static inline void csp_gpta_int_disable(csp_gpta_t *ptGptaBase, csp_gpta_int_e eInt)
+{
+	ptGptaBase ->IMCR &= ~eInt;
 }
 
 static inline uint32_t csp_gpta_get_risr(csp_gpta_t *ptGptaBase)

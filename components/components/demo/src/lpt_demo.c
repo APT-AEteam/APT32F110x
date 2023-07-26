@@ -44,9 +44,10 @@ int lpt_pwm_demo(void)
 {
 	int iRet = 0;
 	
-	csi_lpt_pwm_config_t tLptPwmCfg;  	
+	csi_lpt_pwm_config_t tLptPwmCfg; 
+#if !defined (USEGUI) 	
 	csi_pin_set_mux(PA01, PA01_LPT_INOUT);						  //将PA01设为LPT_OUT
-	
+#endif	
 	tLptPwmCfg.byClksrc = LPT_CLK_PCLK_DIV4;                     //PWM 时钟选择
 	tLptPwmCfg.byStartpol = LPT_PWM_START_HIGH;                  //初始低电平
 	tLptPwmCfg.byIdlepol  = LPT_PWM_IDLE_LOW;                    //停止时highZ
@@ -70,9 +71,10 @@ int lpt_pwm_duty_demo(void)
 	int iRet = 0;
 	uint32_t i;
 	
-	csi_lpt_pwm_config_t tLptPwmCfg;  	
+	csi_lpt_pwm_config_t tLptPwmCfg;  
+#if !defined (USEGUI)	
 	csi_pin_set_mux(PA01, PA01_LPT_INOUT);						  //将PA01设为LPT_OUT
-	
+#endif	
 	tLptPwmCfg.byClksrc = LPT_CLK_ISCLK;                         //PWM 时钟选择
 	tLptPwmCfg.byStartpol = LPT_PWM_START_HIGH;                  //初始低电平
 	tLptPwmCfg.byIdlepol  = LPT_PWM_IDLE_LOW;                    //停止时highZ
@@ -107,12 +109,12 @@ int lpt_sync_trg_start_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
-
+#if !defined (USEGUI)
 	csi_pin_set_mux(PB00, PB00_INPUT);									//PB00 配置为输入
 	csi_pin_pull_mode(PB00, GPIO_PULLUP);								//PB00 上拉
 	csi_pin_irq_mode(PB00, EXI_GRP0, GPIO_IRQ_FALLING_EDGE);			//PB00 下降沿产生中断，选择中断组16
 	csi_pin_irq_enable(PB00, ENABLE);									//PB00 中断使能
-
+#endif
 	csi_exi_set_evtrg(EXI_TRGOUT0, TRGSRC_EXI0, 0);						//EXI0(PB00) 触发EXI_TRGOUT0(PB00用EXI0触发输出)
 
 	csi_lpt_timer_init(LPT,LPT_CLK_PCLK_DIV4,5);       					//初始化lpt

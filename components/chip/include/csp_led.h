@@ -118,12 +118,13 @@ static inline void csp_led_set_brt(csp_led_t *ptLedBase, csp_led_brt_e eBrt)
 	ptLedBase -> BRIGHT = eBrt;
 }
 
-static inline void csp_led_int_enable(csp_led_t *ptLedBase, csp_led_int_e eInt, bool bEnable)
+static inline void csp_led_int_enable(csp_led_t *ptLedBase, csp_led_int_e eInt)
 {
-	if(bEnable)
-		ptLedBase->IMCR |= eInt; 
-	else
-		ptLedBase->IMCR &= ~eInt; 
+	ptLedBase->IMCR |= eInt; 
+}
+static inline void csp_led_int_disable(csp_led_t *ptLedBase, csp_led_int_e eInt)
+{
+	ptLedBase->IMCR &= ~eInt; 
 }
 static inline void csp_led_clr_isr(csp_led_t *ptLedBase, csp_led_int_e eInt)
 {

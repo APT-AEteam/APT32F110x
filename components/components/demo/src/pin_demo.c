@@ -29,7 +29,8 @@
 int pin_output_demo(void)
 {
 	int iRet = 0;
-	
+
+#if !defined(USE_GUI)							//用户未选择图形化编程		
 	csi_pin_set_mux(PB00,PB00_OUTPUT);			//PB00 配置为输出
 	csi_pin_set_high(PB00);						//PB00 输出高
 	mdelay(100);								//延时100ms
@@ -53,6 +54,7 @@ int pin_output_demo(void)
 	mdelay(100);
 	csi_pin_set_high(PB00);						
 	mdelay(100);
+#endif
 	
 	return iRet;
 }
@@ -65,7 +67,8 @@ int pin_output_demo(void)
 int pin_input_demo(void)
 {
 	int iRet = 0;
-	
+
+#if !defined(USE_GUI)							//用户未选择图形化编程	
 	uint32_t wStatus;
 	
 	csi_pin_set_mux(PA08,PA05_INPUT);			//PA08 配置为输入
@@ -83,6 +86,7 @@ int pin_input_demo(void)
 	mdelay(100);
 	wStatus = csi_pin_read(PA08);
 	while(wStatus != 0);
+#endif
 	
 	return iRet;
 }
@@ -95,13 +99,16 @@ int pin_input_demo(void)
 int pin_irq_demo(void)
 {
 	int iRet = 0;
+	
+#if !defined(USE_GUI)											//用户未选择图形化编程	
 //	csi_imosc_enable(2);
 //	csi_exi_flt_enable(EXI_FLT_CKDIV4, ENABLE);					//EXI 去抖滤波
 	csi_pin_set_mux(PB01, PB01_INPUT);							//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);						//PB01 上拉
-	csi_pin_irq_mode(PB01, EXI_GRP1, GPIO_IRQ_FALLING_EDGE);	//PB01 下降沿产生中断，选择中断组1
-	csi_pin_irq_enable(PB01, ENABLE);							//PB01 中断使能	
+	csi_pin_irq_enable(PB01, ENABLE);							//PB01 中断使能	 
+	csi_pin_irq_mode(PB01, EXI_GRP1, GPIO_IRQ_BOTH_EDGE);		//PB01 双边沿产生中断，选择中断组1
 	csi_pin_vic_irq_enable(EXI_GRP1, ENABLE);					//PB01 VIC中断使能，选择中断组1
+#endif
 	
 	return iRet;
 }

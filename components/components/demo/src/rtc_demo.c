@@ -37,13 +37,14 @@ void rtc_set_time_demo(void)
 	csi_rtc_config_t tRtcConfig;
 	csi_rtc_time_t tRtcTime,tRtcTimeRdbk;
 	uint32_t wSec = 0;
-	
+	#if !defined(USE_GUI)
 	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
 	csi_pin_set_mux(PA01,PA01_OSC_SXI);         //设置PA0.1为XIN，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
 	csi_pin_set_mux(PA02,PA02_OSC_SXO);         //设置PA0.2为XOUT，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
-	
+		
+	#endif
 	tRtcConfig.byClkSrc = RTC_CLKSRC_ESOSC;		//外部副晶振作为RTC时钟源
 	tRtcConfig.byFmt = RTC_24FMT;				//选择时间模式
 	csi_rtc_init(RTC, &tRtcConfig);				//初始化设置
@@ -110,13 +111,14 @@ void rtc_alarm_demo(void)
 	csi_rtc_time_t tAlmTime;
 	csi_rtc_time_t tBlmTime;
 	csi_rtc_config_t tRtcConfig;
-	
+	#if !defined(USE_GUI)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
 	csi_pin_set_mux(PA01,PA01_OSC_SXI);         //设置PA0.1为XIN，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
 	csi_pin_set_mux(PA02,PA02_OSC_SXO);         //设置PA0.2为XOUT，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
-	
+		
+	#endif
 	tRtcConfig.byClkSrc = RTC_CLKSRC_ESOSC;		//外部副晶振作为RTC时钟源
 	tRtcConfig.byFmt    = RTC_24FMT;			//选择时间模式
 	csi_rtc_init(RTC, &tRtcConfig);				//初始化RTC
@@ -187,13 +189,13 @@ void rtc_timer_demo(void)
 {
 	csi_rtc_config_t tRtcConfig;
 	csi_rtc_time_t tRtcTime;
-	
+	#if !defined(USE_GUI)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
 //	csi_pin_set_mux(PA01,PA01_OSC_SXI);         //设置PA0.1为XIN，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA02,PA02_OSC_SXO);         //设置PA0.2为XOUT，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
-	
+	#endif
 	tRtcConfig.byClkSrc = RTC_CLKSRC_ISOSC;  	//选择时钟源
 	tRtcConfig.byFmt = RTC_24FMT;				//选择时间模式
 	csi_rtc_init(RTC, &tRtcConfig);				//初始化RTC
@@ -234,13 +236,13 @@ void rtc_timer_demo(void)
 	volatile uint8_t ch;
 	uint32_t wSec = 0;
 	
-	
+	#if !defined(USE_GUI)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
 //	csi_pin_set_mux(PA01,PA01_OSC_SXI);         //设置PA0.1为XIN，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA02,PA02_OSC_SXO);         //设置PA0.2为XOUT，如果使用外部副晶振作为RTC时钟源，必须先对管脚进行配置
-	
+	#endif
 	tRtcConfig.byClkSrc = RTC_CLKSRC_ISOSC;		//选择时钟源
 	tRtcConfig.byFmt = RTC_24FMT;				//选择时间模式
 	csi_rtc_init(RTC, &tRtcConfig);				//初始化设置
@@ -350,26 +352,26 @@ __attribute__((weak)) void rtc_irqhandler(csp_rtc_t *ptRtcBase)
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_ALMA))==RTC_INTSRC_ALMA)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_ALMA;
-		csp_rtc_clr_isr(ptRtcBase,RTC_INTSRC_ALMA);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMA);	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_ALMB))==RTC_INTSRC_ALMB)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_ALMB;
-		csp_rtc_clr_isr(ptRtcBase,RTC_INTSRC_ALMB);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMB);	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_CPRD))==RTC_INTSRC_CPRD)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_CPRD;
-		csp_rtc_clr_isr(ptRtcBase,RTC_INTSRC_CPRD);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_CPRD);	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_TRGEV0))==RTC_INTSRC_TRGEV0)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_TRGEV0;
-		csp_rtc_clr_isr(ptRtcBase,RTC_INTSRC_TRGEV0);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV0);	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_TRGEV1))==RTC_INTSRC_TRGEV1)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_TRGEV1;
-		csp_rtc_clr_isr(ptRtcBase,RTC_INTSRC_TRGEV1);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV1);	
 	}	
 }

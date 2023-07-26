@@ -36,7 +36,8 @@ int usart_send_dma_demo(void)
 	uint8_t bySdData[36]={31,32,33,34,5,6,7,8,9,10,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,1,2,3};
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK,同步模式时使用
@@ -46,7 +47,8 @@ int usart_send_dma_demo(void)
 //	csi_pin_set_mux(PA15, PA15_USART0_RX);				//RX
 //	csi_pin_set_mux(PA13, PA13_USART0_CK);				//CK
 //	csi_pin_pull_mode(PA15,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置	
-	
+#endif
+
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV8;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
 	tUsartCfg.byDatabit 	= USART_DATA_BITS_8;		//字节长度，8bit
@@ -96,7 +98,8 @@ int usart_recv_dma_demo(void)
 {
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
@@ -105,7 +108,7 @@ int usart_recv_dma_demo(void)
 //	csi_pin_set_mux(PA14, PA14_USART0_TX);				//TX	
 //	csi_pin_set_mux(PA15, PA15_USART0_RX);				//RX
 //	csi_pin_set_mux(PA13, PA13_USART0_CK);				//CK
-	
+#endif	
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -193,11 +196,13 @@ int usart_char_demo(void)
 	int iRet = 0;
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
+#endif
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -239,10 +244,12 @@ int usart_send_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
+#if !defined(USE_GUI)									//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
+#endif
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -285,10 +292,12 @@ int usart_send_int_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
+#if !defined(USE_GUI)									//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
+#endif
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -343,10 +352,12 @@ int usart_recv_demo(void)
 	volatile uint8_t byRxBuf[32] = {0};
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 	volatile uint8_t byRecv;
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
+#endif
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -383,10 +394,12 @@ int usart_recv_rx_int_demo(void)
 {
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
+#endif
 	
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
@@ -416,11 +429,13 @@ int usart_recv_rxfifo_int_demo(void)
 {
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
-	
+
+#if !defined(USE_GUI)									//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
-	
+#endif
+
 	tUsartCfg.byClkSrc 		= USART_CLKSRC_DIV1;		//clk = PCLK
 	tUsartCfg.byMode		= USART_MODE_ASYNC;			//异步模式
 	tUsartCfg.byDatabit 	= USART_DATA_BITS_8;		//字节长度，8bit
@@ -483,7 +498,7 @@ __attribute__((weak)) void usart_irqhandler(csp_usart_t *ptUsartBase,uint8_t byI
 			
 			if(g_tUsartTran[byIdx].hwTxSize == 0)
 			{	
-				csp_usart_int_enable(ptUsartBase, US_TXRIS_INT, DISABLE);		//关闭发送FIFO中断		
+				csp_usart_int_disable(ptUsartBase, US_TXRIS_INT);				//关闭发送FIFO中断		
 				g_tUsartTran[byIdx].bySendStat = USART_STATE_DONE;				//发送完成
 			}
 			break;

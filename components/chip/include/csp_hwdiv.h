@@ -8,6 +8,11 @@
  * </table>
  * *********************************************************************
 */
+
+#ifndef _CSP_HWDIV_H
+#define _CSP_HWDIV_H
+
+
 #include <stdint.h>
 #include <csi_core.h>
 #include <csp_common.h>
@@ -32,3 +37,4 @@ typedef struct
  
 
 
+#endif   /* CSP_HWDIV_H */

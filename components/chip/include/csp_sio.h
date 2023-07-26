@@ -480,13 +480,14 @@ static inline void csp_sio_clr_isr(csp_sio_t *ptSioBase, sio_int_e eSioInt)
 	ptSioBase->ICR = eSioInt;
 }
 
-static inline void csp_sio_int_enable(csp_sio_t *ptSioBase,sio_int_e eSioInt, bool bEnable)
+static inline void csp_sio_int_enable(csp_sio_t *ptSioBase,sio_int_e eSioInt)
 {
-	if(bEnable)
-		ptSioBase->IMCR |= eSioInt;
-	else
-		ptSioBase->IMCR &= ~eSioInt;
+	ptSioBase->IMCR |= eSioInt;
+}
 
+static inline void csp_sio_int_disable(csp_sio_t *ptSioBase,sio_int_e eSioInt)
+{
+	ptSioBase->IMCR &= ~eSioInt;
 }
 
 static inline void csp_sio_soft_reset(csp_sio_t *ptSioBase)

@@ -58,6 +58,7 @@ int adc_samp_oneshot_demo(void)
 	volatile int16_t nDataBuf[3] = {0,0,0};				//存放三通道采样值
 	csi_adc_config_t tAdcConfig;
 	
+#if !defined(USE_GUI)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -78,7 +79,8 @@ int adc_samp_oneshot_demo(void)
 //	csi_pin_set_mux(PB04, PB04_ADC_AIN16);
 //	csi_pin_set_mux(PC00, PC00_ADC_AIN17);
 //	csi_pin_set_mux(PA02, PA02_ADC_AIN18);
-	
+#endif	
+
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 0x02;							//ADC clk两分频：clk = pclk/2
 	tAdcConfig.bySampHold = 0x06;						//ADC 采样时间： time = 16 + 6 = 22(ADC clk周期)
@@ -120,7 +122,8 @@ int adc_samp_continuous_demo(void)
 	volatile int16_t nDataBuf[3] = {0,0,0};				//存放三通道采样值
 	csi_adc_config_t tAdcConfig;
 	
-		//adc 输入管脚配置
+#if !defined(USE_GUI)	
+	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
@@ -140,6 +143,7 @@ int adc_samp_continuous_demo(void)
 //	csi_pin_set_mux(PB04, PB04_ADC_AIN16);
 //	csi_pin_set_mux(PC00, PC00_ADC_AIN17);
 //	csi_pin_set_mux(PA02, PA02_ADC_AIN18);
+#endif	
 	
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 0x02;							//ADC clk两分频：clk = pclk/2
@@ -198,7 +202,7 @@ __attribute__((weak))void adc_irqhandler(csp_adc_t *ptAdcBase)
 	uint8_t i;
  	volatile uint16_t hwDataBuf[3];
 	
-	uint32_t wIntStat = csp_adc_get_sr(ptAdcBase) & csp_adc_get_imr(ptAdcBase);
+	uint32_t wIntStat = csp_adc_get_isr(ptAdcBase);
 	
 	for(i = 0; i < s_byChnlNum; i++)						
 	{
@@ -220,6 +224,7 @@ int adc_samp_oneshot_int_demo(void)
 	int iRet = 0;
 	csi_adc_config_t tAdcConfig;
 	
+#if !defined(USE_GUI)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -240,6 +245,7 @@ int adc_samp_oneshot_int_demo(void)
 //	csi_pin_set_mux(PB04, PB04_ADC_AIN16);
 //	csi_pin_set_mux(PC00, PC00_ADC_AIN17);
 //	csi_pin_set_mux(PA02, PA02_ADC_AIN18);
+#endif	
 	
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 8;									//ADC clk两分频：clk = pclk/8
@@ -266,6 +272,7 @@ int adc_samp_continuous_int_demo(void)
 	int iRet = 0;
 	csi_adc_config_t tAdcConfig;
 	
+#if !defined(USE_GUI)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -286,6 +293,7 @@ int adc_samp_continuous_int_demo(void)
 //	csi_pin_set_mux(PB04, PB04_ADC_AIN16);
 //	csi_pin_set_mux(PC00, PC00_ADC_AIN17);
 //	csi_pin_set_mux(PA02, PA02_ADC_AIN18);
+#endif	
 	
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 8;									//ADC clk两分频：clk = pclk/8
@@ -319,13 +327,15 @@ int adc_samp_continuous_dma_transfer_demo(void)
 	csi_etb_config_t 	tEtbConfig;	
 	csi_adc_config_t 	tAdcConfig;
 	
-	memset((uint8_t *)hwValBuf, 0, 2400);						//清除数据缓存					
-	
+	memset((uint8_t *)hwValBuf, 0, 2400);						//清除数据缓存	
+				
+#if !defined(USE_GUI)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);						//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
 	csi_pin_set_mux(PB01, PB01_ADC_AIN4);
+#endif		
 
 	//adc 参数配置初始化
 	tAdcConfig.byClkDiv = 0x02;									//ADC clk两分频：clk = pclk/2
@@ -432,9 +442,13 @@ void adc_ts_init_demo(void)
 	csi_adc_config_t tAdcConfig;
 	uint8_t byNum = 1;
 	//STEP 1: ADC初始化
+	
+#if !defined(USE_GUI)		
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA00, PA00_AVREF);                                      //GPIO的AF功能设置为VREF+                             
 	//adc 参数配置初始化
+#endif	
+	
 	tAdcConfig.byClkDiv = 48;									                  //ADC clk两分频：clk = pclk/2
 	tAdcConfig.bySampHold = 0x10;								              //ADC 采样时间： time = 16 + 6 = 22(ADC clk周期)
 	tAdcConfig.byConvMode = ADC_CONV_ONESHOT;				  //ADC 转换模式： 单次转换；
