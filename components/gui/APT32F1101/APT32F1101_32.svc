@@ -1472,10 +1472,10 @@
         <Device deviceId="SystemClock">
           <label>System Clock</label>
           <GenCodeFuncName>SysClockInitFunc</GenCodeFuncName>
-          <UseOrNot>0</UseOrNot>
+          <UseOrNot>1</UseOrNot>
           <Property class="UIchoice">
             <label>Clock Source</label>
-            <value>IMOSC</value>
+            <value>ISOSC</value>
             <Selections>
               <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqText,SystemClockISOSCFreqText">IMOSC</sel>
               <sel notAvailable="SystemClockFreqHFOSC,SystemClockFreqIMOSC,SystemClockISOSCFreqText">EMOSC</sel>
@@ -1507,13 +1507,13 @@
             <Comment>时钟源频率</Comment>
           </Property>
           <Property class="Text" property_class="SystemClockFreqText">
-            <label>Freq</label>
+            <label>Freq(EMOSC)</label>
             <value>36000000</value>
             <!-- <validReg>^([1-9]|[1-3][0-9]|[4][0-8])$</validReg> -->
             <Comment>时钟源频率 频率范围:1~48M</Comment>
           </Property>
           <Property class="Text" property_class="SystemClockISOSCFreqText">
-            <label>Freq</label>
+            <label>Freq(ISOSC)</label>
             <value>27000</value>
             <validReg>^(27000)$</validReg>
             <Comment>固定频率27k</Comment>
