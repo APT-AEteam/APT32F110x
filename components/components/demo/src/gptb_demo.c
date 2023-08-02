@@ -92,22 +92,13 @@ int gptb_capture_sync_demo0(void)
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_set_sync (GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU,GPTB_AUTO_REARM_ZRO);
 //------------------------------------------------------------------------------------------------------------------------
-//	csi_gptb_filter_config_t  tFiltercfg;
-//	tFiltercfg.byFiltSrc        =GPTB_FILT_SYNCIN2;
-//	tFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
-//	tFiltercfg.byWinAlign       =GPTB_ALIGN_ZRO;                  //窗口对齐模式选择															  
-//	tFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
-//	tFiltercfg.byWinOffset      =g_wGptb0Prd/2;
-//	tFiltercfg.byWinWidth       =g_wGptb0Prd/2;
-//    csi_gptb_set_sync_filter(GPTB0, &tFiltercfg);
-//------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_start(GPTB0);//start  timer
 	
-	while(1){		
-		  		      
-		    mdelay(200);                        
+	while(1)
+	{		
+		mdelay(200);                        
 		    
-		    mdelay(200);
+		mdelay(200);
 	}	
 	
 	return iRet;
@@ -121,8 +112,6 @@ int gptb_capture_sync_demo0(void)
  *          - CMPA捕获的是下降沿时间
  *  \param[in] none
  *  \return error code
- * 
- * 
  PA01输入波形——          —————          —————           ———
                 |          |        |          |        |           |        
 	            |          |        |          |        |           |        
@@ -236,19 +225,6 @@ int gptb_pwm_demo(void)
 	channel.byChoiceC1sel  =   GPTB_CMPB;
 	channel.byChoiceC2sel  =   GPTB_CMPB;
 	csi_gptb_channel_config(GPTB0, &channel,  GPTB_CHANNEL_2);
-//------------------------------------------------------------------------------------------------------------------------
-//	csi_gptb_Global_load_control_config_t  Gldcfg;
-//	Gldcfg.bGlden        =  ENABLE;//DISABLE               //全局载入使能
-//    Gldcfg.bOstmd        =  DISABLE;                       //One Shot 载入模式使能控制位
-//	Gldcfg.bGldprd       =  0;                             //周期值
-//	Gldcfg.byGldcnt      =  0;							   //计数值
-//	Gldcfg.byGldmd       =  GPTB_LDGLD_SW;//GPTB_LDGLD_PRD;                //选择触发载入条件
-//	csi_gptb_global_config(GPTB0,&Gldcfg);
-//	
-//	csi_gptb_gldcfg(GPTB0 ,bycmpa_B ,ENABLE);
-//	csi_gptb_gldcfg(GPTB0 ,bycmpb_B ,ENABLE);
-////	csi_gptb_global_rearm(GPTB0) ;                         //重置ONE SHOT模式。ONE SHOT模式下，一次触发后，需要重置模式才允许再次触发
-////	csi_gptb_global_sw(GPTB0) ;                            //软件产生一次GLD触发
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT0, GPTB_TRGSRC_ZRO);      //TRGSEL0
 	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT1, GPTB_TRGSRC_PRD);      //TRGSEL1
@@ -302,9 +278,6 @@ int gptb_pwm_dz_demo(void)
 	tPwmCfg.wFreq 			= 10000;						    //pwm ouput frequency			
 	tPwmCfg.wInt 		    = GPTB_INTSRC_NONE;                  //interrupt
 	csi_gptb_wave_init(GPTB0, &tPwmCfg);
-//	csi_gptb_set_sync (GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU,GPTB_AUTO_REARM_ZRO);	
-//	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT0, GPTB_TRGSRC_PE1);    //EP1用trg0输出，
-//	csi_gptb_int_enable(GPTB0, GPTB_INT_TRGEV0,true);
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_pwmchannel_config_t  tGptbchannelCfg;
 	tGptbchannelCfg.byActionZro    =   GPTB_LO;
@@ -323,8 +296,6 @@ int gptb_pwm_dz_demo(void)
 	tGptbchannelCfg.byChoiceC1sel  =   GPTB_CMPB;
 	tGptbchannelCfg.byChoiceC2sel  =   GPTB_CMPB;	
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_2);
-		
-//csp_gptb_set_aqtscr(GPTB0,GPTB_T1,EP1);//波形输出T事件选择
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_deadzone_config_t  tGptbDeadZoneCfg;
 	tGptbDeadZoneCfg.byDcksel               = GPTB_DB_DPSC;    //
@@ -432,24 +403,6 @@ int gptb_pwm_dz_em_demo(void)
 	
     csi_gptb_emint_en(GPTB0,GPTB_INTSRC_EP3);             //紧急状态输入中断使能
 //------------------------------------------------------------------------------------------------------------------------	
-//	csi_gptb_set_sync (GPTB0, GPTB_TRG_SYNCEN3, GPTB_TRG_CONTINU,GPTB_AUTO_REARM_ZRO);	
-//	csi_gptb_set_evtrg (GPTB0, GPTB_TRGOUT0, GPTB_TRGSRC_EP0);    //EPx用trg0输出，GPTB_TRGSRC_EP0
-//	csi_gptb_int_enable(GPTB0, GPTB_INT_TRGEV0,true);
-//------------------------------------------------------------------------------------------------------------------------
-//	csi_gptb_reglk_config_t  tReglk;                                                                    //
-//	tReglk.byPrdr	= 0;                                                                                 //0x0  不链接
-//	tReglk.byRssr    = 1;																                    //0x1  GPTB0
-//	tReglk.byCmpa    = 1;																					//0x2  GPTA0
-//	tReglk.byCmpb    = 1;																					//0x3  GPTA1
-//	tReglk.byGld2    = 0;																					//0x4  GPTB0
-//	tReglk.byEmslclr = 1;																					//0x5  GPTB1
-//	tReglk.byEmhlclr = 1;																					//0x6  
-//	tReglk.byEmicr   = 1;																					//0x7  
-//	tReglk.byEmfrcr  = 1;																					//0x8  
-//	tReglk.byAqosf   = 1;																					//0x9  
-//	tReglk.byAqcsf   = 1;  																				//0xa  
-//    csi_gptb_reglk_config(GPTB0,&tReglk);
-//------------------------------------------------------------------------------------------------------------------------
     csi_gptb_start(GPTB0);//start  timer	
 //------------------------------------------------------------------------------------------------------------------------	
     while(1)

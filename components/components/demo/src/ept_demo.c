@@ -72,16 +72,7 @@ int ept_capture_sync_demo0(void)
 	csi_ept_capture_init(EPT0, &tCapCfg);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN2, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);	
-//------------------------------------------------------------------------------------------------------------------------	
-//	csi_ept_filter_config_t  tpFiltercfg;
-//	tpFiltercfg.byFiltSrc        =EPT_FILT_SYNCIN2;               //滤波输入源
-//	tpFiltercfg.byWinInv         =1;                              //0h：窗口不反转，窗口有效区间禁止滤波输入;  1h：窗口反转，  窗口有效区间使能滤波输入
-//	tpFiltercfg.byWinAlign       =EPT_ALIGN_ZRO;                  //窗口对齐模式选择															  
-//	tpFiltercfg.byWinCross       =1;                              //滤波窗跨越窗口对齐点:  0h：禁止跨窗口对齐点;  1h：允许跨窗口对齐点
-//	tpFiltercfg.byWinOffset      =gEptPrd/2;                      //
-//	tpFiltercfg.byWinWidth       =gEptPrd/2;                      //
-//    csi_ept_set_sync_filter(EPT0, &tpFiltercfg);
-//------------------------------------------------------------------------------------------------------------------------ 
+//------------------------------------------------------------------------------------------------------------------------	 
 	csi_ept_start(EPT0);//start  timer
     while(1)
 	{		
@@ -221,56 +212,38 @@ int ept_pwm_demo(void)
 	channel.byChoiceC2sel  =   EPT_CMPD;
 	csi_ept_channel_config(EPT0, &channel,  EPT_CHANNEL_4);
 //------------------------------------------------------------------------------------------------------------------------
-//	csi_ept_Global_load_control_config_t  Gldcfg;
-//	Gldcfg.bGlden        =  ENABLE;//DISABLE               //全局载入使能
-//    Gldcfg.bOstmd        =  DISABLE;                       //One Shot 载入模式使能控制位
-//	Gldcfg.bGldprd       =  2;                             //周期值
-//	Gldcfg.byGldcnt      =  0;							   //计数值
-//	Gldcfg.byGldmd       =  EPT_LDGLD_PRD;                 //选择触发载入条件
-//	csi_ept_gload_config(EPT0,&Gldcfg);
-//	
-//	csi_ept_gldcfg(EPT0 ,bycmpa ,ENABLE);
-//	csi_ept_gldcfg(EPT0 ,bycmpb ,ENABLE);
-	
-//------------------------------------------------------------------------------------------------------------------------
-//	csi_ept_set_sync      (EPT0, EPT_TRG_SYNCEN4, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);//使能同步事件4
-//    csi_ept_set_sync2evtrg(EPT0, EPT_TRG_SYNCEN4,0);                                //
-//	csi_ept_set_evtrg     (EPT0, EPT_TRG_OUT0, EPT_TRGSRC_EX);                          //同步事件4 用于事件触发输出0
-//	csi_ept_int_enable    (EPT0, EPT_INTSRC_TRGEV0,true);                               //使能事件中断
-//	csi_ept_int_enable (EPT0, EPT_INTSRC_CBD,true);
-//------------------------------------------------------------------------------------------------------------------------
 	csi_ept_start(EPT0);//start  timer
-	while(1){	
-		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 50);			//修改PWM1占空比为50%
-		    csi_ept_change_ch_duty(EPT0,EPT_COMPB, 50);			//修改PWM2占空比为50%
-            csi_ept_change_ch_duty(EPT0,EPT_COMPC, 50);			//修改PWM3占空比为50%
-            csi_ept_change_ch_duty(EPT0,EPT_COMPD, 50);			//修改PWM4占空比为50% 
+	while(1)
+	{	
+		csi_ept_change_ch_duty(EPT0,EPT_COMPA, 50);			//修改PWM1占空比为50%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPB, 50);			//修改PWM2占空比为50%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPC, 50);			//修改PWM3占空比为50%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPD, 50);			//修改PWM4占空比为50% 
 			
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,600); 	//修改PWM1周期为2400，比较值为600
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,600); 	//修改PWM2周期为2400，比较值为600 
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,600); 	//修改PWM3周期为2400，比较值为600 
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,600); 	//修改PWM4周期为2400，比较值为600 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,600); 	//修改PWM1周期为2400，比较值为600
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,600); 	//修改PWM2周期为2400，比较值为600 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,600); 	//修改PWM3周期为2400，比较值为600 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,600); 	//修改PWM4周期为2400，比较值为600 
 			
-		    mdelay(200);       
-                 
-		    csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);			//修改PWM1占空比为20%
-			csi_ept_change_ch_duty(EPT0,EPT_COMPB, 20);			//修改PWM2占空比为20%
-            csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);			//修改PWM3占空比为20%
-			csi_ept_change_ch_duty(EPT0,EPT_COMPD, 20);			//修改PWM4占空比为20% 
+		mdelay(200);       
+
+		csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);			//修改PWM1占空比为20%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPB, 20);			//修改PWM2占空比为20%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPC, 20);			//修改PWM3占空比为20%
+		csi_ept_change_ch_duty(EPT0,EPT_COMPD, 20);			//修改PWM4占空比为20% 
 			
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,1800);	//修改PWM1周期为2400，比较值为1800 
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,1800);	//修改PWM2周期为2400，比较值为1800 
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,1800);	//修改PWM3周期为2400，比较值为1800 
-			csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,1800);	//修改PWM4周期为2400，比较值为1800 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPA,2400,1800);	//修改PWM1周期为2400，比较值为1800 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPB,2400,1800);	//修改PWM2周期为2400，比较值为1800 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPC,2400,1800);	//修改PWM3周期为2400，比较值为1800 
+		csi_ept_prdr_cmp_update(EPT0,EPT_COMPD,2400,1800);	//修改PWM4周期为2400，比较值为1800 
 			
-		    mdelay(200);	
+		mdelay(200);	
 	}
 	return iRet;
 }
 
 
 /** \brief EPT波形输出+互补对称波形+死区时间（上升沿500ns+下降沿200ns）
- *   		-10kHZ   PA015、PA014、PB05输出波形；PA012、PA08、PA04输出反向波形
  *     		-PWM在80%和40%之间切换
  * 			-此为电机FOC基本波形设置
  *  \param[in] none
@@ -453,31 +426,7 @@ int ept_pwm_dz_em_demo(void)
 	
 	csi_ept_emint_enable(EPT0,EPT_INTSRC_EP6);        //紧急状态输入中断使能
 //------------------------------------------------------------------------------------------------------------------------	
-
-//	csi_ept_set_sync (EPT0, EPT_TRG_SYNCEN3, EPT_TRG_CONTINU,EPT_AUTO_REARM_ZRO);	
-//	csi_ept_set_evtrg(EPT0, EPT_TRG_OUT0, EPT_TRGSRC_EP2);    //EPx用trg0输出，
-//	csi_ept_int_enable(EPT0, EPT_INTSRC_TRGEV0,true);
-	
-//	csi_ept_reglk_config_t  tReglk;                                                                       //
-//	tReglk.byPrdr	   = 1;                                                                                 //0x0  不链接
-//	tReglk.byRssr    = 1;																                    //0x1  EPT0
-//	tReglk.byCmpa    = 1;																					//0x2  GPTA0
-//	tReglk.byCmpb    = 1;																					//0x3  GPTA1
-//	tReglk.byGld2    = 1;																					//0x4  EPT0
-//	tReglk.byEmslclr = 1;																					//0x5  EPT1
-//	tReglk.byEmhlclr = 1;																					//0x6  
-//	tReglk.byEmicr   = 1;																					//0x7  
-//	tReglk.byEmfrcr  = 1;																					//0x8  
-//	tReglk.byAqosf   = 1;																					//0x9  
-//	tReglk.byAqcsf   = 1;  																				    //0xa  
-//    csi_ept_reglk_config(EPT0,&tReglk);
-
 	csi_ept_start(EPT0);//start  timer
-//------------------------------------------------------------------------------------------------------------------------		
-
-//------------------------------------------------------------------------------------------------------------------------		
-	
-	
     while(1)
 	{			
 		csi_ept_change_ch_duty(EPT0,EPT_COMPA, 20);
