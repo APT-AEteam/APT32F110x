@@ -181,7 +181,7 @@ int cmp_dfcr_demo(void);
 int cmp_wfcr_demo(void);
 
 //low power
-void lp_exi_wakeup_shutdown_demo(void);
+void lp_io_wakeup_shutdown_demo(void);
 void lp_rtc_wakeup_snooze_demo(void);
 void lp_lpt_wakeup_deepsleep_demo(void);
 void lp_wakeup_demo(void);
