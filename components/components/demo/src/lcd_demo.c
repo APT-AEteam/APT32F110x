@@ -72,7 +72,8 @@ static void lcd_rtc_data(uint8_t *bypBuf, uint8_t byPos, uint8_t byData)
 }
 
 
-/** \brief lcd display
+/** \brief LCD 显示demo，LCD为4个COM(COM0~COM3)，22个SEG（SEG2~SEG24）；LCD所有段码全部显示，1秒后
+ *         段码的时钟分隔点(两点,即冒号)不显示，循环执行，即LCD的段码全显示，冒号1秒闪烁一次。
  * 
  *  \param[in] none
  *  \return error code
@@ -102,7 +103,6 @@ int lcd_disp_demo(void)
 	if(iRet == CSI_OK)
 		csi_lcd_start(LCD);
 			
-	//csi_lcd_set_blink(LCD, LCD_BLINK_SEG8, LCD_BLINK_FRE_F2, 2);		//LCD 闪烁频率选择不等于LCD_BLINK_FRE_F2， 最后一个参数无意义
 	csi_lcd_write_data(LCD, bySendBata, 2, 22);
 	
 	do
@@ -134,7 +134,9 @@ int lcd_disp_demo(void)
 	return iRet;
 }
 
-/** \brief lcd display snooze 
+/** \brief LCD 在睡眠模式(SNOOZE)下显示demo，LCD为4个COM(COM0~COM3)，22个SEG（SEG2~SEG24）,时钟显示RTC的分秒，
+ *         其余段全部点亮；SNOOZE模式配置为RTC唤醒，LCD显示使能，RTC每隔1S唤醒一次，并更新显示时间，再次进入
+ *         SNOOZE模式；SNOOZE唤醒后Chip会复位。
  * 
  *  \param[in] none
  *  \return error code
@@ -270,10 +272,10 @@ int lcd_disp_sleep_demo(void)
 				bySendBata[i] = 0x0f;
 		}
 		
-		lcd_rtc_data(bySendBata, 2, tRtcTimeRdbk.iMin/10);			//hour
-		lcd_rtc_data(bySendBata, 4, tRtcTimeRdbk.iMin%10);			//hour
-		lcd_rtc_data(bySendBata, 6, tRtcTimeRdbk.iSec/10);			//min
-		lcd_rtc_data(bySendBata, 8, tRtcTimeRdbk.iSec%10);			//min
+		lcd_rtc_data(bySendBata, 2, tRtcTimeRdbk.iMin/10);			//min
+		lcd_rtc_data(bySendBata, 4, tRtcTimeRdbk.iMin%10);			//min
+		lcd_rtc_data(bySendBata, 6, tRtcTimeRdbk.iSec/10);			//sec
+		lcd_rtc_data(bySendBata, 8, tRtcTimeRdbk.iSec%10);			//sec
 		
 		
 		csi_lcd_write_data(LCD, bySendBata,2,22);
@@ -315,12 +317,13 @@ int lcd_disp_sleep_demo(void)
 	return iRet;
 }
 
-/** \brief lcd display rtc of snooze mode 
+/** \brief LCD 在SNOOZE模式下显示demo，LCD为4个COM(COM0~COM3)，22个SEG（SEG2~SEG24）,时钟显示RTC的分秒，
+ *         其余段全部点亮；SNOOZE模式配置为RTC唤醒，LCD显示使能，RTC每隔1分唤醒一次，并更新显示时间，再
+ *         次进入SNOOZE模式；SNOOZE唤醒后Chip会复位。
  * 
  *  \param[in] none
  *  \return error code
  */
-
 int lcd_disp_rtc_snooze_demo(void)
 {
 	
@@ -384,7 +387,7 @@ int lcd_disp_rtc_snooze_demo(void)
 	}
 	else
 	{
-		csi_rtc_start_as_timer(RTC, RTC_TIMER_1MIN);	//每1s进一次中断
+		csi_rtc_start_as_timer(RTC, RTC_TIMER_1MIN);//每1分进一次中断
 	}
 	
 	csi_pin_set_low(PB02);							//指示用						
@@ -442,10 +445,10 @@ int lcd_disp_rtc_snooze_demo(void)
 				bySendBata[i] = 0x0f;
 		}
 		
-		lcd_rtc_data(bySendBata, 2, tRtcTimeRdbk.iMin/10);			//hour
-		lcd_rtc_data(bySendBata, 4, tRtcTimeRdbk.iMin%10);			//hour
-		lcd_rtc_data(bySendBata, 6, tRtcTimeRdbk.iSec/10);			//min
-		lcd_rtc_data(bySendBata, 8, tRtcTimeRdbk.iSec%10);			//min
+		lcd_rtc_data(bySendBata, 2, tRtcTimeRdbk.iMin/10);			//min
+		lcd_rtc_data(bySendBata, 4, tRtcTimeRdbk.iMin%10);			//min
+		lcd_rtc_data(bySendBata, 6, tRtcTimeRdbk.iSec/10);			//sec
+		lcd_rtc_data(bySendBata, 8, tRtcTimeRdbk.iSec%10);			//sec
 		
 		csi_lcd_write_data(LCD, bySendBata,2,22);
 		
@@ -486,7 +489,9 @@ int lcd_disp_rtc_snooze_demo(void)
 	
 	return iRet;
 }
-/** \brief lcd interrupt handle function
+/** \brief LCD 中断处理函数，BT产生中断时系统执行该函数，定义为弱属性，用户可参考此函数在实际使
+ *         用中重新定义该函数(正常属性)，在自己的中断函数里添加具体的处理；系统会优先调用非弱属
+ *         性的该函数。
  * 
  *  \param[in] ptLcdBase: pointer of bt register structure
  *  \return none

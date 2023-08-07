@@ -54,12 +54,14 @@ static void wkup_lp(void)
 	//USER CODE，唤醒后需要恢复的状态
 }
 
-/** \brief 通过外部PA00/PB00/PA12/PB011(ALV0~3)唤醒shutdown
+/** \brief 外部IO唤醒shutdown模式demo，Chip支持PA00\PB00\PA12\PB011(ALV0\ALV1\ALV2\ALV3)这四个
+ *         IO唤醒shutdown模式；demo中用PA00(ALV0)唤醒shutdown，唤醒后再次进入shutdown模式。
+ *         
  * 
  *  \param  none
  *  \return none
  */
-void lp_exi_wakeup_shutdown_demo(void)
+void lp_io_wakeup_shutdown_demo(void)
 {
 	uint16_t hwRstSrc; 
 	uint8_t byWkIntSrc; 
@@ -104,7 +106,7 @@ void lp_exi_wakeup_shutdown_demo(void)
 #endif
 	
 	csi_pm_config_wakeup_source(WKUP_ALV0, ENABLE);			//选择唤醒源WKUP_ALV0，即PA00唤醒，高电平唤醒
-//	csi_pm_clk_enable(DP_ISOSC, ENABLE);					//SNOOZE模式下时钟开启/关闭
+//	csi_pm_clk_enable(DP_ISOSC, ENABLE);					//睡眠模式下时钟开启/关闭
 //	csi_pm_clk_enable(DP_IMOSC, ENABLE);
 //	csi_pm_clk_enable(DP_ESOSC, ENABLE);
 //	csi_pm_clk_enable(DP_EMOSC, ENABLE);
@@ -140,7 +142,7 @@ void lp_exi_wakeup_shutdown_demo(void)
 	}
 
 }
-/** \brief 通过RTC唤醒SNOOZE模式
+/** \brief RTC唤醒snooze模式的demo，RTC配置为0.5s唤醒一次，唤醒后再次进入snooze模式
  * 
  *  \param  none
  *  \return none
@@ -227,7 +229,7 @@ void lp_rtc_wakeup_snooze_demo(void)
 	}
 }
 
-/** \brief 通过LPT唤醒DEEPSLEEP模式
+/** \brief LPT唤醒deepsleep模式的demo，用LPT唤醒deepsleep，lpt定时500ms唤醒睡眠，再次进入deepsleep模式
  * 
  *  \param  none
  *  \return none
@@ -298,8 +300,9 @@ void lp_lpt_wakeup_deepsleep_demo(void)
 	}
 }
 
-/** \brief 各种源唤醒低功耗的示例代码，低功耗的模式=sleep/deepsleep/snooze/shutdown
- * 		   sleep模式时,tick中断会唤醒cpu，测试时需要注意(可在system_init中注释掉tick初始化)
+/** \brief EXI唤醒sleep/deepsleep/snooze模式，IO唤醒shutdown模式的demo，睡眠模式用户可选择(四种)，shutdown模式
+ *         下，默认配置为PA00唤醒；sleep/deepsleep/snooze模式下，默认配置为PB01(exi)唤醒；sleep模式时，tick中断
+ * 		   会唤醒cpu，测试时需要注意(可在system_init中注释掉tick初始化)
  * 
  *  \param  none
  *  \return none
@@ -358,8 +361,8 @@ void lp_wakeup_demo(void)
 	{
 		csi_pin_set_mux(PB01,PB01_INPUT);							//PB01 输入							
 		csi_pin_pull_mode(PB01, GPIO_PULLUP);						//PB01 上拉
-		csi_pin_irq_mode(PB01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PB01 下降沿产生中断，选择中断组1
 		csi_pin_irq_enable(PB01, ENABLE);							//PB01 中断使能
+		csi_pin_irq_mode(PB01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PB01 下降沿产生中断，选择中断组1
 		csi_pin_vic_irq_enable(EXI_GRP1, ENABLE);					//VIC 中断使能
 		csi_vic_set_wakeup_irq(EXI1_IRQ_NUM);						//EXI 唤醒配置					
 	}
