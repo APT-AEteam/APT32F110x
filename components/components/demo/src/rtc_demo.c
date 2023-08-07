@@ -50,30 +50,29 @@ void rtc_set_time_demo(void)
 	csi_rtc_init(RTC, &tRtcConfig);				//初始化设置
 	
 	
-	tRtcTime.iYear = 22;
-	tRtcTime.iMon  = 2;
-	tRtcTime.iMday = 14;
-//	tRtcTime.iWday = 1;                       //星期1-7
-	tRtcTime.iPm   = RTC_AM;					// AM or PM
-	tRtcTime.iHour = 9;						//如果是12小时制，回读到的hour范围为1->12；如果是24小时制，回读到的hour范围是0->23
-	tRtcTime.iHour = 9;						//如果是12小时制，回读到的hour范围为1->12；如果是24小时制，回读到的hour范围是0->23
-	tRtcTime.iMin  = 50;
-	tRtcTime.iSec  = 59;	
+	tRtcTime.iYear = 22;                        //22年
+	tRtcTime.iMon  = 2;                         //2月
+	tRtcTime.iMday = 14;                        //14日
+//	tRtcTime.iWday = 1;                         //星期1-7
+	tRtcTime.iPm   = RTC_AM;				    // AM or PM
+	tRtcTime.iHour = 9;						    //如果是12小时制，回读到的hour范围为1->12；如果是24小时制，回读到的hour范围是0->23
+	tRtcTime.iMin  = 50;                        //50分
+	tRtcTime.iSec  = 59;	                    //59秒
 	csi_rtc_set_time(RTC, &tRtcTime);			//设置时间
 	csi_rtc_start(RTC);							//RTC开始计时
 	
 	csi_rtc_change_fmt(RTC, RTC_12FMT);			//修改时间模式为12小时制
-	tRtcTime.iYear = 22;
-	tRtcTime.iMon  = 2;
-	tRtcTime.iMday = 14;
-//	tRtcTime.iWday = 1;                       //星期1-7
+	tRtcTime.iYear = 22;                        //22年
+	tRtcTime.iMon  = 2;                         //2月
+	tRtcTime.iMday = 14;                        //14日
+//	tRtcTime.iWday = 1;                         //星期1-7
 	tRtcTime.iPm   = RTC_AM;					// AM or PM
 	tRtcTime.iHour = 11;
 	tRtcTime.iHour = 9;
 	tRtcTime.iMin  = 59;
 	tRtcTime.iSec  = 56;	
 	csi_rtc_set_time(RTC, &tRtcTime);			//修改时间以后需要重新start rtc
-	csi_rtc_start(RTC);
+	csi_rtc_start(RTC);                         //启动RTC
 	
 	csi_rtc_get_time(RTC,  &tRtcTimeRdbk);		//回读当前时间
 	my_printf("12FMT: %d:%d:%d\n", tRtcTimeRdbk.iHour, tRtcTimeRdbk.iMin, tRtcTimeRdbk.iSec);
@@ -86,7 +85,7 @@ void rtc_set_time_demo(void)
 	
 	while(1)
 	{
-		csi_rtc_get_time(RTC,  &tRtcTimeRdbk);
+		csi_rtc_get_time(RTC,  &tRtcTimeRdbk);  //获取RTC时间
 		
 		if(wSec != tRtcTimeRdbk.iSec ) 
 		{
@@ -203,12 +202,12 @@ void rtc_timer_demo(void)
 	tRtcTime.iYear = 22;
 	tRtcTime.iMon  = 2;
 	tRtcTime.iMday = 14;
-//	tRtcTime.iWday = 1;                       //星期1-7
+//	tRtcTime.iWday = 1;                         //星期1-7
 	tRtcTime.iHour = 1;
 	tRtcTime.iMin  = 0;
 	tRtcTime.iSec  = 0;
 	tRtcTime.iPm   = RTC_AM;	
-	csi_rtc_set_time(RTC, &tRtcTime);				//设置时间
+	csi_rtc_set_time(RTC, &tRtcTime);		    //设置RTC
 	
 	
 	csi_rtc_start_as_timer(RTC, RTC_TIMER_1MIN);	  	//每1分钟进一次中断
@@ -251,7 +250,7 @@ void rtc_timer_demo(void)
 	tRtcTime.iMon  = 2;
 	tRtcTime.iMday = 14;
 //	tRtcTime.iWday = 1;                       //星期1-7
-	tRtcTime.iHour = 9;						//如果是12小时制，回读到的hour范围为1->12；如果是24小时制，回读到的hour范围是0->23
+	tRtcTime.iHour = 9;						  //如果是12小时制，回读到的hour范围为1->12；如果是24小时制，回读到的hour范围是0->23
 	tRtcTime.iMin = 59;
 	tRtcTime.iSec = 55;
 	tRtcTime.iPm  = RTC_AM;	
@@ -261,9 +260,9 @@ void rtc_timer_demo(void)
 	
 	/*** 闹铃A设置 ***/
 	tAlmTime.iWday = EVERYDAY;                 //每天准时闹铃
-	tAlmTime.iHour = 10;			             //闹铃A时设置，如果不考虑小时则填0xFF
+	tAlmTime.iHour = 10;			           //闹铃A时设置，如果不考虑小时则填0xFF
 	tAlmTime.iMin  = 0;                        //闹铃A分设置，如果不考虑分时则填0xFF
-	tAlmTime.iSec  = 5;			             //闹铃A秒设置，如果不考虑秒则填0xFF			
+	tAlmTime.iSec  = 5;			               //闹铃A秒设置，如果不考虑秒则填0xFF			
 	tAlmTime.iPm   = RTC_AM;                   //闹铃A上午、下午位设置，12H制有效，24H该位无效	
 	csi_rtc_set_alarm(RTC, RTC_ALMA,&tAlmTime);	 //设置闹钟A	
 	
@@ -272,9 +271,9 @@ void rtc_timer_demo(void)
 	tBlmTime.iWday =  EVERYDAY;                //每天准时闹铃
 	tBlmTime.iHour = 10;                       //闹铃B时设置，如果不考虑小时则填0xFF
 	tBlmTime.iMin  = 0;                        //闹铃B分设置，如果不考虑分则填0xFF
-	tBlmTime.iSec  = 6;			             //闹铃B秒设置，如果不考虑秒则填0xFF			    
+	tBlmTime.iSec  = 6;			               //闹铃B秒设置，如果不考虑秒则填0xFF			    
 	tBlmTime.iPm   = RTC_AM;                   //闹铃B上午、下午位设置，12H制有效，24H该位无效	
-	csi_rtc_set_alarm(RTC,RTC_ALMB,&tBlmTime);	 //设置闹钟B	
+	csi_rtc_set_alarm(RTC,RTC_ALMB,&tBlmTime); //设置闹钟B	
 	
 	/*** RTC触发输出配置 ***/	
 	csi_rtc_set_evtrg(RTC, RTC_TRGOUT0, RTC_TRGOUT_ALRMA, 0);  //RTC TRGEV0 闹铃A到时产生trigger event
@@ -342,9 +341,9 @@ void rtc_timer_demo(void)
  }
  
  
- /** \brief rtc interrupt handle function
+ /** \brief RTC中断处理函数，用户可以在此中断基础上添加代码也可以自己重新定义一个入口函数。
  * 
- *  \param[in][in] ptAdcBase: pointer of rtc register structure
+ *  \param[in][in] ptAdcBase: RTC基地址
  *  \return none
  */ 
 __attribute__((weak)) void rtc_irqhandler(csp_rtc_t *ptRtcBase)
@@ -352,26 +351,26 @@ __attribute__((weak)) void rtc_irqhandler(csp_rtc_t *ptRtcBase)
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_ALMA))==RTC_INTSRC_ALMA)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_ALMA;
-		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMA);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMA);	 //清ALMA中断
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_ALMB))==RTC_INTSRC_ALMB)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_ALMB;
-		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMB);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_ALMB);	 //清ALMB中断	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_CPRD))==RTC_INTSRC_CPRD)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_CPRD;
-		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_CPRD);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_CPRD);	 //清CPRD中断	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_TRGEV0))==RTC_INTSRC_TRGEV0)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_TRGEV0;
-		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV0);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV0);	 //清TRGEV0中断	
 	}	
 	if(((csp_rtc_get_isr(ptRtcBase) & RTC_INTSRC_TRGEV1))==RTC_INTSRC_TRGEV1)
 	{
 		s_hwRtcMsg |= RTC_INTSRC_TRGEV1;
-		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV1);	
+		csp_rtc_clr_isr(ptRtcBase, (rtc_int_e)RTC_INTSRC_TRGEV1);	 //清TRGEV1中断	
 	}	
 }
