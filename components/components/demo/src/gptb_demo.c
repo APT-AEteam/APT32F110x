@@ -41,14 +41,13 @@ int gptb_timer_demo(void)
 }
 
 /** \brief GPTB捕获示例代码， 测量周期时间
- *   		- 捕获4次产生一次捕获中断，CMPBA捕获后，计数器进行重置
- *     		- 由PA01触发外部事件1，经过ETCB  触发sync2 捕获
- * 			- 信号由PA01的高低电平切换产生（一直高电平意味着没有触发）
+ *   		- 捕获4次产生一次捕获中断，每次捕获后，计数器进行重置
+ *     		- 由PA01触发外部事件1，经过ETCB  触发sync2捕获
+ * 			- 信号由PA01的高低电平切换产生（一直高或低电平意味着没有触发）
  *          - CMPA捕获的是第一次周期值，CMPB捕获的是第二次周期值，CMPAA捕获的是第三次周期值,CMPBA捕获的是第四次周期值
+ * 			- 实测：PA01输入1KHz 50%的方波，每次的捕获值为0xbb80（周期1us）
  *  \param[in] none
  *  \return error code
- * 
- * 
  PA01输入波形——          —————          —————           —————          —————
 				|          |        |          |        |           |         |         |        |
 				|          |        |          |        |           |         |         |        |
@@ -61,36 +60,36 @@ int gptb_capture_sync_demo0(void)
 //------------------------------------------------------------------------------------------------------------------------	
     volatile uint8_t ch;
 
-	csi_pin_set_mux(PA01,PA01_INPUT);		
-	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
-	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
-	csi_pin_irq_enable(PA01, ENABLE);							//使能GPIO中断	
-	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);	
+	csi_pin_set_mux(PA01,PA01_INPUT);							//PA01 输入模式	
+	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 内部上拉使能
+	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断，选择中断组1
+	csi_pin_irq_enable(PA01, ENABLE);							//PA01 中断使能	
+	csi_exi_set_evtrg(EXI_TRGOUT1, TRGSRC_EXI1, 1);				//PA01 下降沿产生事件1
 //------------------------------------------------------------------------------------------------------------------------		
-	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体	
-	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
-	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  	//...作为触发源
-	tEtbConfig.byDstIp   =  ETB_GPTB0_SYNCIN2;  //GPTB0 同步输入2作为目标事件
+	csi_etb_config_t tEtbConfig;								//ETB 参数配置结构体	
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  					//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT1 ;  					//EXI_TRGOUT1事件作为触发源
+	tEtbConfig.byDstIp   =  ETB_GPTB0_SYNCIN2;  				//GPTB0同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
-	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);					//自动获取空闲通道号,ch >= 0 获取成功;ch < 0,则获取通道号失败		
 	iRet = csi_etb_ch_config(ch, &tEtbConfig);	
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_captureconfig_t tCapCfg;								  
-	tCapCfg.byWorkmod        =  GPTB_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
-	tCapCfg.byCountingMode   =  GPTB_UPCNT;                       //CNYMD  //计数方向
-	tCapCfg.byStartSrc       =  GPTB_SYNC;				    	//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tCapCfg.byWorkmod        =  GPTB_CAPTURE;                     //GPTB捕获模式	
+	tCapCfg.byCountingMode   =  GPTB_UPCNT;                       //计数方向递增计数
+	tCapCfg.byStartSrc       =  GPTB_SYNC;				    	  //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tCapCfg.byPscld          =  GPTB_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
 	tCapCfg.byCaptureCapmd    = GPTB_CAPMD_CONT;                  //0:连续捕捉模式    1h：一次性捕捉模式
-	tCapCfg.byCaptureStopWrap = 4-1;                              //Capture模式下，捕获事件计数器周期设置值
-	tCapCfg.byCaptureLdaret   = 0;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
-	tCapCfg.byCaptureLdbret   = 0;    
-	tCapCfg.byCaptureLdaaret  = 0;    
-	tCapCfg.byCaptureLdbaret  = 1;    	
-	tCapCfg.wInt 		      = GPTB_INTSRC_CAPLD3;                   //interrupt
+	tCapCfg.byCaptureStopWrap = 4-1;                              //捕获次数设置：捕获4次
+	tCapCfg.byCaptureLdaret   = 1;                                //CMPA捕获载入后， 1：计数器值进行重置;0h：CMPA捕获载入后，计数器值不进行重置
+	tCapCfg.byCaptureLdbret   = 1;    							  //CMPB捕获载入后， 1：计数器值进行重置;0h：CMPB捕获载入后，计数器值不进行重置
+	tCapCfg.byCaptureLdaaret  = 1;								  //CMPAA捕获载入后，1：计数器值进行重置;0h：CMPAA捕获载入后，计数器值不进行重置    
+	tCapCfg.byCaptureLdbaret  = 1;  							  //CMPBA捕获载入后，1：计数器值进行重置;0h：CMPBA捕获载入后，计数器值不进行重置  	
+	tCapCfg.wInt 		      = GPTB_INTSRC_CAPLD3;               //中断使能，捕获4次对应GPTB_INTSRC_CAPLD3中断
 	csi_gptb_capture_init(GPTB0, &tCapCfg);	
 //------------------------------------------------------------------------------------------------------------------------
-	csi_gptb_set_sync (GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU,GPTB_AUTO_REARM_ZRO);
+	csi_gptb_set_sync (GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU,GPTB_AUTO_REARM_ZRO);//使能GPTB0同步输入2触发信号
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_start(GPTB0);//start  timer
 	
@@ -104,12 +103,11 @@ int gptb_capture_sync_demo0(void)
 	return iRet;
 }
 
-/** \brief GPTB捕获示例代码，测试低电平时间
- *   		- 捕获1次产生一次捕获中断，CMPA捕获后，计数器进行重置
- *     		- 由PA01下降沿产生外部事件0，经过ETCB  触发sync0，重置和启动计数器
- *          - 由PA01外部扩展口，上升沿产生外部事件5，经过ETCB  触发sync2 捕获，上升沿捕获值存放在CMPA中
+/** \brief GPTB捕获示例代码，测试低电平时间，捕获1次产生一次捕获中断，捕获值存放在CMPA中
+ *     		- 由PA01普通口的下降沿产生外部事件0，经过ETCB  触发sync0，重置和启动计数器
+ *          - 由PA01扩展口的上升沿产生外部事件5，经过ETCB  触发sync2，产生一次捕获，捕获值存放在CMPA中，此时对应的是下降沿时间
  * 			- 信号由PA01的高低电平切换产生（一直高或低电平意味着没有触发）
- *          - CMPA捕获的是下降沿时间
+ *          - 实测：PA01输入1KHz 50%的方波，每次的捕获值为0x5dbd（低电平0.5us）
  *  \param[in] none
  *  \return error code
  PA01输入波形——          —————          —————           ———
@@ -117,15 +115,14 @@ int gptb_capture_sync_demo0(void)
 	            |          |        |          |        |           |        
                 ——————        ——————         ——————          
                 RESET      CMPA     RESET     CMPA      RESET       CMPA               
-
 */
 int gptb_capture_sync_demo1(void)
 {
 	int iRet = 0;	
     volatile uint8_t ch;
 
-	csi_pin_set_mux(PA01,PA01_INPUT);		
-	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
+	csi_pin_set_mux(PA01,PA01_INPUT);							//PA01 输入模式
+	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 内部上拉使能
 	
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断，选择中断组1
 	csi_exi_set_evtrg(EXI_TRGOUT0, TRGSRC_EXI1, 1);				//PA01 下降沿产生事件0
@@ -136,40 +133,39 @@ int gptb_capture_sync_demo1(void)
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_etb_config_t tEtbConfig;	
 	//ETB 参数配置结构体	
-	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
-	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT0 ;  	//...作为触发源
-	tEtbConfig.byDstIp   = ETB_GPTB0_SYNCIN0;  //GPTB0 同步输入0作为目标事件
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  					//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT0 ;  					//PA01事件0作为触发源
+	tEtbConfig.byDstIp   = ETB_GPTB0_SYNCIN0;   				//GPTB0同步输入0作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
-	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);					//自动获取空闲通道号,ch >= 0 获取成功;ch < 0,则获取通道号失败		
 	iRet = csi_etb_ch_config(ch, &tEtbConfig);			
 //------------------------------------------------------------------------------------------------------------------------		
-	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  	//单个源触发单个目标
-	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT5 ;  	//...作为触发源
-	tEtbConfig.byDstIp   = ETB_GPTB0_SYNCIN2;  //GPTB0 同步输入2作为目标事件
+	tEtbConfig.byChType  = ETB_ONE_TRG_ONE;  					//单个源触发单个目标
+	tEtbConfig.bySrcIp   = ETB_EXI_TRGOUT5 ;  					//PA01事件5作为触发源
+	tEtbConfig.byDstIp   = ETB_GPTB0_SYNCIN2;   				//GPTB0同步输入2作为目标事件
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;
 	csi_etb_init();
-	ch = csi_etb_ch_alloc(tEtbConfig.byChType);	//自动获取空闲通道号,ch >= 0 获取成功						//ch < 0,则获取通道号失败		
+	ch = csi_etb_ch_alloc(tEtbConfig.byChType);					//自动获取空闲通道号,ch >= 0 获取成功;ch < 0,则获取通道号失败		
 	iRet = csi_etb_ch_config(ch, &tEtbConfig);	
 //------------------------------------------------------------------------------------------------------------------------	
-	csi_gptb_captureconfig_t tPwmCfg;								  
-	tPwmCfg.byWorkmod         = GPTB_CAPTURE;                     //WAVE or CAPTURE    //计数或捕获	
-	tPwmCfg.byCountingMode    = GPTB_UPCNT;                       //CNYMD  //计数方向
-	tPwmCfg.byOneshotMode     = GPTB_OP_CONT; 
-	tPwmCfg.byStartSrc        = GPTB_SYNC;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
-	tPwmCfg.byPscld           = GPTB_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
-	tPwmCfg.byCaptureCapmd    = 0;                               //0:连续捕捉模式    1h：一次性捕捉模式
-	tPwmCfg.byCaptureStopWrap = 1-1;                              //Capture模式下，捕获事件计数器周期设置值
-	tPwmCfg.byCaptureLdaret   = 1;                                //CMPA捕捉载入后，计数器值计数状态控制位(1h：CMPA触发后，计数器值进行重置;0h：CMPA触发后，计数器值不进行重置)
-	tPwmCfg.byCaptureLdbret   = 0; 
-	tPwmCfg.byCaptureLdaaret  = 0;  
-	tPwmCfg.byCaptureLdbaret  = 0;  
-	tPwmCfg.wInt 		      = GPTB_INTSRC_CAPLD0;                   //interrupt//
-
-	csi_gptb_capture_init(GPTB0, &tPwmCfg);
+	csi_gptb_captureconfig_t tCapCfg;								  
+	tCapCfg.byWorkmod         = GPTB_CAPTURE;                     //捕获模式
+	tCapCfg.byCountingMode    = GPTB_UPCNT;                       //计数方向递增计数
+	tCapCfg.byStartSrc        = GPTB_SYNC;				    	  //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tCapCfg.byPscld           = GPTB_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
+	tCapCfg.byCaptureCapmd    = 0;                                //0:连续捕捉模式    1h：一次性捕捉模式
+	tCapCfg.byCaptureStopWrap = 1-1;                              //捕获次数设置：捕获1次
+	tCapCfg.byCaptureLdaret   = 0;                                //CMPA捕获载入后， 1：计数器值进行重置;0h：CMPA捕获载入后，计数器值不进行重置
+	tCapCfg.byCaptureLdbret   = 0;    							  //CMPB捕获载入后， 1：计数器值进行重置;0h：CMPB捕获载入后，计数器值不进行重置
+	tCapCfg.byCaptureLdaaret  = 0;								  //CMPAA捕获载入后，1：计数器值进行重置;0h：CMPAA捕获载入后，计数器值不进行重置    
+	tCapCfg.byCaptureLdbaret  = 0;  							  //CMPBA捕获载入后，1：计数器值进行重置;0h：CMPBA捕获载入后，计数器值不进行重置  
+	tCapCfg.wInt 		      = GPTB_INTSRC_CAPLD0;               //中断使能，捕获1次对应GPTB_INTSRC_CAPLD0中断
+	csi_gptb_capture_init(GPTB0, &tCapCfg);
 //------------------------------------------------------------------------------------------------------------------------
-	csi_gptb_set_sync(GPTB0, GPTB_TRG_SYNCEN0, GPTB_TRG_CONTINU, GPTB_AUTO_REARM_ZRO);//使能SYNCIN0外部触发
-    csi_gptb_set_sync(GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU, GPTB_AUTO_REARM_ZRO);//使能SYNCIN2外部触发
+	csi_gptb_set_sync(GPTB0, GPTB_TRG_SYNCEN0, GPTB_TRG_CONTINU, GPTB_AUTO_REARM_ZRO);//使能GPTB0同步输入0触发信号
+    csi_gptb_set_sync(GPTB0, GPTB_TRG_SYNCEN2, GPTB_TRG_CONTINU, GPTB_AUTO_REARM_ZRO);//使能GPTB0同步输入2触发信号
+//------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_start(GPTB0);//start  timer
     while(1){
 		mdelay(200);                        
@@ -178,12 +174,12 @@ int gptb_capture_sync_demo1(void)
 	return iRet;
 };
 
-
-/** \brief GPTB波形输出示例代码
- *   		-10kHZ，占空比50%   输出波形
- *     		-可通过以下两种方式灵活调整PWM参数
- * 			--csi_gptb_change_ch_duty：修改PWM占空比
- *			--csi_gptb_prdr_cmp_update：修改PWM周期寄存器和比较寄存器的值			-
+/** \brief GPTB波形输出示例代码：波形参数10kHZ，占空比50%
+ *     		- 通过tPwmCfg.wFreq和tPwmCfg.byDutyCycle，设置PWM波形参数：频率和占空比
+ * 			- 通过tPwmChannel设置各个事件下的波形电平
+ * 			- 通过以下两种方式灵活调整PWM参数
+ * 			-- csi_gptb_change_ch_duty：直接修改PWM占空比
+ *			-- csi_gptb_prdr_cmp_update：修改PWM周期寄存器和比较寄存器的值
  *  \param[in] none
  *  \return error code
  */
@@ -198,52 +194,46 @@ int gptb_pwm_demo(void)
 #endif
 //------------------------------------------------------------------------------------------------------------------------	
     csi_gptb_pwmconfig_t tPwmCfg;								  
-	tPwmCfg.byWorkmod        = GPTB_WAVE;                       //WAVE  波形模式
-	tPwmCfg.byCountingMode   = GPTB_UPDNCNT;                    //CNYMD  //计数方向
-	tPwmCfg.byOneshotMode    = GPTB_OP_CONT;                    //OPM    //单次或连续(工作方式)
+	tPwmCfg.byWorkmod        = GPTB_WAVE;                       //波形输出模式
+	tPwmCfg.byCountingMode   = GPTB_UPDNCNT;                    //数方向递增递减计数
+	tPwmCfg.byOneshotMode    = GPTB_OP_CONT;                    //连续计数工作模式
 	tPwmCfg.byStartSrc       = GPTB_SYNC_START;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
 	tPwmCfg.byPscld          = GPTB_LDPSCR_ZRO;                 //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
-	tPwmCfg.byDutyCycle 	 = 50;								//pwm ouput duty cycle//PWM初始值			
-	tPwmCfg.wFreq 			 = 10000;							//pwm ouput frequency	
-	tPwmCfg.wInt 			 = GPTB_INTSRC_NONE;                //interrupt
+	tPwmCfg.byDutyCycle 	 = 50;								//PWM波形参数：占空比			
+	tPwmCfg.wFreq 			 = 10000;							//PWM波形参数：频率(PWM最小频率与GPTB时钟有关，例如GPTB时钟为48MHz时，最小频率为732Hz)	
+	tPwmCfg.wInt 			 = GPTB_INTSRC_NONE;                //不使能中断
 	csi_gptb_wave_init(GPTB0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------		
-	csi_gptb_pwmchannel_config_t  channel;
-	channel.byActionZro    =   GPTB_LO;
-	channel.byActionPrd    =   GPTB_NA;
-	channel.byActionC1u    =   GPTB_HI;
-	channel.byActionC1d    =   GPTB_LO;
-	channel.byActionC2u    =   GPTB_HI;
-	channel.byActionC2d    =   GPTB_LO;
-	channel.byActionT1u    =   GPTB_LO;
-	channel.byActionT1d    =   GPTB_LO;
-	channel.byActionT2u    =   GPTB_NA;
-	channel.byActionT2d    =   GPTB_NA;
-	channel.byChoiceC1sel  =   GPTB_CMPA;
-	channel.byChoiceC2sel  =   GPTB_CMPA;
-	csi_gptb_channel_config(GPTB0, &channel,  GPTB_CHANNEL_1);//channel
-	channel.byChoiceC1sel  =   GPTB_CMPB;
-	channel.byChoiceC2sel  =   GPTB_CMPB;
-	csi_gptb_channel_config(GPTB0, &channel,  GPTB_CHANNEL_2);
+	csi_gptb_pwmchannel_config_t  tPwmChannel;
+	tPwmChannel.byActionZro    =   GPTB_LO;					
+	tPwmChannel.byActionPrd    =   GPTB_NA;
+	tPwmChannel.byActionC1u    =   GPTB_HI;
+	tPwmChannel.byActionC1d    =   GPTB_LO;
+	tPwmChannel.byActionC2u    =   GPTB_HI;
+	tPwmChannel.byActionC2d    =   GPTB_LO;
+	tPwmChannel.byActionT1u    =   GPTB_LO;
+	tPwmChannel.byActionT1d    =   GPTB_LO;
+	tPwmChannel.byActionT2u    =   GPTB_NA;
+	tPwmChannel.byActionT2d    =   GPTB_NA;
+	tPwmChannel.byChoiceC1sel  =   GPTB_CMPA;
+	tPwmChannel.byChoiceC2sel  =   GPTB_CMPA;
+	csi_gptb_channel_config(GPTB0, &tPwmChannel,  GPTB_CHANNEL_1);
+	tPwmChannel.byChoiceC1sel  =   GPTB_CMPB;
+	tPwmChannel.byChoiceC2sel  =   GPTB_CMPB;
+	csi_gptb_channel_config(GPTB0, &tPwmChannel,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
-	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT0, GPTB_TRGSRC_ZRO);      //TRGSEL0
-	csi_gptb_set_evtrg(GPTB0, GPTB_TRGOUT1, GPTB_TRGSRC_PRD);      //TRGSEL1
-	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV0);
-	csi_gptb_int_enable(GPTB0, GPTB_INTSRC_TRGEV1);
-	csi_irq_enable(GPTB0);
-	
 	csi_gptb_start(GPTB0);//start  timer
 //------------------------------------------------------------------------------------------------------------------------	
 	while(1)
 	{	
-		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPA,50);
-		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPB,50);
+		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPA,50);			//修改PWM1占空比为50%
+		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPB,50);			//修改PWM2占空比为50%
 		csi_gptb_prdr_cmp_update(GPTB0,GPTB_COMPA,2400,600); 	//修改PWM1周期为2400，比较值为600
 		csi_gptb_prdr_cmp_update(GPTB0,GPTB_COMPB,2400,600); 	//修改PWM2周期为2400，比较值为600 
 		mdelay(100); 
 
-		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPA, 20);
-		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPB, 20);
+		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPA, 20);			//修改PWM1占空比为20%
+		csi_gptb_change_ch_duty(GPTB0,GPTB_COMPB, 20);			//修改PWM占空比为20%
 		csi_gptb_prdr_cmp_update(GPTB0,GPTB_COMPA,2400,1800); 	//修改PWM1周期为2400，比较值为1800
 		csi_gptb_prdr_cmp_update(GPTB0,GPTB_COMPB,2400,1800); 	//修改PWM2周期为2400，比较值为1800 
 		mdelay(100);	
@@ -269,14 +259,14 @@ int gptb_pwm_dz_demo(void)
 #endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_pwmconfig_t tPwmCfg;								  
-	tPwmCfg.byWorkmod       = GPTB_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
-	tPwmCfg.byCountingMode  = GPTB_UPDNCNT;                     //CNYMD  //计数方向
-	tPwmCfg.byOneshotMode   = GPTB_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc      = GPTB_SYNC_START;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
-	tPwmCfg.byPscld         = GPTB_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
-	tPwmCfg.byDutyCycle 	= 50;							    //pwm ouput duty cycle//PWM初始值			
-	tPwmCfg.wFreq 			= 10000;						    //pwm ouput frequency			
-	tPwmCfg.wInt 		    = GPTB_INTSRC_NONE;                  //interrupt
+		tPwmCfg.byWorkmod        = GPTB_WAVE;                       //波形输出模式
+	tPwmCfg.byCountingMode   = GPTB_UPDNCNT;                    //数方向递增递减计数
+	tPwmCfg.byOneshotMode    = GPTB_OP_CONT;                    //连续计数工作模式
+	tPwmCfg.byStartSrc       = GPTB_SYNC_START;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld          = GPTB_LDPSCR_ZRO;                 //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
+	tPwmCfg.byDutyCycle 	 = 50;								//PWM波形参数：占空比			
+	tPwmCfg.wFreq 			 = 10000;							//PWM波形参数：频率(PWM最小频率与GPTB时钟有关，例如GPTB时钟为48MHz时，最小频率为732Hz)	
+	tPwmCfg.wInt 			 = GPTB_INTSRC_NONE;                //不使能中断
 	csi_gptb_wave_init(GPTB0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_pwmchannel_config_t  tGptbchannelCfg;
@@ -298,7 +288,7 @@ int gptb_pwm_dz_demo(void)
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_deadzone_config_t  tGptbDeadZoneCfg;
-	tGptbDeadZoneCfg.byDcksel               = GPTB_DB_DPSC;    //
+	tGptbDeadZoneCfg.byDcksel               = GPTB_DB_DPSC;    
 	tGptbDeadZoneCfg.hwDpsc                 = 0;              //FDBCLK = FHCLK / (DPSC+1)
 	tGptbDeadZoneCfg.hwRisingEdgeTime       = 500;             //上升沿-ns
 	tGptbDeadZoneCfg.hwFallingEdgeTime      = 200;             //下降沿-ns
@@ -345,14 +335,14 @@ int gptb_pwm_dz_em_demo(void)
 #endif
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_pwmconfig_t tPwmCfg;								  
-	tPwmCfg.byWorkmod       = GPTB_WAVE;                        //WAVE or CAPTURE    //计数或捕获	
-	tPwmCfg.byCountingMode  = GPTB_UPDNCNT;                     //CNYMD  //计数方向
-	tPwmCfg.byOneshotMode   = GPTB_OP_CONT;                     //OPM    //单次或连续(工作方式)
-	tPwmCfg.byStartSrc      = GPTB_SYNC_START;				    //软件使能同步触发使能控制（RSSR中START控制位）//启动方式
-	tPwmCfg.byPscld         = GPTB_LDPSCR_ZRO;                  //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值	
-	tPwmCfg.byDutyCycle 	= 50;							    //pwm ouput duty cycle//PWM初始值(0~100)		
-	tPwmCfg.wFreq 			= 10000;						    //pwm ouput frequency			
-	tPwmCfg.wInt 			= GPTB_INTSRC_PEND;                                //interrupt
+	tPwmCfg.byWorkmod        = GPTB_WAVE;                       //波形输出模式
+	tPwmCfg.byCountingMode   = GPTB_UPDNCNT;                    //数方向递增递减计数
+	tPwmCfg.byOneshotMode    = GPTB_OP_CONT;                    //连续计数工作模式
+	tPwmCfg.byStartSrc       = GPTB_SYNC_START;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
+	tPwmCfg.byPscld          = GPTB_LDPSCR_ZRO;                 //PSCR(分频)活动寄存器载入控制。活动寄存器在配置条件满足时，从影子寄存器载入更新值		
+	tPwmCfg.byDutyCycle 	 = 50;								//PWM波形参数：占空比			
+	tPwmCfg.wFreq 			 = 10000;							//PWM波形参数：频率(PWM最小频率与GPTB时钟有关，例如GPTB时钟为48MHz时，最小频率为732Hz)	
+	tPwmCfg.wInt 			 = GPTB_INTSRC_PEND;                //使能pend中断			
 	csi_gptb_wave_init(GPTB0, &tPwmCfg);
 //------------------------------------------------------------------------------------------------------------------------
 	csi_gptb_pwmchannel_config_t  tGptbchannelCfg;
@@ -374,20 +364,20 @@ int gptb_pwm_dz_em_demo(void)
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_deadzone_config_t  tGptbDeadZoneCfg;
-	tGptbDeadZoneCfg.byDcksel               = GPTB_DB_DPSC;     //
-	tGptbDeadZoneCfg.hwDpsc                 = 0;              //FDBCLK = FHCLK / (DPSC+1)
-	tGptbDeadZoneCfg.hwRisingEdgeTime   = 500;             //上升沿-ns
-	tGptbDeadZoneCfg.hwFallingEdgeTime  = 200;             //下降沿-ns
-	tGptbDeadZoneCfg.byChaDedb              = GPTB_DB_AR_BF;        //不使用死区双沿
+	tGptbDeadZoneCfg.byDcksel           = GPTB_DB_DPSC;     
+	tGptbDeadZoneCfg.hwDpsc             = 0;                  //FDBCLK = FHCLK / (DPSC+1)
+	tGptbDeadZoneCfg.hwRisingEdgeTime   = 500;                //上升沿-ns
+	tGptbDeadZoneCfg.hwFallingEdgeTime  = 200;                //下降沿-ns
+	tGptbDeadZoneCfg.byChaDedb              = GPTB_DB_AR_BF;  //不使用死区双沿
 	csi_gptb_dz_config(GPTB0,&tGptbDeadZoneCfg);
 	
-	tGptbDeadZoneCfg.byChxOuselS1S0      = GPTB_DBOUT_AR_BF;      //使能通道A的上升沿延时，使能通道B的下降沿延时
-	tGptbDeadZoneCfg.byChxPolarityS3S2   = GPTB_DB_POL_B;         //通道A和通道B延时输出电平是否反向
-	tGptbDeadZoneCfg.byChxInselS5S4      = GPTB_DBCHAIN_AR_AF;    //PWMA作为上升沿和下降沿延时处理的输入信号
+	tGptbDeadZoneCfg.byChxOuselS1S0      = GPTB_DBOUT_AR_BF;  //使能通道A的上升沿延时，使能通道B的下降沿延时
+	tGptbDeadZoneCfg.byChxPolarityS3S2   = GPTB_DB_POL_B;     //通道A和通道B延时输出电平是否反向
+	tGptbDeadZoneCfg.byChxInselS5S4      = GPTB_DBCHAIN_AR_AF;//PWMA作为上升沿和下降沿延时处理的输入信号
 	tGptbDeadZoneCfg.byChxOutSwapS8S7    = GPTB_DBCHAOUT_OUTA_A_OUTB_B;   //OUTA=通道A输出，OUTB=通道B输出  CHOUTX_OUA_OUB
     csi_gptb_channelmode_config(GPTB0,&tGptbDeadZoneCfg,GPTB_CHANNEL_1);
 //------------------------------------------------------------------------------------------------------------------------	
-    csi_gptb_emergency_config_t   tGptbEmCfg;             //紧急状态输入
+    csi_gptb_emergency_config_t   tGptbEmCfg;                //紧急状态输入
     tGptbEmCfg.byEpxInt    = GPTB_EBI0 ;                     //EPx选择外部IO端口（EBI0~EBI4）
     tGptbEmCfg.byPolEbix   = GPTB_EBI_POL_L;                 //EBIx的输入有效极性选择控制
 	tGptbEmCfg.byEpx       = GPTB_EP3;                       //使能EPx
