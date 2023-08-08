@@ -23,7 +23,7 @@ volatile uint8_t g_bySendBuffer[32]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1
 volatile uint8_t g_byWriteBuffer[32];
 
 /** \brief IIC master eeprom demo
- * IIC主机向eeprom中写数据，并且读取eeprom中的数据
+ * IIC主机向从机的eeprom中写数据，并且读取从机eeprom中的数据
  *  \param[in] none
  *  \return error code
  */
@@ -33,12 +33,12 @@ void iic_master_eeprom_demo(void)
 	volatile uint8_t data1[9] = {0};
 	
 #if !defined (USEGUI)
-	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);
-	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);
-	csi_pin_pull_mode(PA07, GPIO_PULLUP);
-	csi_pin_pull_mode(PA08, GPIO_PULLUP);
-	csi_pin_set_mux(PA07,PA07_I2C0_SCL);//PIN2 ->	I2C_SCL
-	csi_pin_set_mux(PA08,PA08_I2C0_SDA);//PIN3 -> 	I2C_SDA
+	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
+	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
+	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉
+	csi_pin_pull_mode(PA08, GPIO_PULLUP);   //PA08 上拉
+	csi_pin_set_mux(PA07,PA07_I2C0_SCL);  //PA07 配置为I2C_SCL
+	csi_pin_set_mux(PA08,PA08_I2C0_SDA);  //PA08 配置为I2C_SDA
 #endif	
 
 	g_tIicMasterCfg.byAddrMode = IIC_ADDRESS_7BIT;			//设置主机地址模式 7/10 bit
@@ -71,12 +71,12 @@ void iic_master_demo(void)
 	
 	volatile uint8_t data1[19] = {4,4,4,4,4,4,4,4,4};
 #if !defined (USEGUI)	
-	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);
-	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);
-	csi_pin_pull_mode(PA07, GPIO_PULLUP);
-	csi_pin_pull_mode(PA08, GPIO_PULLUP);
-	csi_pin_set_mux(PA07,PA07_I2C0_SCL);//PIN2 ->	I2C_SCL
-	csi_pin_set_mux(PA08,PA08_I2C0_SDA);//PIN3 -> 	I2C_SDA
+	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
+	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
+	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉
+	csi_pin_pull_mode(PA08, GPIO_PULLUP);   //PA08 上拉
+	csi_pin_set_mux(PA07,PA07_I2C0_SCL);  //PA07 配置为I2C_SCL
+	csi_pin_set_mux(PA08,PA08_I2C0_SDA);  //PA08 配置为I2C_SDA
 #endif	
 	g_tIicMasterCfg.byAddrMode = IIC_ADDRESS_7BIT;			//设置主机地址模式 7/10 bit
 	g_tIicMasterCfg.byReStart = ENABLE;						//使能重复起始位
@@ -100,7 +100,8 @@ void iic_master_demo(void)
 	}
 }
 /**************************************************
-*	作为从机时需要在IIC中断里调用 i2c_irqhandler(I2C0) 函数；
+*	IIC slave demo
+* 	作为从机时需要在IIC中断里调用 i2c_irqhandler(I2C0) 函数；
 * 	如下：
 *	void i2c_int_handler(void) 
 *	{
@@ -111,12 +112,12 @@ void iic_master_demo(void)
 void iic_slave_demo(void)
 {
 #if !defined (USEGUI)
-	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);
-	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);
-	csi_pin_pull_mode(PA07, GPIO_PULLUP);
-	csi_pin_pull_mode(PA08, GPIO_PULLUP);
-	csi_pin_set_mux(PA07,PA07_I2C0_SCL);//PIN2 ->	I2C_SCL
-	csi_pin_set_mux(PA08,PA08_I2C0_SDA);//PIN3 -> 	I2C_SDA
+	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
+	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
+	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉
+	csi_pin_pull_mode(PA08, GPIO_PULLUP);   //PA08 上拉
+	csi_pin_set_mux(PA07,PA07_I2C0_SCL);  //PA07 配置为I2C_SCL
+	csi_pin_set_mux(PA08,PA08_I2C0_SDA);  //PA08 配置为I2C_SDA
 #endif	
 	g_tIicSlaveCfg.byAddrMode = IIC_ADDRESS_7BIT;		//设置从机地址模式 
 	g_tIicSlaveCfg.bySpeedMode = IIC_BUS_SPEED_FAST;	//设置从机速度	IIC_BUS_SPEED_STANDARD <=100kHz   IIC_BUS_SPEED_FAST <=400kHz    IIC_BUS_SPEED_FAST_PLUS <=  1MHz
