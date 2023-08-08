@@ -22,10 +22,10 @@
 /* Private variablesr------------------------------------------------------*/
 
 static uint8_t s_byRecvBuf[64];					//接收缓存
-static uint8_t s_byRecvLen = 0;	
+static uint8_t s_byRecvLen = 0;	                //接收数据长度
 
 /** \brief usart dma send data
- *  \brief USART通过DMA发送数据，确保ETCB模块初始化(使能)，etcb初始化函数：csi_etb_init()
+ *  \brief USART通过DMA发送数据例程
  * 
  *  \param[in] none
  *  \return error code
@@ -89,7 +89,7 @@ int usart_send_dma_demo(void)
 }
 
 /** \brief usart dma receive data and dma send
- *  \brief USART通过DMA接收数据，确保ETCB模块初始化(使能)，etcb初始化函数：csi_etb_init()
+ *  \brief USART通过DMA接收数据例程
  * 
  *  \param[in] none
  *  \return error code
@@ -186,7 +186,7 @@ int usart_recv_dma_demo(void)
 }
 
 /** \brief usart char receive and send 
- *  \brief USART接收/发送一个字符，轮询方式
+ *  \brief USART轮询接收/发送一个字符例程
  * 
  *  \param[in] none
  *  \return error code
@@ -232,7 +232,7 @@ int usart_char_demo(void)
 }
 
 /** \brief usart send a bunch of data; polling(sync,no interrupt)mode
- *  \brief USART发送一串数据，TX使用轮询
+ *  \brief USART轮询发送一串数据例程，TX使用轮询
  * 
  *  \param[in] none
  *  \return error code
@@ -280,7 +280,7 @@ int usart_send_demo(void)
 }
 
 /** \brief usart send a bunch of data; interrupt(nsync) mode
- *  \brief USART发送一串数据，TX使用中断
+ *  \brief USART中断发送一串数据例程，TX使用中断
  * 
  *  \param[in] none
  *  \return error code
@@ -321,7 +321,7 @@ int usart_send_int_demo(void)
 		byRecv = csi_usart_getc(USART0);
 		if(byRecv == 0x06)
 		{
-			csi_usart_send(USART0,(void *)bySdData,18);		//采用中断方式。调用改函数时，UART发送中断使能
+			csi_usart_send(USART0,(void *)bySdData,18);		//采用中断方式。调用该函数时，UART发送中断使能
 			while(1)			
 			{
 				//如果有需要，可用于判断发送是否完成；
@@ -341,7 +341,7 @@ int usart_send_int_demo(void)
 }
 
 /** \brief usart receive a bunch of data; polling(sync) mode
- *  \brief USART接收指定长度数据，RX使用轮询(不使用中断)，带超时处理(单位：ms)
+ *  \brief USART接收指定长度数据例程，RX使用轮询(不使用中断)，带超时处理(单位：ms)
  * 
  *  \param[in] none
  *  \return error code
@@ -385,7 +385,7 @@ int usart_recv_demo(void)
 	return iRet;
 }
 
-/** \brief USART接收中断，RX使用接收中断，TX不使用中断
+/** \brief USART中断接收例程，RX使用接收中断，TX不使用中断
  * 
  *  \param[in] none
  *  \return error code
@@ -420,7 +420,7 @@ int usart_recv_rx_int_demo(void)
 	return iRet;
 }
 
-/** \brief USART接收FIFO中断，RX使用FIFO中断，TX不使用中断
+/** \brief USARTFIFO中断接收例程，RX使用FIFO中断，TX不使用中断
  * 
  *  \param[in] none
  *  \return error code
@@ -456,8 +456,8 @@ int usart_recv_rxfifo_int_demo(void)
 	return iRet;
 }
 
-/** \brief USART中断函数，接收数据使用中断方式(FIFO/RX两种中断)，在此中断函数中接收数据
- * 
+/** \brief USART中断处理函数，接收数据使用中断方式(FIFO/RX两种中断)，在此中断函数中接收数据
+ * 			使用fifo中断发送数据
  *  \param[in] ptUsartBase: pointer of usart register structure
  *  \param[in] byIdx: usart id number(0)
  */
