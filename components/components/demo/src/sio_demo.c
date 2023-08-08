@@ -261,7 +261,9 @@ int sio_led_rgb_recv_rxdone_demo(void)
 
 
 /** \brief SIO 实现TI HDQ单线通讯协议，主机发送数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位,
- *         一次传输两个字节；具体HDQ协议可百度查询
+ *         一次传输两个数据，具体HDQ协议可百度查询；HDQ的第一个数据包含Break、addr+rw、Trsps，即第一个数据
+ *         的bit数 = Break+(addr+rw)+Trsps = 2 + 8 + 1 = 11bit; 第二个数据为1个byte，即8bit；总的一次要传
+ *         输的bit数 = 19bit
  * 
  *  \param[in] none
  *  \return error code
@@ -288,8 +290,8 @@ int sio_hdq_send_demo(void)
 												//					          |___|  |					
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
-	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 19;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 2+8+1=11)，txbuf 一次发送bit数量，len <= 16
+	tHdqTxCfg.byTxCnt 		= 19;				//SIO一次发送总的数据长度(bit个数 = 11+ 8 = 19)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
 	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit(1/0)时间是40*5=200us
@@ -315,7 +317,7 @@ int sio_hdq_send_demo(void)
 }
 
 /** \brief SIO 实现TI HDQ单线通讯协议，从机接收主机写命令数据（命令+数据）；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；
- *         一次接收两个字节（命令+数据）
+ *         一次接收两个字节数据（命令+数据），接收第一个数据时，通过接收break把第一个数据中的break滤掉。
  * 
  *  \param[in] none
  *  \return error code
@@ -363,7 +365,7 @@ int sio_hdq_recv_wrcmd_demo(void)
 }
 
 /** \brief SIO 实现TI HDQ单线通讯协议，主机读取数据(发送命令+收数据)；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；
- *         两个字节，命令一个字节，数据一个字节
+ *         两个数据（命令+数据），发送命令，接收1个byte数据
  * 
  *  \param[in] none
  *  \return error code
@@ -412,12 +414,12 @@ int sio_hdq_send_recv_demo(void)
 												//					          |___|  |					
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
-	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 11;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 2+8+1 = 11)，txbuf 一次发送bit数量，len <= 16
+	tHdqTxCfg.byTxCnt 		= 11;				//SIO一次发送总的数据长度(bit个数 = 11)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
 	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit时间是40us
-	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;	//不使用中断。目前只支持非中断模式
+	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;		//不使用中断。目前只支持非中断模式
 	
 	csi_sio_tx_init(SIO0, &tHdqTxCfg);
 	
@@ -490,7 +492,7 @@ int sio_hdq_recv_rdcmd_demo(void)
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
 	tHdqTxCfg.byTxBufLen 	= 8;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 8;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxCnt 		= 8;				//SIO一次发送总的数据长度(bit个数 = 8)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
 	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit时间是40us
@@ -509,10 +511,10 @@ int sio_hdq_recv_rdcmd_demo(void)
 	tHdqRxCfg.bySpExtra		= SIO_EXTRACT_HI;		//采样提取策略，(20H)HITHR; (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tHdqRxCfg.byHithr		= 13;					//提取判定值, (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tHdqRxCfg.byRxBufLen	= 8;					//发送数据缓存长度(bit个数 = 8)，rxbuf 一次接收bit数量，len <= 32				
-	tHdqRxCfg.byRxCnt		= 8;					//SIO一次接收总的数据长度(bit个数 = 16)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
+	tHdqRxCfg.byRxCnt		= 8;					//SIO一次接收总的数据长度(bit个数 = 8)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
 	tHdqRxCfg.wRxFreq		= 100000;				//rx clk =100kHz, Trxsamp = 1/100kHz = 10us；每10us采样一次
 	tHdqRxCfg.bySpBitLen	= 19;					//bit采样的长度，每个bit采样次数为19，总得采样时间 = 19*Trxsamp = 190us
-	tHdqRxCfg.byInt		= SIO_INTSRC_RXDNE | SIO_INTSRC_BREAK;	//接收RXDNE和BREAK中断，byRxCnt <= 32bit；接收byRxCnt(16)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(16)bit
+	tHdqRxCfg.byInt		= SIO_INTSRC_RXDNE | SIO_INTSRC_BREAK;	//接收RXDNE和BREAK中断，byRxCnt <= 32bit；接收byRxCnt(8)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(8)bit
 	
 	csi_sio_rx_init(SIO0, &tHdqRxCfg);					//初始化SIO接收参数
 	csi_sio_break_rst(SIO0, SIO_BKLEV_LOW, 19, ENABLE);	//接收检测break, HDQ协议起始需要break总线
