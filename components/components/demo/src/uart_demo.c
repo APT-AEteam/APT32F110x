@@ -227,12 +227,10 @@ int uart_send_demo(void)
 	while(1)
 	{
 		byRecv = csi_uart_getc(UART1);
-		if(byRecv == 0x06)
+		if(byRecv)
 			byRecv = csi_uart_send(UART1,(void *)bySendData,18);		//采用轮询方式,调用该函数时，UART发送中断关闭
 		
 		mdelay(5);
-//		if(byRecv == 16)
-//			csi_uart_putc(UART1, 0x03);
 	}
 	
 	return iRet;
@@ -285,9 +283,6 @@ int uart_send_int_demo(void)
 				break;
 			}
 		}
-		
-		//TODO
-		//mdelay(10);
 	}
 	
 	return iRet;
