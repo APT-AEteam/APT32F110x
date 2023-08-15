@@ -38,7 +38,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN0</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH24</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -114,7 +114,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN1</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH25</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -190,7 +190,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN18</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH26</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -267,7 +267,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN2</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH27</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -344,7 +344,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN3</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH28</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -419,7 +419,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CLO</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TS_CAP</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -496,7 +496,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S0</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN6</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -573,7 +573,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S1</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN7</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -651,7 +651,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S2</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN8</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -729,7 +729,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S3</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN9</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -807,7 +807,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S4</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN10</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -884,7 +884,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S5</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN11</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -962,7 +962,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S6</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN12</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1039,7 +1039,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S7</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN13</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1114,7 +1114,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S0</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH0</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1188,7 +1188,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S1</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH1</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1266,7 +1266,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH29</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ELVI</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1343,7 +1343,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN5</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH30</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1420,7 +1420,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN6</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH31</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1495,7 +1495,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S2</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN14</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1571,7 +1571,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S4</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN16</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1647,7 +1647,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM1</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH9</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1723,7 +1723,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM3</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH11</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1799,7 +1799,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM4</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH12</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1875,7 +1875,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM6</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH14</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -1951,7 +1951,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">USART0_CK</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH15</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2027,7 +2027,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM6</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH16</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2104,7 +2104,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">USART0_CK</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH17</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2179,7 +2179,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S5</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH2</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2254,7 +2254,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S6</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH3</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2330,7 +2330,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S7</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH4</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2405,7 +2405,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">USART0_CK</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH5</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2481,7 +2481,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">UART1_TX</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH6</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2557,7 +2557,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">UART1_RX</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH7</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2633,7 +2633,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM0</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH8</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2709,7 +2709,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM2</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH10</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2785,7 +2785,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_COM5</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH13</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2862,7 +2862,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">I2C0_SCL</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH18</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -2940,7 +2940,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH19</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN1</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -3018,7 +3018,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">USART0_CK</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH20</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -3096,7 +3096,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">I2C0_SCL</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH21</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -3174,7 +3174,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">I2C0_SDA</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH22</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -3252,7 +3252,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">CMP_IN7</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">TKEY_CH23</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
@@ -3326,7 +3326,7 @@
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">LED_S3</sel>
               <sel notAvailable="PinTTL,PinFltr,PinDA,PinDSR,PinOM">ADC_AIN15</sel>
             </Selections>
-            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_INPUT with Filter:带30ns滤波输入&#xD;GPIO_OUTPUT_Push-Pull:推挽输出&#xD;GPIO_OUTPUT_Open-Drain:开漏输出&#xD;GPIO_OUTPUT_Push-Pull with Monitor:带输出监测的推挽输出&#xD;GPIO_OUTPUT_Open-Drain with Monitor:带输出监测的开漏输出&#xD;Other:复用功能</Comment>
+            <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
           <Property class="Choice" property_class="PinTTL">
             <label>Logic Level</label>
