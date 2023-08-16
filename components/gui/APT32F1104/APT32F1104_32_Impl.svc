@@ -40,16 +40,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>DISABLE</value>
@@ -116,16 +107,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -192,16 +174,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -269,16 +242,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -346,16 +310,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -421,16 +376,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -498,16 +444,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -575,16 +512,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -653,16 +581,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -731,16 +650,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -809,16 +719,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -886,16 +787,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -964,16 +856,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1041,16 +924,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1116,16 +990,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1190,16 +1055,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1265,16 +1121,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1340,16 +1187,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1416,16 +1254,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1491,16 +1320,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1567,16 +1387,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1643,16 +1454,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1719,16 +1521,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1795,16 +1588,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1871,16 +1655,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -1948,16 +1723,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -2026,16 +1792,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -2104,16 +1861,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
@@ -2182,16 +1930,7 @@
             </Selections>
             <Comment>管脚功能&#xD;High_Z:高阻&#xD;GPIO_INPUT:输入&#xD;GPIO_OUTPUT:输出&#xD;GPIO_OUTPUT with Monitor:带监测输出&#xD;Other:复用功能</Comment>
           </Property>
-          <Property class="Choice" property_class="PinTTL">
-            <label>Logic Level</label>
-            <value>TTL1</value>
-            <Selections>
-              <sel>TTL1</sel>
-              <sel>TTL2</sel>
-              <sel>CMOS</sel>
-            </Selections>
-            <Comment>逻辑电平</Comment>
-          </Property>
+
           <Property class="Choice" property_class="PinFltr">
             <label>Input Filter</label>
             <value>ENABLE</value>
