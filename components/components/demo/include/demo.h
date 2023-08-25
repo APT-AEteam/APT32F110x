@@ -205,5 +205,7 @@ void cqc_check_test(void);
 void intvref_fvr_output(void);
 // tkey demo
 extern void tkey_demo(void);
+extern void tkey_sleep_demo(void);
+extern void tkey_slider_wheel_demo(void);
 
 #endif

@@ -35,13 +35,7 @@ unsigned char LED_CHAR_[11] = {
 /* externs variablesr------------------------------------------------------*/
 extern volatile uint16_t hwSampling_data0[32];
 extern volatile uint16_t hwBaseline_data0[32];
-extern volatile uint16_t hwSampling_data1[32];
-extern volatile uint16_t hwBaseline_data1[32];
-extern volatile uint16_t hwSampling_data2[32];
-extern volatile uint16_t hwBaseline_data2[32];
 extern volatile uint16_t hwOffset_data0_abs[32];
-extern volatile uint16_t hwOffset_data1_abs[32];
-extern volatile uint16_t hwOffset_data2_abs[32];
 
 void uart_init(void)
 {
@@ -154,7 +148,7 @@ void tk_led(void)
 }
 
 /*
- * 操作步骤
+ * 库的添加操作步骤
  * ① 右键chip组件，选择ptions for "XXX"选项
  * ② linker选项卡界面，Library Name输入对应的库名称，如:_110Tkey_F_1_00.a，版本说明请参考csi使用文档的相关章节
  * ③ Library Path后面输入路径：drivers
@@ -166,6 +160,7 @@ void tk_led(void)
  * lib_110tkey_C_X_XX：默认版本，Touch使用中断处理，SRAM及程序占用空间更小，速度更快，抗干扰性能稍低
  * lib_110tkey_MC_X_XX：主循环版本，使用Touch需要调用tkey_main_prog();函数，扫描时间更长，完全不占用中断，按键越多扫描时间越长，按键速度也会越慢
  * lib_110tkey_DMA_X_XX：TOUCH->DMA版本，使用DMA模块传递touch采样数据，不使用touch中断，速度最快，占用最多的SRAM，使用此版本后不再允许配置DMA3
+ * lib_110tkey_slider_x_xx:触摸库在支持c库的基本按键功能上，支持Slider和Wheel，最多支持两组滑条和一组滑环
 */
 
 
@@ -207,12 +202,13 @@ void tk_led(void)
  
 所有版本的使用除了调用函数的地方不一样和需要调用的函数不一样，其他处理机制都是一样的。
 
-
 */
+
 void tkey_demo(void)
 {
 	csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
-	gptb0_init();				//蜂鸣器
+	//csi_pin_set_mux(PA011,PA011_OUTPUT);//LED
+	//gptb0_init();				//蜂鸣器
 	csi_gptb_stop(GPTB0);//stop  timer
 #ifdef	_serialplot_debug_en
 	uart_init();
@@ -220,8 +216,9 @@ void tkey_demo(void)
 	led_init();					//LED数码管
 	csi_tkey_init();
 	delay_ums(3000);
-	csi_gptb_stop(GPTB0);
-	csi_gptb_start(GPTB0);
+	//csi_gptb_stop(GPTB0);
+	//csi_gptb_start(GPTB0);
+	
 	while(1)
 	{
 		//csi_tkey_main_prog();//只有MC_X_XX版本才需要该函数。
@@ -234,13 +231,14 @@ void tkey_demo(void)
 				csi_pin_set_low(PB01);
 				///csi_gptb_start(GPTB0);//start  timer
 			}
-			
 		}else
 		{
 			dwKey_Map_bk=0;
 			csi_pin_set_high(PB01);
-			csi_gptb_stop(GPTB0);//stop  timer
+			//csi_gptb_stop(GPTB0);//stop  timer
 		}
+	
+		
 		//tkey 采样值打印，用于配合上位机观察实时波形
 #ifdef	_serialplot_debug_en
 		csi_uart_putc(UART2, 0X0D);
@@ -258,8 +256,106 @@ void tkey_demo(void)
 #endif
 	}
 }
+// 触摸低功耗例程
+void tkey_sleep_demo(void)
+{
+	unsigned int sleepcnt = 0;
+	led_init();					//LED数码管
+	csi_tkey_init();	
+	csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
+	while (1) {
+		//csi_tkey_main_prog();//只有MC_X_XX版本才需要该函数。
+		tk_led();
+		if(dwKey_Map!=0)
+		{
+			if(dwKey_Map!=dwKey_Map_bk)
+			{
+				dwKey_Map_bk=dwKey_Map;
+				csi_pin_set_low(PB01);
+				///csi_gptb_start(GPTB0);//start  timer
+			}
+			sleepcnt++;
+		}else
+		{
+			sleepcnt = 0;
+			dwKey_Map_bk=0;
+			csi_pin_set_high(PB01);
+			//csi_gptb_stop(GPTB0);//stop  timer
+		}
+		if(sleepcnt>1000)
+		{
+			csi_led_write_data(LED, 1, 0x00);   
+			csi_led_write_data(LED, 0, 0x00);  
+			//LED闪烁十次指示即将进入低功耗模式，请在闪烁时释放触摸按键。
+			for(int i=0 ;i<10;i++)
+			{
+				csi_pin_set_low(PB01);
+				delay_ums(10000);
+				delay_ums(10000);
+				csi_pin_set_high(PB01);
+				delay_ums(10000);
+				delay_ums(10000);
+			}
+			delay_ums(10000);
+			delay_ums(10000);
+			
+			
+			csi_tkey_goto_deepsleep();//tkey进低功耗前的配置文件
+			csi_tkey_lowpower_scan();//低功耗处理函数
+			
+			//LED闪烁十次指示退出低功耗模式
+			for(int i=0 ;i<10;i++)
+			{
+				csi_pin_set_low(PB01);
+				delay_ums(10000);
+				delay_ums(10000);
+				csi_pin_set_high(PB01);
+				delay_ums(10000);
+				delay_ums(10000);
+			}
+			sleepcnt = 0;
+			
+		}
+		delay_ums(200);
+	}
+}
 
-	
+//滑条或者滑环的使用例程
+/*
+    以滑条0为例，当滑条的顺序为：TCH3→7→9→0，即如下所示
+     ______ _______ _______ _______
+    |      \\      \\      \\      |
+    | TCH3 // TCH7 // TCH9 // TCH0 |
+    |      \\      \\      \\      |
+    |______//______//______//______|
+
+    则byTkeySlider0Seq[0]~[3]需要分别设置为3/7/9/0。
+    即
+        byTkeySlider0Seq[0] = 3;
+        byTkeySlider0Seq[1] = 7;
+        byTkeySlider0Seq[2] = 9;
+        byTkeySlider0Seq[3] = 0;
+   使能滑块0:
+        byTkeySlider0Function = ENABLE;
+   根据需求配置滑条的级数：
+        byTkeySlider0Level = 128;
+   滑环的配置参考滑块类似。
+   使用滑条滑环功能时，byKeyMode必须设置为1，即使用multi key功能
+*/
+void tkey_slider_wheel_demo(void)
+{
+	uart_init();
+	csi_tkey_init();	
+	csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
+	while(1)
+	{
+		//打印滑条的结果
+		csi_uart_putc(UART2,byTkeySlider0Value>>8);
+		csi_uart_putc(UART2,byTkeySlider0Value&0xff);
+		
+	}
+}
+
 void gptb0_irqhandler(csp_gptb_t *ptGptbBase)
 {
 	if(((csp_gptb_get_isr(ptGptbBase) & GPTB_INT_CBU))==GPTB_INT_CBU) {

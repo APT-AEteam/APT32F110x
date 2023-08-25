@@ -353,6 +353,25 @@ extern volatile unsigned short hwBaseline_data2[32];
 extern volatile unsigned short hwOffset_data0_abs[32];
 extern volatile unsigned short hwOffset_data1_abs[32];
 extern volatile unsigned short hwOffset_data2_abs[32];
+
+/*********************************************************************** 
+ @brief  slider and wheel extern variable                  
+***********************************************************************/
+extern volatile unsigned char	byTkeySlider0Function;
+extern volatile unsigned char	byTkeySlider0Level;
+extern volatile unsigned char	byTkeySlider0Seq[4];
+extern volatile unsigned char 	byTkeySlider0Value;
+
+extern volatile unsigned char	byTkeySlider1Function;
+extern volatile unsigned char	byTkeySlider1Level;
+extern volatile unsigned char	byTkeySlider1Seq[4];
+extern volatile unsigned char 	byTkeySlider1Value;
+
+extern volatile unsigned char	byTkeyWheelFunction;
+extern volatile unsigned char	byTkeyWheelLevel;
+extern volatile unsigned char	byTkeyWheelSeq[4];
+extern volatile unsigned char	byTkeyWheelValue;
+
 /*********************************************************************** 
  @brief  Tkey extern functions                  
 ***********************************************************************/ 
@@ -361,8 +380,8 @@ extern void csi_tkey_main_prog(void);
 extern void csi_tkey_int_process(void);
 extern void csi_tkey_basecnt_process(void);
 extern void csi_tkey_parameter_init(void);
-extern void	csi_tkey_setup_sleep(void);
-extern void	csi_tkey_quit_sleep(void);
+extern void	csi_tkey_goto_deepsleep(void);
+extern void	csi_tkey_lowpower_scan(void);  
 
 #ifdef __cplusplus
 }
