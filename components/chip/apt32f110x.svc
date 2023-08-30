@@ -4,22 +4,22 @@
     <Peripheral Name="TS">
       <Register Name="TS_TS1" Authority="RW" Address="0x80140" Width="32" Description="常温下温度传感器信息1">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="温度符号位。&#xD;&#xA;0h：温度是非负温度&#xD;&#xA;1h：温度是负温度&#xD;&#xA;&#xD;&#xA;TEMP           Temperature    &#xD;&#xA;550h            85(℃)&#xD;&#xA;...                 &#xD;&#xA;D80h            -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="常温下温度传感器采样值1" />
       </Register>
       <Register Name="TS_IR1" Authority="RW" Address="0x80144" Width="32" Description="常温下内部1V电压参考信息1">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="温度符号位。&#xD;&#xA;0h：温度是非负温度&#xD;&#xA;1h：温度是负温度&#xD;&#xA;&#xD;&#xA;TEMP           Temperature    &#xD;&#xA;550h            85(℃)&#xD;&#xA;...                 &#xD;&#xA;D80h            -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="常温下内部1V电压采样值1" />
       </Register>
       <Register Name="TS_TS2" Authority="RW" Address="0x80180" Width="32" Description="高温下温度传感器信息2">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="温度符号位。&#xD;&#xA;0h：温度是非负温度&#xD;&#xA;1h：温度是负温度&#xD;&#xA;&#xD;&#xA;TEMP           Temperature    &#xD;&#xA;550h            85(℃)&#xD;&#xA;...                 &#xD;&#xA;D80h            -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="高温下温度传感器采样值2" />
       </Register>
       <Register Name="TS_IR2" Authority="RW" Address="0x80184" Width="32" Description="高温下内部1V电压参考信息2">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="温度符号位。&#xD;&#xA;0h：温度是非负温度&#xD;&#xA;1h：温度是负温度&#xD;&#xA;&#xD;&#xA;TEMP           Temperature    &#xD;&#xA;550h            85(℃)&#xD;&#xA;...                 &#xD;&#xA;D80h            -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="高温下内部1V电压采样值2" />
       </Register>
     </Peripheral>
