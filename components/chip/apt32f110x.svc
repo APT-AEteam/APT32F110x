@@ -4,22 +4,22 @@
     <Peripheral Name="TS">
       <Register Name="TS_TS1" Authority="RW" Address="0x80140" Width="32" Description="常温下温度传感器信息1">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="&#xD;&#xA;· TEMP的最高位，即bit27为符号位。假设换算的实际温度为Temperature (℃)&#xD;&#xA;· 当bit27为0时，则Temperature &gt;= 0，TEMP以原码的形式存储 &#xD;&#xA;     Temperature = TEMP * 0.0625(℃)&#xD;&#xA;· 当bit27为1时，Temperature &lt; 0，TEMP以补码形式存储 &#xD;&#xA;     Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;· 举例&#xD;&#xA;       TEMP           Temperature    &#xD;&#xA;        550h                85(℃)&#xD;&#xA;        000h                 0(℃)&#xD;&#xA;        D80h               -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="常温下温度传感器采样值1" />
       </Register>
       <Register Name="TS_IR1" Authority="RW" Address="0x80144" Width="32" Description="常温下内部1V电压参考信息1">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="&#xD;&#xA;· TEMP的最高位，即bit27为符号位。假设换算的实际温度为Temperature (℃)&#xD;&#xA;· 当bit27为0时，则Temperature &gt;= 0，TEMP以原码的形式存储 &#xD;&#xA;     Temperature = TEMP * 0.0625(℃)&#xD;&#xA;· 当bit27为1时，Temperature &lt; 0，TEMP以补码形式存储 &#xD;&#xA;     Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;· 举例&#xD;&#xA;       TEMP           Temperature    &#xD;&#xA;        550h                85(℃)&#xD;&#xA;        000h                 0(℃)&#xD;&#xA;        D80h               -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="常温下内部1V电压采样值1" />
       </Register>
       <Register Name="TS_TS2" Authority="RW" Address="0x80180" Width="32" Description="高温下温度传感器信息2">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="&#xD;&#xA;· TEMP的最高位，即bit27为符号位。假设换算的实际温度为Temperature (℃)&#xD;&#xA;· 当bit27为0时，则Temperature &gt;= 0，TEMP以原码的形式存储 &#xD;&#xA;     Temperature = TEMP * 0.0625(℃)&#xD;&#xA;· 当bit27为1时，Temperature &lt; 0，TEMP以补码形式存储 &#xD;&#xA;     Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;· 举例&#xD;&#xA;       TEMP           Temperature    &#xD;&#xA;        550h                85(℃)&#xD;&#xA;        000h                 0(℃)&#xD;&#xA;        D80h               -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="高温下温度传感器采样值2" />
       </Register>
       <Register Name="TS_IR2" Authority="RW" Address="0x80184" Width="32" Description="高温下内部1V电压参考信息2">
         <Bit Name="FLAG" Authority="RO" Bits="31-28" Description="标志位，表示数据是否有效&#xD;&#xA;5h: TEMP，DATA是有效数据&#xD;&#xA;others：TEMP，DATA不是有效数据" />
-        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="&#xD;&#xA;· TEMP的最高位，即bit27为符号位。假设换算的实际温度为Temperature (℃)&#xD;&#xA;· 当bit27为0时，则Temperature &gt;= 0，TEMP以原码的形式存储 &#xD;&#xA;     Temperature = TEMP * 0.0625(℃)&#xD;&#xA;· 当bit27为1时，Temperature &lt; 0，TEMP以补码形式存储 &#xD;&#xA;     Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;· 举例&#xD;&#xA;       TEMP           Temperature    &#xD;&#xA;        550h                85(℃)&#xD;&#xA;        000h                 0(℃)&#xD;&#xA;        D80h               -40(℃)" />
+        <Bit Name="TEMP" Authority="RO" Bits="27-16" Description="标定值的温度信息，以补码形式存储&#xD;&#xA;550h            85(℃)&#xD;&#xA;...   &#xD;&#xA;010h            1(℃) &#xD;&#xA;... &#xD;&#xA;D80h            -40(℃) &#xD;&#xA;&#xD;&#xA;bit27 =0 时，温度为正，实际温度和TEMP之间的关系如下：Temperature = TEMP * 0.0625(℃) &#xD;&#xA;bit27 =1 时，温度为负，实际温度和TEMP之间的关系如下：Temperature = (0 - (((TEMP - 1) ^ 0x7FF) &amp; 0x7FF)) * 0.0625(℃)&#xD;&#xA;" />
         <Bit Name="DATA" Authority="RO" Bits="11-0" Description="高温下内部1V电压采样值2" />
       </Register>
     </Peripheral>
@@ -2558,7 +2558,7 @@
         <Bit Name="SYNCEN0" Authority="RW" Bits="0" Description="" />
       </Register>
       <Register Name="GPTB_GLDCR" Authority="RW" Address="0x40055014" Width="32" Description="全局载入控制寄存器">
-        <Bit Name="GLDCNT" Authority="RW" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
+        <Bit Name="GLDCNT" Authority="RO" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
         <Bit Name="GLDPRD" Authority="RW" Bits="9-7" Description="全局载入触发周期选择。&#xD;&#xA;可以选择N次触发条件满足后，才进行一次全局载入。&#xD;&#xA;000b：Disable Counter（立即触发）&#xD;&#xA;001b：第2次条件满足时触发&#xD;&#xA;010b：第3次条件满足时触发&#xD;&#xA;011b：第4次条件满足时触发&#xD;&#xA;100b：第5次条件满足时触发&#xD;&#xA;101b：第6次条件满足时触发&#xD;&#xA;110b：第7次条件满足时触发&#xD;&#xA;111b：第8次条件满足时触发" />
         <Bit Name="OSTMD" Authority="RW" Bits="5" Description="One Shot 载入模式使能控制位&#xD;&#xA;0h：禁止One Shot模式，只要条件满足，Active寄存器都会从Shadow寄存器载入&#xD;&#xA;1h：使能One Shot模式，只有在GLDCR2[OSREARM]写入‘1’后，才会进行一次载入。一旦载入被触发，需要再次对GLDCR2[OSREARM]写入‘1’，才能允许下一次载入触发。" />
         <Bit Name="GLDMD" Authority="RW" Bits="4-1" Description="全局载入触发事件选择。&#xD;&#xA;0h：CNT = ZRO&#xD;&#xA;1h：CNT = PRD&#xD;&#xA;2h：CNT = ZRO or CNT = PRD&#xD;&#xA;3h：CNT = ZRO or 外部LOAD触发或SYNC触发&#xD;&#xA;4h：CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;5h：CNT = ZRO or CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;Others：Reserved&#xD;&#xA;Fh：在GLDCR2[GFRCLD]写入‘1’时  [1]" />
@@ -2797,8 +2797,8 @@
         <Bit Name="OFFSET" Authority="RW" Bits="15-0" Description="滤波窗的OFFSET设置。&#xD;&#xA;此16bit控制位定义了从窗口参考起始位置开始计数多少个TCLK后，开始有效的滤波窗口。参考位置的定义，在TRGFTCR[ALIGNMD]控制位中进行选择。OFFSET的Shadow寄存器在ALIGNMD指定的条件满足时，载入到Active寄存器中，并重新开始计数。" />
       </Register>
       <Register Name="GPTB_EVTRG" Authority="RW" Address="0x400550c0" Width="32" Description="事件触发选择寄存器">
-        <Bit Name="CNT1INITFRC" Authority="RO" Bits="25" Description="TRGEV1CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT1INIT内容更新到EVCNT1中" />
-        <Bit Name="CNT0INITFRC" Authority="RO" Bits="24" Description="TRGEV0CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT0INIT内容更新到EVCNT0中" />
+        <Bit Name="CNT1INITFRC" Authority="RW" Bits="25" Description="TRGEV1CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT1INIT内容更新到EVCNT1中" />
+        <Bit Name="CNT0INITFRC" Authority="RW" Bits="24" Description="TRGEV0CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT0INIT内容更新到EVCNT0中" />
         <Bit Name="TRG1OE" Authority="RW" Bits="21" Description="外部触发端口TRGOUT1使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
         <Bit Name="TRG0OE" Authority="RW" Bits="20" Description="外部触发端口TRGOUT0使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
         <Bit Name="CNT1INITEN" Authority="RW" Bits="17" Description="TRGEV1CNT寄存器更新模式控制&#xD;&#xA;0h：无效&#xD;&#xA;1h：TRGEV1CNT在发生LOAD事件触发时，或者EV1CNTINITFRC控制位软件写入‘1’时，EV1CNTINIT的内容更新到EV1CNT中。" />
@@ -2976,7 +2976,7 @@
         <Bit Name="SYNCEN0" Authority="RW" Bits="0" Description="" />
       </Register>
       <Register Name="GPTB_GLDCR" Authority="RW" Address="0x40056014" Width="32" Description="全局载入控制寄存器">
-        <Bit Name="GLDCNT" Authority="RW" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
+        <Bit Name="GLDCNT" Authority="RO" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
         <Bit Name="GLDPRD" Authority="RW" Bits="9-7" Description="全局载入触发周期选择。&#xD;&#xA;可以选择N次触发条件满足后，才进行一次全局载入。&#xD;&#xA;000b：Disable Counter（立即触发）&#xD;&#xA;001b：第2次条件满足时触发&#xD;&#xA;010b：第3次条件满足时触发&#xD;&#xA;011b：第4次条件满足时触发&#xD;&#xA;100b：第5次条件满足时触发&#xD;&#xA;101b：第6次条件满足时触发&#xD;&#xA;110b：第7次条件满足时触发&#xD;&#xA;111b：第8次条件满足时触发" />
         <Bit Name="OSTMD" Authority="RW" Bits="5" Description="One Shot 载入模式使能控制位&#xD;&#xA;0h：禁止One Shot模式，只要条件满足，Active寄存器都会从Shadow寄存器载入&#xD;&#xA;1h：使能One Shot模式，只有在GLDCR2[OSREARM]写入‘1’后，才会进行一次载入。一旦载入被触发，需要再次对GLDCR2[OSREARM]写入‘1’，才能允许下一次载入触发。" />
         <Bit Name="GLDMD" Authority="RW" Bits="4-1" Description="全局载入触发事件选择。&#xD;&#xA;0h：CNT = ZRO&#xD;&#xA;1h：CNT = PRD&#xD;&#xA;2h：CNT = ZRO or CNT = PRD&#xD;&#xA;3h：CNT = ZRO or 外部LOAD触发或SYNC触发&#xD;&#xA;4h：CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;5h：CNT = ZRO or CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;Others：Reserved&#xD;&#xA;Fh：在GLDCR2[GFRCLD]写入‘1’时  [1]" />
@@ -3215,8 +3215,8 @@
         <Bit Name="OFFSET" Authority="RW" Bits="15-0" Description="滤波窗的OFFSET设置。&#xD;&#xA;此16bit控制位定义了从窗口参考起始位置开始计数多少个TCLK后，开始有效的滤波窗口。参考位置的定义，在TRGFTCR[ALIGNMD]控制位中进行选择。OFFSET的Shadow寄存器在ALIGNMD指定的条件满足时，载入到Active寄存器中，并重新开始计数。" />
       </Register>
       <Register Name="GPTB_EVTRG" Authority="RW" Address="0x400560c0" Width="32" Description="事件触发选择寄存器">
-        <Bit Name="CNT1INITFRC" Authority="RO" Bits="25" Description="TRGEV1CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT1INIT内容更新到EVCNT1中" />
-        <Bit Name="CNT0INITFRC" Authority="RO" Bits="24" Description="TRGEV0CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT0INIT内容更新到EVCNT0中" />
+        <Bit Name="CNT1INITFRC" Authority="RW" Bits="25" Description="TRGEV1CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT1INIT内容更新到EVCNT1中" />
+        <Bit Name="CNT0INITFRC" Authority="RW" Bits="24" Description="TRGEV0CNT软件触发更新&#xD;&#xA;0h：无效&#xD;&#xA;1h：EVCNT0INIT内容更新到EVCNT0中" />
         <Bit Name="TRG1OE" Authority="RW" Bits="21" Description="外部触发端口TRGOUT1使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
         <Bit Name="TRG0OE" Authority="RW" Bits="20" Description="外部触发端口TRGOUT0使能&#xD;&#xA;0h：禁止触发输出&#xD;&#xA;1h：允许触发输出" />
         <Bit Name="CNT1INITEN" Authority="RW" Bits="17" Description="TRGEV1CNT寄存器更新模式控制&#xD;&#xA;0h：无效&#xD;&#xA;1h：TRGEV1CNT在发生LOAD事件触发时，或者EV1CNTINITFRC控制位软件写入‘1’时，EV1CNTINIT的内容更新到EV1CNT中。" />
@@ -3380,7 +3380,7 @@
         <Bit Name="SYNCENx" Authority="RW" Bits="5-0" Description="外部同步触发使能控制。&#xD;&#xA;0：禁止当前触发输入通道&#xD;&#xA;1：使能当前触发输入通道&#xD;&#xA;SYNCIN0：外部Sync事件&#xD;&#xA;SYNCIN1：Load触发&#xD;&#xA;SYNCIN2：Capture触发事件&#xD;&#xA;SYNCIN3：CNT增减一拍触发事件&#xD;&#xA;SYNCIN4：外部COS事件（用于PWM波形输出控制）&#xD;&#xA;SYNCIN5：外部COS事件（用于PWM波形输出控制）" />
       </Register>
       <Register Name="EPT_GLDCR" Authority="RW" Address="0x40057014" Width="32" Description="全局载入控制寄存器">
-        <Bit Name="GLDCNT" Authority="RW" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
+        <Bit Name="GLDCNT" Authority="RO" Bits="12-10" Description="全局载入事件计数器。&#xD;&#xA;计数器值表示当前已发生多少次事件触发。" />
         <Bit Name="GLDPRD" Authority="RW" Bits="9-7" Description="全局载入触发周期选择。&#xD;&#xA;可以选择N次触发条件满足后，才进行一次全局载入。&#xD;&#xA;000b：Disable Counter（立即触发）&#xD;&#xA;001b：第2次条件满足时触发&#xD;&#xA;010b：第3次条件满足时触发&#xD;&#xA;011b：第4次条件满足时触发&#xD;&#xA;100b：第5次条件满足时触发&#xD;&#xA;101b：第6次条件满足时触发&#xD;&#xA;110b：第7次条件满足时触发&#xD;&#xA;111b：第8次条件满足时触发" />
         <Bit Name="OSTMD" Authority="RW" Bits="5" Description="One Shot 载入模式使能控制位&#xD;&#xA;0h：禁止One Shot模式，只要条件满足，Active寄存器都会从Shadow寄存器载入&#xD;&#xA;1h：使能One Shot模式，一旦载入被触发，需要再次对GLDCR2[OSREARM]写入‘1’，才能允许下一次载入触发。" />
         <Bit Name="GLDMD" Authority="RW" Bits="4-1" Description="全局载入触发事件选择。&#xD;&#xA;0h：CNT = ZRO&#xD;&#xA;1h：CNT = PRD&#xD;&#xA;2h：CNT = ZRO or CNT = PRD&#xD;&#xA;3h：CNT = ZRO or 外部LOAD触发或SYNC触发&#xD;&#xA;4h：CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;5h：CNT = ZRO or CNT = PRD or 外部LOAD触发或SYNC触发&#xD;&#xA;Others：Reserved&#xD;&#xA;Fh：在GLDCR2[GFRCLD]写入‘1’时  [1]" />
