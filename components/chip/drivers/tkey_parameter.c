@@ -44,7 +44,7 @@
 /****************************************************
 //define
 *****************************************************/
-//#define _110_Slider_Function
+#define _110_Slider_Function
 
 
 void csi_tkey_parameter_init(void)
@@ -53,28 +53,38 @@ void csi_tkey_parameter_init(void)
 /****************************************************
 //TK basic parameters
 *****************************************************/
-	dwTkeyIoEnable = TCH_EN(0)|TCH_EN(1)|TCH_EN(2)|TCH_EN(3)|TCH_EN(4);
-	byTkeyGlobalSens = 2;								//TK Global Tkey Sensitivity,0=invalid;
+	//dwTkeyIoEnable = TCH_EN(0)|TCH_EN(1)|TCH_EN(2)|TCH_EN(3)|TCH_EN(4)|TCH_EN(5)|TCH_EN(6)|TCH_EN(7);
+	dwTkeyIoEnable=TCH_EN(3)|TCH_EN(2)|TCH_EN(1)|TCH_EN(0)								//slider 0
+					|TCH_EN(7)|TCH_EN(6)|TCH_EN(5)|TCH_EN(4)							//slider 1
+					|TCH_EN(22)|TCH_EN(21)|TCH_EN(20)|TCH_EN(23)						//Wheel
+					|TCH_EN(14)|TCH_EN(15)|TCH_EN(16)|TCH_EN(17)|TCH_EN(18)|TCH_EN(19);	//key
+	byTkeyGlobalSens = 1;								//TK Global Tkey Sensitivity,0=invalid;
 	hwTkeyGlobalTrigger = 50;							//TK Global Tkey Trigger,0=invalid;
-	byTkeyGlobalIcon = 5;								//TK Global Tkey Icon,0=invalid;
+	byTkeyGlobalIcon = 6;								//TK Global Tkey Icon,0=invalid;
 	byPressDebounce = 5;								//Press debounce 1~10
 	byReleaseDebounce = 5;							//Release debounce 1~10
 	byKeyMode = 1;									//Key mode 0=first singlekey,1=multi key,2=strongest single-key
 	byMultiTimesFilter = 0;							//MultiTimes Filter,>4 ENABLE <4 DISABLE
 	byValidKeyNum = 4;								//Valid Key number when touched
-	byBaseUpdateSpeed = 10;							//baseline update speed
+	byBaseUpdateSpeed = 20;							//baseline update speed
 	byTkeyRebuildTime = 16;							//longpress rebuild time = byTkeyRebuildTime*1s  0=disable
 	hwTkeyBaseCnt = 59999;							//10ms  byTkeyBaseCnt=10ms*48M/8-1,this register need to modify when mcu's Freq changed
 /****************************************************
 //TK parameter fine-tuning
 *****************************************************/
-	byTkeyFineTurn = DISABLE;							//Tkey sensitivity fine tuning ENABLE/DISABLE
-	byTkeyChxSens[0] = 3;								//TCHx manual Sensitivity
-	byTkeyChxSens[1] = 3;								//TCHx manual Sensitivity
-	byTkeyChxIcon[0] = 5;								//TCHx manual ICON
-	byTkeyChxIcon[1] = 5;								//TCHx manual ICON
-	byTkeyChxTrigger[0] = 60;							//TCHx manual Trigger Level
-	byTkeyChxTrigger[1] = 60;							//TCHx manual Trigger Level
+	byTkeyFineTurn=ENABLE;							//Tkey sensitivity fine tuning ENABLE/DISABLE
+	byTkeyChxSens[0]=2;
+	byTkeyChxSens[1]=2;
+	byTkeyChxSens[2]=2;
+	byTkeyChxSens[3]=2;
+	byTkeyChxSens[4]=2;
+	byTkeyChxSens[5]=2;
+	byTkeyChxSens[6]=2;
+	byTkeyChxSens[7]=2;
+	byTkeyChxSens[22]=2;
+	byTkeyChxSens[21]=2;
+	byTkeyChxSens[20]=2;
+	byTkeyChxSens[23]=2;
 /****************************************************
 //TK special parameter define
 *****************************************************/
@@ -84,14 +94,18 @@ void csi_tkey_parameter_init(void)
 /****************************************************
 //TK low power function define
 *****************************************************/
-	byTkeyLowPowerMode = ENABLE;						//touch key can goto sleep when TK lowpower mode enable
+	byTkeyLowPowerMode = DISABLE;						//touch key can goto sleep when TK lowpower mode enable
 	byTkeyLowPowerLevel = 2;							//0=125ms 1=175ms 2=250ms 3=325ms 4=400ms 5=500ms 6=1s,7=2s;>=50 Can set exact time
-	dwTkeyWakeupIoEnable = TCH_EN(0)|TCH_EN(1);			//Sleep wakeup TCHx configuration, Support single or multiple TCHx wake-up
+	dwTkeyWakeupIoEnable = dwTkeyIoEnable;			//Sleep wakeup TCHx configuration, Support single or multiple TCHx wake-up
 /****************************************************
 //TK Hidden function define
 *****************************************************/
+	
+	//Used to enable or disable automatic TriggerLevel adjustment on the first pressd of each TCHx;1=disable,0=enable(Default)
+	byAutoAdjustDis = 1;
+	
 	//Used to modify the default state when TCHx is not enabled;0/3=Z,1=high,2=low(Default)
-	//byTkeyDstStatus = 1;
+	byTkeyDstStatus = 0;
 
 	//Used to enable the default internal resistor of TCHx;0=disable(Default),1=enable
 	//byTkeyIntrStatus = 1;	
@@ -138,26 +152,26 @@ void csi_tkey_parameter_init(void)
     When the slider or Wheel function is used, byKeyMode must be set to 1, that is, the multi key function is used
 */
 //-------------------slider 0---------------------------
-	byTkeySlider0Function = DISABLE;	// ENABLE/DISABLE
+	byTkeySlider0Function = ENABLE;	// ENABLE/DISABLE
 	byTkeySlider0Level = 255;			//255/128/64
 	byTkeySlider0Seq[0] = 3;
 	byTkeySlider0Seq[1] = 2;
 	byTkeySlider0Seq[2] = 1;
 	byTkeySlider0Seq[3] = 0;
 //-------------------slider 1---------------------------
-	byTkeySlider1Function = DISABLE;	// ENABLE/DISABLE
+	byTkeySlider1Function = ENABLE;	// ENABLE/DISABLE
 	byTkeySlider1Level = 255;           //255/128/64
-	byTkeySlider1Seq[0] = 10;
-	byTkeySlider1Seq[1] = 9;
-	byTkeySlider1Seq[2] = 8;
-	byTkeySlider1Seq[3] = 7;
+	byTkeySlider1Seq[0] = 7;
+	byTkeySlider1Seq[1] = 5;
+	byTkeySlider1Seq[2] = 6;
+	byTkeySlider1Seq[3] = 4;
 //-------------------wheel---------------------------
-	byTkeyWheelFunction = DISABLE;		// ENABLE/DISABLE
+	byTkeyWheelFunction = ENABLE;		// ENABLE/DISABLE
 	byTkeyWheelLevel = 128;				//128/64
-	byTkeyWheelSeq[0] = 15;								
-	byTkeyWheelSeq[1] = 14;
-	byTkeyWheelSeq[2] = 6;
-	byTkeyWheelSeq[3] = 5;	
+	byTkeyWheelSeq[0] = 22;								
+	byTkeyWheelSeq[1] = 21;
+	byTkeyWheelSeq[2] = 20;
+	byTkeyWheelSeq[3] = 23;	
 #endif	
 }
 

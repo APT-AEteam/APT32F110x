@@ -52,7 +52,7 @@ void uart_init(void)
 	csi_uart_init(UART2, &tUartConfig);			//初始化串口
 	csi_uart_start(UART2, UART_FUNC_TX);		//开启UART的RX和TX功能，也可单独开启RX或者TX功能
 }
-
+/* ------------APT110 TOUCH EV BOARD 示例板LED模块初始化--------------- */
 void led_init(void)
 {
 	csi_led_config_t ptLedCfg;
@@ -85,6 +85,45 @@ void led_init(void)
 
 }
 
+/* ------------APT110 SLIDER EV BOARD 示例板LED模块初始化--------------- */
+void slider_wheel_led_init(void)
+{
+	csi_led_config_t ptLedCfg;
+	
+	csi_pin_set_mux(PA013, PA013_LED_S7);
+	csi_pin_set_mux(PA012, PA012_LED_S6);
+	csi_pin_set_mux(PA011, PA011_LED_S5);
+	csi_pin_set_mux(PA010, PA010_LED_S4);
+	csi_pin_set_mux(PA09, PA09_LED_S3);
+	csi_pin_set_mux(PA08, PA08_LED_S2);
+	csi_pin_set_mux(PA07, PA07_LED_S1);
+	csi_pin_set_mux(PA06, PA06_LED_S0);
+	csi_pin_set_mux(PA16, PA16_LED_COM0);
+	csi_pin_drive(PA16, GPIO_DRIVE_STRONG);
+	csi_pin_set_mux(PB05, PB05_LED_COM1);
+	csi_pin_drive(PB05, GPIO_DRIVE_STRONG);	
+	csi_pin_set_mux(PB06, PB06_LED_COM3);
+	csi_pin_drive(PB06, GPIO_DRIVE_STRONG);
+	csi_pin_set_mux(PB07, PB07_LED_COM4);
+	csi_pin_drive(PB07, GPIO_DRIVE_STRONG);
+	
+	
+	
+	ptLedCfg.byClk = LED_PCLK_DIV8;
+	ptLedCfg.hwComMask = 0x1b;
+	ptLedCfg.byBrt = LED_100;
+	ptLedCfg.byOnTime = 120;
+	ptLedCfg.byBreakTime = 100;
+	ptLedCfg.byInt = LED_INTSRC_NONE;	
+	csi_led_init(LED, &ptLedCfg);		
+	csi_led_lighton(LED);	
+
+	csi_led_write_data(LED, 0, 0x40);
+	csi_led_write_data(LED, 1, 0x40);
+	csi_led_write_data(LED, 3, 0x40);
+	csi_led_write_data(LED, 4, 0x40);
+
+}
 
 void gptb0_init(void)
 {
@@ -118,6 +157,7 @@ void gptb0_init(void)
 	csi_gptb_channel_config(GPTB0, &channel,  GPTB_CHANNEL_2);
 	csi_gptb_start(GPTB0);//start  timer
 }
+/*------------APT110 TOUCH EV BOARD 示例板显示处理函数---------------*/
 void tk_led(void)
 {
 	uint8_t i,byTk_data = 0;
@@ -144,6 +184,67 @@ void tk_led(void)
 	else {//显示对应的TKEY通道号
 		csi_led_write_data(LED, 1,  LED_CHAR_[byTk_data%10]);
 		csi_led_write_data(LED, 0,LED_CHAR_[byTk_data/10]);
+	}
+}
+/* ------------APT110 SLIDER EV BOARD 示例板显示处理函数--------------- */
+void slider_wheel_tk_led(void)
+{
+	uint8_t i,byTk_data = 0;
+	uint32_t wTemp = dwKey_Map;
+	if((byTkeySlider0Value==0)&&(byTkeySlider1Value==0)&&(byTkeyWheelValue==0))
+	{
+		if(wTemp == 0) {
+			byTk_data=0xff;
+		}
+		else {
+			for(i = 0; i < 32; i++) {
+				if(wTemp & 0x01)
+				{
+					byTk_data = i;
+					break;
+				}
+				wTemp = (wTemp >> 1);
+			}
+		}
+	}
+	
+	if(((byTkeySlider0Value!=0)||(byTkeySlider1Value!=0)||(byTkeyWheelValue!=0))&&(byTk_data==0))
+	{
+		if(byTkeySlider0Value!=0)
+		{
+			csi_led_write_data(LED, 0,  LED_CHAR_[0]);
+			csi_led_write_data(LED, 1,  LED_CHAR_[byTkeySlider0Value%1000/100]);
+			csi_led_write_data(LED, 3,  LED_CHAR_[byTkeySlider0Value%100/10]);
+			csi_led_write_data(LED, 4,  LED_CHAR_[byTkeySlider0Value%10]);			
+			return;
+		}
+		if(byTkeySlider1Value!=0)
+		{
+			csi_led_write_data(LED, 0,  LED_CHAR_[0]);
+			csi_led_write_data(LED, 1,  LED_CHAR_[byTkeySlider1Value%1000/100]);
+			csi_led_write_data(LED, 3,  LED_CHAR_[byTkeySlider1Value%100/10]);
+			csi_led_write_data(LED, 4,  LED_CHAR_[byTkeySlider1Value%10]);		
+			return;
+		}
+		if(byTkeyWheelValue!=0)
+		{
+			csi_led_write_data(LED, 0,  LED_CHAR_[0]);
+			csi_led_write_data(LED, 1,  LED_CHAR_[byTkeyWheelValue%1000/100]);
+			csi_led_write_data(LED, 3,  LED_CHAR_[byTkeyWheelValue%100/10]);
+			csi_led_write_data(LED, 4,  LED_CHAR_[byTkeyWheelValue%10]);	
+			return;
+		}
+	}
+
+	if(byTk_data==0xff) {
+		csi_led_write_data(LED, 0, 0x40);
+		csi_led_write_data(LED, 1, 0x40);
+		csi_led_write_data(LED, 3, 0x40);
+		csi_led_write_data(LED, 4, 0x40);   
+	}
+	else {		//显示对应的TKEY通道号
+		csi_led_write_data(LED, 4,  LED_CHAR_[byTk_data%10]);
+		csi_led_write_data(LED, 3,	LED_CHAR_[byTk_data/10]);
 	}
 }
 
@@ -256,22 +357,27 @@ void tkey_demo(void)
 #endif
 	}
 }
+
 // 触摸低功耗例程
 void tkey_sleep_demo(void)
 {
 	unsigned int sleepcnt = 0;
-	led_init();					//LED数码管
+	//led_init();					//LED数码管
 	csi_tkey_init();	
-	csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
+	//csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
+	csi_pin_set_mux(PA011,PA011_OUTPUT);//LED
+	csi_pin_set_mux(PB09,PB09_OUTPUT);//LED
+	csi_pin_set_low(PB09);
 	while (1) {
 		//csi_tkey_main_prog();//只有MC_X_XX版本才需要该函数。
-		tk_led();
+		//tk_led();
 		if(dwKey_Map!=0)
 		{
 			if(dwKey_Map!=dwKey_Map_bk)
 			{
 				dwKey_Map_bk=dwKey_Map;
-				csi_pin_set_low(PB01);
+				//csi_pin_set_low(PB01);
+				csi_pin_set_low(PA011);
 				///csi_gptb_start(GPTB0);//start  timer
 			}
 			sleepcnt++;
@@ -279,7 +385,8 @@ void tkey_sleep_demo(void)
 		{
 			sleepcnt = 0;
 			dwKey_Map_bk=0;
-			csi_pin_set_high(PB01);
+			//csi_pin_set_high(PB01);
+			csi_pin_set_high(PA011);
 			//csi_gptb_stop(GPTB0);//stop  timer
 		}
 		if(sleepcnt>1000)
@@ -289,16 +396,15 @@ void tkey_sleep_demo(void)
 			//LED闪烁十次指示即将进入低功耗模式，请在闪烁时释放触摸按键。
 			for(int i=0 ;i<10;i++)
 			{
-				csi_pin_set_low(PB01);
+				csi_pin_set_low(PA011);
 				delay_ums(10000);
 				delay_ums(10000);
-				csi_pin_set_high(PB01);
+				csi_pin_set_high(PA011);
 				delay_ums(10000);
 				delay_ums(10000);
 			}
 			delay_ums(10000);
 			delay_ums(10000);
-			
 			
 			csi_tkey_goto_deepsleep();//tkey进低功耗前的配置文件
 			csi_tkey_lowpower_scan();//低功耗处理函数
@@ -306,10 +412,10 @@ void tkey_sleep_demo(void)
 			//LED闪烁十次指示退出低功耗模式
 			for(int i=0 ;i<10;i++)
 			{
-				csi_pin_set_low(PB01);
+				csi_pin_set_low(PA011);
 				delay_ums(10000);
 				delay_ums(10000);
-				csi_pin_set_high(PB01);
+				csi_pin_set_high(PA011);
 				delay_ums(10000);
 				delay_ums(10000);
 			}
@@ -345,13 +451,30 @@ void tkey_sleep_demo(void)
 void tkey_slider_wheel_demo(void)
 {
 	uart_init();
+	slider_wheel_led_init();
 	csi_tkey_init();	
 	csi_pin_set_mux(PB01,PB01_OUTPUT);//LED
 	while(1)
 	{
+		slider_wheel_tk_led();
+		if(dwKey_Map!=0)
+		{
+			if(dwKey_Map!=dwKey_Map_bk)
+			{
+				dwKey_Map_bk=dwKey_Map;
+				csi_pin_set_low(PB01);
+				///csi_gptb_start(GPTB0);//start  timer
+			}
+		}else
+		{
+			dwKey_Map_bk=0;
+			csi_pin_set_high(PB01);
+			//csi_gptb_stop(GPTB0);//stop  timer
+		}
+		
 		//打印滑条的结果
-		csi_uart_putc(UART2,byTkeySlider0Value>>8);
-		csi_uart_putc(UART2,byTkeySlider0Value&0xff);
+//		csi_uart_putc(UART2,byTkeySlider0Value>>8);
+//		csi_uart_putc(UART2,byTkeySlider0Value&0xff);
 		
 	}
 }
