@@ -46,9 +46,6 @@ void spi_master_send_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);								    //PA07 NSS init high
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -69,9 +66,7 @@ void spi_master_send_demo(void)
 	mdelay(500);
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_send(SPI0, bySendData,16);
-//		csi_spi_nss_high(PA07);
 		mdelay(1);
 	}	
 }
@@ -87,11 +82,7 @@ void spi_master_send_int_demo(void)
 	uint8_t bySendData[16] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
-	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);								    //PA07 NSS init high
-												    
+	//端口配置   
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -113,10 +104,8 @@ void spi_master_send_int_demo(void)
 	mdelay(500);
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_send(SPI0, bySendData,16);
 		while(SPI_STATE_BUSY == csi_spi_get_state(SPI_SEND));
-//		csi_spi_nss_high(PA07);
 		mdelay(1);
 	}	
 }
@@ -167,7 +156,7 @@ void spi_slave_receive_int_demo(void)
 }
 
 /** \brief spi master send/receive a bunch of data; polling(sync,no interrupt)mode
- *  \brief spi 主机收发一串数据，收发使用轮询
+ *  \brief spi 主机收发一串数据(普通模式，一次收发1个字节)，收发使用轮询
  *  \param[in] none
  *  \return none
  */
@@ -183,10 +172,7 @@ void spi_master_send_receive_demo(void)
 		bySendData[byIndex]=byIndex+1;
 	}
 	
-	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);									//PA07 NSS init high												    
+	//端口配置												    
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -208,16 +194,13 @@ void spi_master_send_receive_demo(void)
 	mdelay(500);
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_send_receive(SPI0, bySendData,byReceData,16);
-//		csi_spi_nss_high(PA07);
-		
 		mdelay(1);
 	}	
 }
 
 /** \brief spi master send/receive a bunch of data; polling(sync,no interrupt)mode
- *  \brief spi 主机收发一串数据，收发使用轮询
+ *  \brief spi 主机收发一串数据(快速模式，一次收发8个字节)，收发使用轮询
  *  \param[in] none
  *  \return none
  */
@@ -233,10 +216,7 @@ void spi_master_send_receive_fast_demo(void)
 		bySendData[byIndex]=byIndex+1;
 	}
 	
-	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);									//PA07 NSS init high												    
+	//端口配置											    
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -257,11 +237,7 @@ void spi_master_send_receive_fast_demo(void)
 	mdelay(500);
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_send_receive_fast(SPI0, bySendData,byReceData,16);
-		//csi_spi_send_fast(SPI0, bySendData,16);
-//		csi_spi_nss_high(PA07);
-		
 		mdelay(100);
 	}	
 }
@@ -501,10 +477,10 @@ static void spi_flash_write_bytes(uint8_t *pbyBuf, uint32_t wAddr, uint16_t hwNu
 	spi_flash_wait_busy();
 }
 
-/** \brief spi示例代码
+/** \brief spi读写flash示例代码
  * 
  *  \param[in] none
- *  \return chip id
+ *  \return iRet
  */
 int16_t spi_w25q16jvsiq_write_read_demo(void)
 {
@@ -540,8 +516,6 @@ int16_t spi_w25q16jvsiq_write_read_demo(void)
 		iRet = spi_flash_read_id();					//read chip id, chip id = 0xef14	
 		if(W25Q16_CHIPID == iRet)
 		{
-		
-			//iRet = spi_flash_read_status();		//read status reg
 			my_printf("\r\nflash chip id right:0x%x",iRet);
 			
 			spi_flash_read_bytes((uint8_t *)byRdBuf, 0x1000, 16);
@@ -573,8 +547,6 @@ int16_t spi_w25q16jvsiq_write_read_demo(void)
 			{
 				my_printf("  0x%x",byRdBuf[byIndex]);
 			}
-			break;
-			
 		}
 		else
 		{
@@ -584,8 +556,11 @@ int16_t spi_w25q16jvsiq_write_read_demo(void)
 	return iRet;
 }
 
-//spi dma demo
-//spi_etcb_dma send
+/** \brief spi使用ETCB触发DMA发送示例代码
+ * 
+ *  \param[in] none
+ *  \return none
+ */
 void spi_etcb_dma_send(void)
 {
 	uint8_t bySdData[100]={1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
@@ -602,8 +577,6 @@ void spi_etcb_dma_send(void)
 	//dma para config
 	tDmaConfig.bySrcLinc 	= DMA_ADDR_CONSTANT;		//低位传输原地址固定不变
 	tDmaConfig.bySrcHinc 	= DMA_ADDR_INC;				//高位传输原地址自增
-	//tDmaConfig.bySrcLinc 	= DMA_ADDR_INC;				//低位传输原地址自增
-	//tDmaConfig.bySrcHinc 	= DMA_ADDR_CONSTANT;		//高位传输原地址固定不变
 	tDmaConfig.byDetLinc 	= DMA_ADDR_CONSTANT;		//低位传输目标地址固定不变
 	tDmaConfig.byDetHinc 	= DMA_ADDR_CONSTANT;		//高位传输目标地址固定不变
 	tDmaConfig.byDataWidth 	= DMA_DSIZE_8_BITS;			//传输数据宽度8bit
@@ -619,10 +592,7 @@ void spi_etcb_dma_send(void)
 	tEtbConfig.byDstIp 	= ETB_DMA_CH0;					//ETB DMA0通道0作为目标实际
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;			//通道触发模式采样硬件触发
 	
-	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);									//PA07 NSS init high												    
+	//端口配置											    
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -647,28 +617,26 @@ void spi_etcb_dma_send(void)
 	csi_spi_init(SPI0,&t_SpiConfig);					//初始化并启动spi
 	csi_spi_start(SPI0);
 	
-//	csi_spi_nss_low(PA07);
 	csi_spi_send_dma(SPI0,(void *)bySdData,100, 0);  //使能dma通道，等待对应dma请求并传输
 	csp_dma_t *ptDmaChBase = (csp_dma_t *)DMA_REG_BASE(DMA, 0);
 	while(csp_dma_get_curr_htc(ptDmaChBase));//等待直到dma传输完成
 	while(csp_spi_get_sr(SPI0) & SPI_BSY );		//wait for transmition finish
-//    csi_spi_nss_high(PA07);
 	nop;
 	
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_send_dma(SPI0,(void *)bySdData,100, 0);
 		while(csp_dma_get_curr_htc(ptDmaChBase));//等待直到dma传输完成
 		while(csp_spi_get_sr(SPI0) & SPI_BSY );	 //wait for transmition finish
-//		csi_spi_nss_high(PA07);
 		nop;
 	}
-
 }
 
-//spi dma demo
-//spi_etcb_dma send_and_receive
+/** \brief spi使用ETCB触发DMA发送接收示例代码
+ * 
+ *  \param[in] none
+ *  \return none
+ */
 void spi_etcb_dma_send_receive(void)
 {	
 	uint8_t byChnl = 0;
@@ -687,8 +655,6 @@ void spi_etcb_dma_send_receive(void)
 	}
 	
 	//send dma para config
-	//tDmaConfig.bySrcLinc 	= DMA_ADDR_INC;				//低位传输原地址自增
-	//tDmaConfig.bySrcHinc 	= DMA_ADDR_CONSTANT;		//高位传输原地址固定不变
 	tDmaConfig.bySrcLinc 	= DMA_ADDR_CONSTANT;		//低位传输原地址固定不变
 	tDmaConfig.bySrcHinc 	= DMA_ADDR_INC;		        //高位传输原地址自增
 	tDmaConfig.byDetLinc 	= DMA_ADDR_CONSTANT;		//低位传输目标地址固定不变
@@ -703,8 +669,6 @@ void spi_etcb_dma_send_receive(void)
 	//receive dma para config
 	tDmaConfig1.bySrcLinc 	= DMA_ADDR_CONSTANT;			//低位传输原地址固定不变
 	tDmaConfig1.bySrcHinc 	= DMA_ADDR_CONSTANT;			//高位传输原地址固定不变
-	//tDmaConfig1.byDetLinc 	= DMA_ADDR_INC;				//低位传输目标地址自增
-	//tDmaConfig1.byDetHinc 	= DMA_ADDR_CONSTANT;		//高位传输目标地址固定不变
 	tDmaConfig1.byDetLinc 	= DMA_ADDR_CONSTANT;			//低位传输目标地址固定不变
 	tDmaConfig1.byDetHinc 	= DMA_ADDR_INC;					//高位传输目标地址自增
 	tDmaConfig1.byDataWidth = DMA_DSIZE_8_BITS;				//传输数据宽度8bit
@@ -726,10 +690,7 @@ void spi_etcb_dma_send_receive(void)
 	tEtbConfig1.byDstIp 	= ETB_DMA_CH1;					//ETB DMA通道1作为目标实际
 	tEtbConfig1.byTrgMode = ETB_HARDWARE_TRG;			//通道触发模式采样软件触发
 	
-	//端口配置
-//	csi_pin_set_mux(PA07, PA07_OUTPUT);                     //PA07 as output
-//	csi_pin_output_mode(PA07, GPIO_PUSH_PULL);              //PA07 push pull mode
-//	csi_spi_nss_high(PA07);									//PA07 NSS init high												    
+	//端口配置											    
 #if !defined(USE_GUI)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
@@ -757,7 +718,6 @@ void spi_etcb_dma_send_receive(void)
 	csi_spi_init(SPI0,&t_SpiConfig);				//初始化并启动spi
 	csi_spi_start(SPI0);
 	
-//	csi_spi_nss_low(PA07);
 	csi_spi_recv_dma(SPI0,(void *)byDesBuf,104, byChnl1);
 	csi_spi_send_dma(SPI0,(void *)bySrcBuf,104, byChnl);
 
@@ -767,18 +727,14 @@ void spi_etcb_dma_send_receive(void)
 	while(csp_dma_get_curr_htc(ptDmaChBase_00));	//等待直到dma发送完成
 	while(csp_dma_get_curr_htc(ptDmaChBase_01));	//等待直到dma接收完成
 	while( (SPI0->SR & SPI_BSY) );					//等到spi传输完成
-//	csi_spi_nss_high(PA07);
 
-	
 	while(1)
 	{
-//		csi_spi_nss_low(PA07);
 		csi_spi_recv_dma(SPI0,(void *)byDesBuf,104, 1);
 		csi_spi_send_dma(SPI0,(void *)bySrcBuf,104, 0);
 		while(csp_dma_get_curr_htc(ptDmaChBase_00));			//等待直到dma发送完成
 		while(csp_dma_get_curr_htc(ptDmaChBase_01));			//等待直到dma接收完成
 		while( (SPI0->SR & SPI_BSY) );							//等到spi传输完成
-//		csi_spi_nss_high(PA07);
 		nop;
 	}
 

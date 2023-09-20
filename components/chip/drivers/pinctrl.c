@@ -22,30 +22,18 @@
  *  \param[in] ePinName: gpio pin name
  *  \return pointer of pin infor
  */ 
-static unsigned int *apt_get_pin_name_addr(pin_name_e ePinName)
-{
-	static unsigned int wPinInfo[2];
+static unsigned int apt_get_pin_name_addr(pin_name_e ePinName)
+{	
+	uint32_t wPinInfo = 0;
 	
 	if(ePinName > PB011)
-	{
-		wPinInfo[0] = APB_GPIOC0_BASE;				//PC0
-		wPinInfo[1] = ePinName - 42;
-	}
+		wPinInfo = APB_GPIOC0_BASE | (ePinName - 42);		//PC0
 	else if(ePinName > PA113)
-	{
-		wPinInfo[0] = APB_GPIOB0_BASE;				//PB0
-		wPinInfo[1] = ePinName - 30;
-	}
+		wPinInfo = APB_GPIOB0_BASE | (ePinName - 30);		//PB0
 	else if(ePinName > PA015)
-	{
-		wPinInfo[0] = APB_GPIOA1_BASE;				//PA1
-		wPinInfo[1] = ePinName - 16;
-	}
+		wPinInfo = APB_GPIOA1_BASE | (ePinName - 16);		//PA1
 	else
-	{
-		wPinInfo[0] = APB_GPIOA0_BASE;				//PA0
-		wPinInfo[1] = ePinName;
-	}	
+		wPinInfo = APB_GPIOA0_BASE | ePinName;				//PA0
 	
 	return wPinInfo;
 }
@@ -261,11 +249,10 @@ static void apt_iomap_handle(pin_name_e ePinName, csi_gpio_iomap_e eIoMap, uint8
 void csi_pin_set_mux(pin_name_e ePinName, pin_func_e ePinFunc)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];						//pin addr
-	ePinName = (pin_name_e)ptPinInfo[1];							//pin
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin
 
 	if(ePinName < 8)
 		ptGpioBase->CONLR =(ptGpioBase->CONLR & ~(0xF << 4*ePinName)) | (ePinFunc << 4*ePinName);
@@ -282,7 +269,7 @@ void csi_pin_set_mux(pin_name_e ePinName, pin_func_e ePinFunc)
 csi_error_t csi_pin_set_iomap(pin_name_e ePinName, csi_gpio_iomap_e eIoMap)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = 0;
 	
 	//IO REMAP
 	if((ePinName < PA06) || (ePinName == PB06) || (ePinName == PB07))		//iomap group1
@@ -335,10 +322,10 @@ csi_error_t csi_pin_set_iomap(pin_name_e ePinName, csi_gpio_iomap_e eIoMap)
 			return CSI_ERROR;
 		
 	}
-
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];						//pin addr
-	ePinName = (pin_name_e)ptPinInfo[1];							//pin
+	
+	wPinInfo = apt_get_pin_name_addr(ePinName);
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin
 
 	if(ePinName < 8)
 		ptGpioBase->CONLR =(ptGpioBase->CONLR & ~(0xF << 4*ePinName)) | (IOMAP << 4*ePinName);
@@ -356,11 +343,10 @@ pin_func_e csi_pin_get_mux(pin_name_e ePinName)
 {
     uint8_t ret = 0x0f;
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin	
 		
 	if(ePinName < 8)
 		ret = (((ptGpioBase->CONLR) >> 4 * ePinName) & 0x0Ful);
@@ -379,11 +365,10 @@ csi_error_t csi_pin_pull_mode(pin_name_e ePinName, csi_gpio_pull_mode_e ePullMod
 {
     csi_error_t ret = CSI_OK;
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin	
 		
 	switch(ePullMode)
 	{
@@ -412,14 +397,12 @@ csi_error_t csi_pin_pull_mode(pin_name_e ePinName, csi_gpio_pull_mode_e ePullMod
 void csi_pin_speed(pin_name_e ePinName, csi_gpio_speed_e eSpeed)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin	
 	
 	csp_gpio_speed_set(ptGpioBase, ePinName, (uint8_t)eSpeed);
-	
 }
 
 /** \brief set gpio pin drive level
@@ -431,11 +414,10 @@ void csi_pin_speed(pin_name_e ePinName, csi_gpio_speed_e eSpeed)
 void csi_pin_drive(pin_name_e ePinName, csi_gpio_drive_e eDrive)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin
 	
 	switch(eDrive)
 	{
@@ -496,11 +478,10 @@ csi_error_t csi_pin_output_mode(pin_name_e ePinName, csi_gpio_output_mode_e eOut
 {
 	csi_error_t ret = CSI_OK;
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin
 		
 	switch(eOutMode)
 	{
@@ -532,11 +513,10 @@ csi_error_t csi_pin_output_mode(pin_name_e ePinName, csi_gpio_output_mode_e eOut
 void csi_pin_input_filter(pin_name_e ePinName, bool bEnable)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];	
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin	
 	
 	csp_gpio_flt_en(ptGpioBase, ePinName, bEnable);
 }
@@ -548,10 +528,9 @@ void csi_pin_input_filter(pin_name_e ePinName, bool bEnable)
 uint8_t csi_pin_get_num(pin_name_e ePinName)
 {
     uint8_t ret = 44;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ret = (uint8_t)ptPinInfo[1];					//gpio pin number
+	ret = (uint8_t)(wPinInfo & 0x00ff) ;					//pin num
 						
     return ret;
 }
@@ -563,11 +542,10 @@ uint8_t csi_pin_get_num(pin_name_e ePinName)
 uint32_t csi_pin_read(pin_name_e ePinName)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;
 		
 	return (csp_gpio_read_input_port(ptGpioBase) & (0x01ul << ePinName));
 }
@@ -583,11 +561,10 @@ csi_error_t csi_pin_irq_mode(pin_name_e ePinName, csi_exi_grp_e eExiGrp, csi_gpi
 	csi_error_t ret = CSI_OK;
 
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin num
 		
 	ret = gpio_intgroup_set(ptGpioBase, ePinName, (gpio_igrp_e)eExiGrp);			//interrupt group
 	if(ret < 0)
@@ -658,11 +635,10 @@ csi_error_t csi_pin_vic_irq_enable(csi_exi_grp_e eExiGrp, bool bEnable)
 void csi_pin_irq_enable(pin_name_e ePinName, bool bEnable)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin 
 	
 	csp_gpio_int_enable(ptGpioBase, (gpio_int_e)ePinName, bEnable);
 }
@@ -675,11 +651,10 @@ void csi_pin_toggle(pin_name_e ePinName)
 {
 	uint32_t wDat;
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin 
 	
 	wDat = (ptGpioBase->ODSR >> ePinName) & 0x01;
 	if(wDat) 
@@ -697,11 +672,10 @@ void csi_pin_toggle(pin_name_e ePinName)
 void csi_pin_set_high(pin_name_e ePinName)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin 
 	
 	csp_gpio_set_high(ptGpioBase, (uint8_t)ePinName);
 }
@@ -714,11 +688,10 @@ void csi_pin_set_high(pin_name_e ePinName)
 void csi_pin_set_low(pin_name_e ePinName)
 {
 	csp_gpio_t *ptGpioBase = NULL;
-	unsigned int *ptPinInfo = NULL;
+	uint32_t wPinInfo = apt_get_pin_name_addr(ePinName);
 	
-	ptPinInfo = apt_get_pin_name_addr(ePinName);
-	ptGpioBase = (csp_gpio_t *)ptPinInfo[0];	
-	ePinName = (pin_name_e)ptPinInfo[1];
+	ptGpioBase = (csp_gpio_t *)(wPinInfo & 0xffffff00);				//pin port addr
+	ePinName = (pin_name_e)(wPinInfo & 0x00ff) ;					//pin num
 	
 	csp_gpio_set_low(ptGpioBase, (uint8_t)ePinName);
 }

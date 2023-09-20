@@ -225,6 +225,9 @@ csi_error_t csi_gpio_port_irq_mode(csp_gpio_t *ptGpioBase, uint32_t wPinMask, cs
 	if((byPortNum > 16) || (eTrgEdge >  GPIO_IRQ_BOTH_EDGE))
 		return CSI_ERROR;
 		
+	csp_exi_port_clr_isr(SYSCON,wPinMask);							//clear interrput status before enable irq 
+	csp_exi_port_int_enable(SYSCON, wPinMask, ENABLE);				//EXI INT enable
+	
 	for(i = 0; i < byPortNum; i++)
 	{
 		if(wPinMask & 0x01)
@@ -235,10 +238,29 @@ csi_error_t csi_gpio_port_irq_mode(csp_gpio_t *ptGpioBase, uint32_t wPinMask, cs
 		wPinMask = (wPinMask >> 1);
 	}
 	
-	csp_exi_port_clr_isr(SYSCON,wPinMask);							//clear interrput status before enable irq 
-	csp_exi_port_int_enable(SYSCON, wPinMask, ENABLE);				//EXI INT enable
-
 	return CSI_OK;
+}
+/** \brief gpio port irq enable
+ * 
+ *  \param[in] ptGpioBase: pointer of gpio register structure
+ *  \param[in] wPinMask: pin mask,0x0001~0xffff
+ *  \param[in] bEnable: true or false
+ *  \return none
+ */ 
+void csi_gpio_port_irq_enable(csp_gpio_t *ptGpioBase, uint32_t wPinMask)
+{
+	csp_gpio_port_int_enable(ptGpioBase, wPinMask);			
+}
+/** \brief gpio port irq disable
+ * 
+ *  \param[in] ptGpioBase: pointer of gpio register structure
+ *  \param[in] wPinMask: pin mask,0x0001~0xffff
+ *  \param[in] bEnable: true or false
+ *  \return none
+ */ 
+void csi_gpio_port_irq_disable(csp_gpio_t *ptGpioBase, uint32_t wPinMask)
+{
+	csp_gpio_port_int_disable(ptGpioBase, wPinMask);		
 }
 /** \brief gpio port vic irq enable
  * 
@@ -267,29 +289,7 @@ void csi_gpio_port_vic_irq_enable(uint32_t wPinMask, bool bEnable)
 			csi_vic_disable_irq((uint32_t)byIrqbuf[i]);
 	}
 }
-/** \brief gpio port irq enable
- * 
- *  \param[in] ptGpioBase: pointer of gpio register structure
- *  \param[in] wPinMask: pin mask,0x0001~0xffff
- *  \param[in] bEnable: true or false
- *  \return none
- */ 
-void csi_gpio_port_irq_enable(csp_gpio_t *ptGpioBase, uint32_t wPinMask)
-{
-	csp_gpio_port_int_enable(ptGpioBase, wPinMask);			
-}
 
-/** \brief gpio port irq disable
- * 
- *  \param[in] ptGpioBase: pointer of gpio register structure
- *  \param[in] wPinMask: pin mask,0x0001~0xffff
- *  \param[in] bEnable: true or false
- *  \return none
- */ 
-void csi_gpio_port_irq_disable(csp_gpio_t *ptGpioBase, uint32_t wPinMask)
-{
-	csp_gpio_port_int_disable(ptGpioBase, wPinMask);		
-}
 /** \brief  set gpio toggle
  * 
  *  \param[in] ptGpioBase: pointer of gpio register structure

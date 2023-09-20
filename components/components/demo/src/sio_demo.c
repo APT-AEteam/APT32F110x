@@ -33,7 +33,7 @@ uint32_t sio_data_conver(uint8_t byTxData);
 /* Private variablesr------------------------------------------------------*/
 
 //rgb 原始数据
-uint8_t	byDipData[24] = 
+uint8_t	byDispData[24] = 
 {
 	//R		G		B
 	0x00,	0x07,	0x00,//rgb1
@@ -49,9 +49,10 @@ uint8_t	byDipData[24] =
 
 uint32_t	g_wSioRxBuf[24];		//接收缓存
 
-/** \brief sio rgb led demo
- *  \brief sio 驱动RGB LED(ws2812), RGB DATA = 24bit; 驱动数据输出排列方式:GRB
- * 
+/** \brief SIO 驱动RGB LED(ws2812), 一个RGB DATA = 24bit, 驱动数据输出排列方式: GRB;
+ *         SIO 驱动RGB LED的发送实例，采样非中断方式，发送24*8bit数据，即驱动8个LED
+ *         速率=1Mbps，每bit 1us
+ *  
  *  \param[in] none
  *  \return error code
  */
@@ -85,17 +86,17 @@ int sio_led_rgb_demo(void)
 	tSioTxCfg.byTxCnt 		= 24;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tSioTxCfg.byIdleLev 	= SIO_IDLE_L;		//SIO空闲时刻IO管脚输出电平
 	tSioTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
-	tSioTxCfg.wTxFreq 		= 4000000;			//tx clk =4MHz, Ttxshift = 1/4 = 250ns；发送每bit时间是250ns
-	tSioTxCfg.byInt		= SIO_INTSRC_NONE;	//不使用中断。目前只支持非中断模式
-	
+	tSioTxCfg.wTxFreq 		= 4000000;			//tx clk =4MHz, Ttxshift = 1/4 = 250ns；发送每bit(1/0)是250ns*4 = 1us
+	tSioTxCfg.byInt			= SIO_INTSRC_NONE;	//不使用中断
 	csi_sio_tx_init(SIO0, &tSioTxCfg);
 	mdelay(10);
+	
 	while(1)
 	{
-		byRecv = csi_uart_getc(UART0);
-		if(byRecv == 0x06)
+		byRecv = csi_uart_getc(UART0);			//用UART0的接收控制发送，即UART0接收到数据，SIO发送数据
+		if(byRecv)
 		{ 
-			led_rgb_display(byDipData, 8);
+			led_rgb_display(byDispData, 8);
 		}
 		mdelay(100);
 		nop;
@@ -103,8 +104,9 @@ int sio_led_rgb_demo(void)
 	
 	return iRet;
 }
-/** \brief sio rgb led demo,use interrupt
- *  \brief sio 驱动RGB LED(ws2812), RGB DATA = 24bit; 驱动数据输出排列方式:GRB
+/** \brief SIO 驱动RGB LED(ws2812), 一个RGB DATA = 24bit, 驱动数据输出排列方式: GRB;
+ *         SIO 驱动RGB LED的发送实例，采样中断方式，发送8*24bit数据，即驱动8个LED；
+ * 		   速率=1Mbps，每bit 1us
  * 
  *  \param[in] none
  *  \return error code
@@ -134,8 +136,8 @@ int sio_led_rgb_demo_int(void)
 	tSioTxCfg.byTxCnt 		= 8;				//SIO一次发送总的数据长度(bit个数 = 8)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tSioTxCfg.byIdleLev 	= SIO_IDLE_L;		//SIO空闲时刻IO管脚输出电平
 	tSioTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
-	tSioTxCfg.wTxFreq 		= 4000000;			//tx clk =4MHz, Ttxshift = 1/4 = 250ns；发送每bit时间是250ns
-	tSioTxCfg.byInt		= SIO_INTSRC_TXBUFEMPT;	//不使用中断。目前只支持非中断模式
+	tSioTxCfg.wTxFreq 		= 4000000;			//tx clk =4MHz, Ttxshift = 1/4 = 250ns；发送每bit(1/0)是250ns*4 = 1us
+	tSioTxCfg.byInt		= SIO_INTSRC_TXBUFEMPT;	//使用TXBUFEMPT中断
 	
 	csi_sio_tx_init(SIO0, &tSioTxCfg);
 	mdelay(10);
@@ -155,8 +157,8 @@ int sio_led_rgb_demo_int(void)
 	return iRet;
 }
 
-/** \brief sio rgb led recv demo
- *  \brief sio 接收RGB LED驱动数据，采用RXFULL中断模式；每收到byRxBufLen个bit，产生中断
+/** \brief SIO 驱动RGB LED的接收实例，对应SIO驱动RGB LED的发送实例，用来接收RGB LED驱动数据,
+ *         和sio_led_rgb_demo配合使用，采用RXBUFFULL中断模式,每收到byRxBufLen个bit，产生中断
  * 
  *  \param[in] none
  *  \return error code
@@ -181,8 +183,8 @@ int sio_led_rgb_recv_rxfull_demo(void)
 	tSioRxCfg.bySpMode		= SIO_SPMD_EDGE_EN;		//接收数据采样边沿对齐使能	
 	tSioRxCfg.bySpExtra		= SIO_EXTRACT_HI;		//采样提取策略，(20H)HITHR; (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tSioRxCfg.byHithr		= 4;					//提取判定值, (BIT = 1)个数 > HITHR 提取H,否则提取L
-	tSioRxCfg.byRxBufLen	= 8;					//发送数据缓存长度(bit个数 = 8)，rxbuf 一次接收bit数量，len <= 32				
-	tSioRxCfg.byRxCnt		= 48;					//SIO一次接收总的数据长度(bit个数 = 24)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
+	tSioRxCfg.byRxBufLen	= 8;					//接收数据缓存长度(bit个数 = 8)，rxbuf 一次接收bit数量，len <= 32				
+	tSioRxCfg.byRxCnt		= 24;					//SIO一次接收总的数据长度(bit个数 = 24)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
 	tSioRxCfg.wRxFreq		= 8000000;				//rx clk =8MHz, Trxsamp = 1/8 = 125ns；每125ns 采样一次
 	tSioRxCfg.bySpBitLen	= 8;					//bit采样的长度，每个bit采样次数为8，总得采样时间 = 8*Trxsamp = 1us
 	tSioRxCfg.byInt		= SIO_INTSRC_RXBUFFULL;		//接收采用RXBUFFULL中断，当接收到byRxBufLen个bit后，产生中断，读取到接收buf中，每次读取byRxBufLen(8)bit
@@ -208,8 +210,9 @@ int sio_led_rgb_recv_rxfull_demo(void)
 	return iRet;
 }
 
-/** \brief sio rgb led recv demo
- *  \brief sio 接收RGB LED驱动数据，采用RXDNE中断模式；每收到byRxCnt个bit，产生中断；此中断效率大于RXBUFFULL中断
+/** \brief SIO 驱动RGB LED的接收实例，对应SIO驱动RGB LED的发送实例，用来接收RGB LED驱动数据,
+ *   	   和sio_led_rgb_demo配合使用采用RXDNE中断模式；每收到byRxCnt个bit，产生中断；此中断
+ * 	       效率大于RXBUFFULL中断
  * 
  *  \param[in] none
  *  \return error code
@@ -220,8 +223,8 @@ int sio_led_rgb_recv_rxdone_demo(void)
 	csi_sio_rx_config_t tSioRxCfg;
 	uint32_t wRxBuf[8];
 
-#if !defined(USE_GUI)							//用户未选择图形化编程		
-	csi_pin_set_mux(PC00, PC00_SIO);			//配置为SIO模式	
+#if !defined(USE_GUI)								//用户未选择图形化编程		
+	csi_pin_set_mux(PC00, PC00_SIO);				//配置为SIO模式	
 #endif
 	
 	//SIO RX 参数配置
@@ -234,10 +237,10 @@ int sio_led_rgb_recv_rxdone_demo(void)
 	tSioRxCfg.bySpExtra		= SIO_EXTRACT_HI;		//采样提取策略，(20H)HITHR; (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tSioRxCfg.byHithr		= 4;					//提取判定值, (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tSioRxCfg.byRxBufLen	= 8;					//发送数据缓存长度(bit个数 = 8)，rxbuf 一次接收bit数量，len <= 32				
-	tSioRxCfg.byRxCnt		= 48;					//SIO一次接收总的数据长度(bit个数 = 24)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
+	tSioRxCfg.byRxCnt		= 24;					//SIO一次接收总的数据长度(bit个数 = 24)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
 	tSioRxCfg.wRxFreq		= 8000000;				//rx clk =8MHz, Trxsamp = 1/8 = 125ns；每125ns 采样一次
 	tSioRxCfg.bySpBitLen	= 8;					//bit采样的长度，每个bit采样次数为8，总得采样时间 = 8*Trxsamp = 1us
-	tSioRxCfg.byInt		= SIO_INTSRC_RXDNE;		//接收采RXDNE中断，byRxCnt <= 32bit；接收byRxCnt(24)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(24)bit
+	tSioRxCfg.byInt		= SIO_INTSRC_RXDNE;			//接收采RXDNE中断，byRxCnt <= 32bit；接收byRxCnt(24)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(24)bit
 	
 	csi_sio_rx_init(SIO0, &tSioRxCfg);				//初始化SIO接收参数
 	csi_sio_timeout_rst(SIO0, 10, ENABLE);			//接收超时复位, timeout cnt > bySpBitLen
@@ -257,8 +260,10 @@ int sio_led_rgb_recv_rxdone_demo(void)
 
 
 
-/** \brief sio ti hdq send demo
- *  \brief sio 实现TI HDQ单线通讯协议，主机发送数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；一次传输两个字节
+/** \brief SIO 实现TI HDQ单线通讯协议，主机发送数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位,
+ *         一次传输两个数据，具体HDQ协议可百度查询；HDQ的第一个数据包含Break、addr+rw、Trsps，即第一个数据
+ *         的bit数 = Break+(addr+rw)+Trsps = 2 + 8 + 1 = 11bit; 第二个数据为1个byte，即8bit；总的一次要传
+ *         输的bit数 = 19bit
  * 
  *  \param[in] none
  *  \return error code
@@ -285,12 +290,12 @@ int sio_hdq_send_demo(void)
 												//					          |___|  |					
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
-	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 19;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 2+8+1=11)，txbuf 一次发送bit数量，len <= 16
+	tHdqTxCfg.byTxCnt 		= 19;				//SIO一次发送总的数据长度(bit个数 = 11+ 8 = 19)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
-	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit时间是40us
-	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;	//不使用中断。目前只支持非中断模式
+	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit(1/0)时间是40*5=200us
+	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;		//不使用中断。目前只支持非中断模式
 	
 	csi_sio_tx_init(SIO0, &tHdqTxCfg);
 	
@@ -311,8 +316,8 @@ int sio_hdq_send_demo(void)
 	return iRet;
 }
 
-/** \brief sio ti hdq receive write cmd demo
- *  \brief sio 实现TI HDQ单线通讯协议，接收主机写命令数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；一次传输两个字节
+/** \brief SIO 实现TI HDQ单线通讯协议，从机接收主机写命令数据（命令+数据）；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；
+ *         一次接收两个字节数据（命令+数据），接收第一个数据时，通过接收break把第一个数据中的break滤掉。
  * 
  *  \param[in] none
  *  \return error code
@@ -359,8 +364,8 @@ int sio_hdq_recv_wrcmd_demo(void)
 	return iRet;
 }
 
-/** \brief sio ti hdq send demo
- *  \brief sio 实现TI HDQ单线通讯协议，主机读取数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；一次传输两个字节
+/** \brief SIO 实现TI HDQ单线通讯协议，主机读取数据(发送命令+收数据)；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；
+ *         两个数据（命令+数据），发送命令，接收1个byte数据
  * 
  *  \param[in] none
  *  \return error code
@@ -409,12 +414,12 @@ int sio_hdq_send_recv_demo(void)
 												//					          |___|  |					
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
-	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 11;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxBufLen 	= 11;				//发送数据缓存长度(bit个数 = 2+8+1 = 11)，txbuf 一次发送bit数量，len <= 16
+	tHdqTxCfg.byTxCnt 		= 11;				//SIO一次发送总的数据长度(bit个数 = 11)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
 	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit时间是40us
-	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;	//不使用中断。目前只支持非中断模式
+	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;		//不使用中断。目前只支持非中断模式
 	
 	csi_sio_tx_init(SIO0, &tHdqTxCfg);
 	
@@ -457,8 +462,8 @@ int sio_hdq_send_recv_demo(void)
 	
 	return iRet;
 }
-/** \brief sio ti hdq receive write cmd demo
- *  \brief sio 实现TI HDQ单线通讯协议，接收主机读命令数据；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；一次传输两个字节
+/** \brief SIO 实现TI HDQ单线通讯协议，从机接收主机读数据命令；数据传输方式LSB, 低7位是地址，最高位是R/W(0/1)控制位；
+ *         从机收到1字节命令，返回（发送）1字节数据
  * 
  *  \param[in] none
  *  \return error code
@@ -487,11 +492,11 @@ int sio_hdq_recv_rdcmd_demo(void)
 	tHdqTxCfg.byDHHsq 		= 0x1E;				//DH 对象序列具体定义: bit= 1 	 ____ 
 												//					          |_|	 |
 	tHdqTxCfg.byTxBufLen 	= 8;				//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
-	tHdqTxCfg.byTxCnt 		= 8;				//SIO一次发送总的数据长度(bit个数 = 24)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tHdqTxCfg.byTxCnt 		= 8;				//SIO一次发送总的数据长度(bit个数 = 8)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
 	tHdqTxCfg.byIdleLev 	= SIO_IDLE_H;		//SIO空闲时刻IO管脚输出电平
 	tHdqTxCfg.byTxDir 		= SIO_TXDIR_LSB;	//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
 	tHdqTxCfg.wTxFreq 		= 25000;			//tx clk =25kHz, Ttxshift = 1/4 = 40us；发送每bit时间是40us
-	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;	//不使用中断。目前只支持非中断模式
+	tHdqTxCfg.byInt		= SIO_INTSRC_NONE;		//不使用中断。目前只支持非中断模式
 	
 	csi_sio_tx_init(SIO0, &tHdqTxCfg);			//初始化SIO发送参数
 	wTxData = sio_data_conver(byTxChar);		//数据转换
@@ -506,10 +511,10 @@ int sio_hdq_recv_rdcmd_demo(void)
 	tHdqRxCfg.bySpExtra		= SIO_EXTRACT_HI;		//采样提取策略，(20H)HITHR; (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tHdqRxCfg.byHithr		= 13;					//提取判定值, (BIT = 1)个数 > HITHR 提取H,否则提取L
 	tHdqRxCfg.byRxBufLen	= 8;					//发送数据缓存长度(bit个数 = 8)，rxbuf 一次接收bit数量，len <= 32				
-	tHdqRxCfg.byRxCnt		= 8;					//SIO一次接收总的数据长度(bit个数 = 16)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
+	tHdqRxCfg.byRxCnt		= 8;					//SIO一次接收总的数据长度(bit个数 = 8)，byRxCnt >= byRxBufLen，byRxCnt < 256(最大32bytes)				
 	tHdqRxCfg.wRxFreq		= 100000;				//rx clk =100kHz, Trxsamp = 1/100kHz = 10us；每10us采样一次
 	tHdqRxCfg.bySpBitLen	= 19;					//bit采样的长度，每个bit采样次数为19，总得采样时间 = 19*Trxsamp = 190us
-	tHdqRxCfg.byInt		= SIO_INTSRC_RXDNE | SIO_INTSRC_BREAK;	//接收RXDNE和BREAK中断，byRxCnt <= 32bit；接收byRxCnt(16)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(16)bit
+	tHdqRxCfg.byInt		= SIO_INTSRC_RXDNE | SIO_INTSRC_BREAK;	//接收RXDNE和BREAK中断，byRxCnt <= 32bit；接收byRxCnt(8)个bit，产生中断,读取数据到接收buf，每次读取byRxCnt(8)bit
 	
 	csi_sio_rx_init(SIO0, &tHdqRxCfg);					//初始化SIO接收参数
 	csi_sio_break_rst(SIO0, SIO_BKLEV_LOW, 19, ENABLE);	//接收检测break, HDQ协议起始需要break总线
@@ -551,9 +556,9 @@ static uint32_t sio_led_data_conver(uint8_t byData)
 static void set_led_rgb_store(uint32_t *pwLeddData,uint16_t hwLedNum)
 {
 	//led
-	*(pwLeddData+hwLedNum*3) = sio_led_data_conver(byDipData[hwLedNum*3+1]) ;		//G
-	*(pwLeddData+hwLedNum*3+1) = sio_led_data_conver(byDipData[hwLedNum*3]);		//R		
-	*(pwLeddData+hwLedNum*3+2) = sio_led_data_conver(byDipData[hwLedNum*3+2]);		//B	
+	*(pwLeddData+hwLedNum*3) = sio_led_data_conver(byDispData[hwLedNum*3+1]) ;		//G
+	*(pwLeddData+hwLedNum*3+1) = sio_led_data_conver(byDispData[hwLedNum*3]);		//R		
+	*(pwLeddData+hwLedNum*3+2) = sio_led_data_conver(byDispData[hwLedNum*3+2]);		//B	
 }
 
 void led_rgb_display(uint8_t *byColData, uint16_t hwLedNum)
@@ -622,7 +627,9 @@ uint32_t sio_data_conver(uint8_t byTxData)
 	
 }
 
-/** \brief sio interrupt handle 
+/** \brief SIO 中断处理函数，SIO产生中断时系统执行该函数，定义为弱属性，用户可参考此函数在实际
+ *         使用中重新定义该函数(正常属性)，在自己的中断函数里添加具体的处理；系统会优先调用非弱
+ *         属性的该函数。
  * 
  *  \param[in] ptSioBase: pointer of sio register structure
  *  \return none

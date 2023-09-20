@@ -20,7 +20,8 @@
 /* Private macro-----------------------------------------------------------*/
 /* Private variablesr------------------------------------------------------*/
 
-/** \brief bt timer：BT定时中断demo
+/** \brief BT 定时中断demo，定时10000us(10ms), 每10ms进一次BT定时中断，默认选择
+ *         配置的是PEND中断
  * 
  *  \param[in] none
  *  \return error code
@@ -30,13 +31,12 @@ int bt_timer_demo(void)
 	int iRet = 0;
 			
 	csi_bt_timer_init(BT0, 10000);		//初始化BT0, 定时10000us； BT定时，默认采用PEND中断
-	
 	csi_bt_start(BT0);					//启动定时器
 
 	return iRet;
 }
 
-/** \brief bt pwm ouput：BT PWM输出demo
+/** \brief BT PWM输出demo，PWM输出1000Hz，占空比50%；不开启BT中断
  *  
  *  \param[in] none
  *  \return error code
@@ -54,27 +54,19 @@ int bt_pwm_demo(void)
 	tPwmCfg.byIdleLevel = BT_PWM_IDLE_HIGH;					//PWM 输出空闲电平
 	tPwmCfg.byStartLevel= BT_PWM_START_HIGH;				//PWM 输出起始电平
 	tPwmCfg.byDutyCycle = 50;								//PWM 输出占空比(0 < DutyCycle < 100)		
-	tPwmCfg.wFreq 		= 1;								//PWM 输出频率
+	tPwmCfg.wFreq 		= 1000;								//PWM 输出频率
 	//tPwmCfg.byInt 	= BT_INTSRC_PEND | BT_INTSRC_CMP;	//PWM 中断配置(PEND and CMP)
 	tPwmCfg.byInt		= BT_INTSRC_NONE;
 	
 	csi_bt_pwm_init(BT0, &tPwmCfg);							//初始化BT0 PWM输出
 	csi_bt_start(BT0);										//启动BT0
 		
-	csi_bt_pwm_duty_cycle_updata(BT0, 10);
-	csi_bt_pwm_duty_cycle_updata(BT0, 0);
-	csi_bt_pwm_updata(BT0, 1000, 20);
-	csi_bt_pwm_duty_cycle_updata(BT0, 50);
-	csi_bt_pwm_duty_cycle_updata(BT0, 100);
-	csi_bt_pwm_duty_cycle_updata(BT0, 70);
-	csi_bt_pwm_updata(BT0, 10000, 50);
-	csi_bt_pwm_duty_cycle_updata(BT0, 40);
-	csi_bt_pwm_duty_cycle_updata(BT0, 0);
 	
 	return iRet;
 }
 
-/** \brief bt sync start：EXI通过BT同步输入端口0触发BT启动 
+/** \brief EXI通过BT同步输入端口0触发BT启动；用PB01的下降沿通过ETCB触发BT0启动，不开启EXI(PB01)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PB01中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -95,7 +87,7 @@ int bt_sync_start_demo(void)
 	csi_exi_set_evtrg(EXI_TRGOUT0, TRGSRC_EXI1, 3);						//EXI1 触发EXI_TRGOUT0
 	
 	csi_bt_timer_init(BT0,20000);										//BT 20ms定时
-	csi_bt_set_sync(BT0, BT_TRG_SYNCIN0, BT_TRG_ONCE, DISABLE);		//外部触发bt启动(SYNCIN0)
+	csi_bt_set_sync(BT0, BT_TRG_SYNCIN0, BT_TRG_ONCE, DISABLE);			//外部触发bt启动(SYNCIN0)
 	
 	
 	tEtbConfig.byChType = ETB_ONE_TRG_ONE;  		//单个源触发单个目标
@@ -113,7 +105,8 @@ int bt_sync_start_demo(void)
 	return iRet;
 }
 
-/** \brief bt sync count: EXI通过BT同步输入端口1触发BT计数值加1
+/** \brief EXI通过BT同步输入端口1触发BT计数值加1；用PB01的下降沿通过ETCB触发BT0启动，不开启EXI(PB01)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PB01中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -151,7 +144,8 @@ int bt_sync_count_demo(void)
 	return iRet;
 }
 
-/** \brief bt sync stop：EXI通过BT同步输入端口2触发BT停止
+/** \brief EXI通过BT同步输入端口2触发BT停止；用PB01的下降沿通过ETCB触发BT0启动，不开启EXI(PB01)的VIC中断；
+ *         用户可以选择使能/禁止VIC中断(选择是否进入PB01中断) 
  *  
  *  \param[in] none
  *  \return error code
@@ -190,7 +184,7 @@ int bt_sync_stop_demo(void)
 	
 }
 
-/** \brief bt event trg count：BT0通过PEND事件产生触发输出到ETCB,通过BT1同步输入0触发BT1启动
+/** \brief BT0通过PEND事件产生触发输出到ETCB，通过BT1同步输入0触发BT1启动,
  *  
  *  \param[in] none
  *  \return error code
@@ -224,7 +218,7 @@ int bt_trg_out_demo(void)
 	return iRet;
 }
 
-/** \brief bt soft trg out：BT0软件产生一次触发输出，触发BT1启动
+/** \brief BT0软件产生一次触发输出，触发BT1启动
  *  
  *  \param[in] none
  *  \return error code
@@ -254,7 +248,9 @@ int bt_soft_trg_out_demo(void)
 	
 	return iRet;
 }
-/** \brief bt interrupt handle function
+/** \brief BT中断处理函数，BT产生中断时系统执行该函数，定义为弱属性，用户可参考此函数在实际使
+ *         用中重新定义该函数(正常属性)，在自己的中断函数里添加具体的处理；系统会优先调用非弱
+ * 		   属性的该函数。
  * 
  *  \param[in] ptBtBase: pointer of bt register structure
  *  \return none

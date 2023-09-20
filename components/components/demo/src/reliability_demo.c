@@ -10,8 +10,8 @@
 */
 
 /* include ----------------------------------------------------------------*/
-#include "reliability.h"
-#include "pin.h"
+#include <reliability.h>
+#include <drv/pin.h>
 #include "iostring.h"
 
 /* externs function--------------------------------------------------------*/
@@ -28,10 +28,10 @@ void lvd_demo(void)
 {
 	uint8_t byLevel;
 	
-	csi_lvd_int_enable(LVD_INTF,LVD_30);  //VDD掉电到3.0V即触发LVD中断
+	csi_lvd_int_enable(LVD_INTF,LVD_30);  		//VDD掉电到3.0V即触发LVD中断
 	byLevel = csi_get_lvdlevel();
 	
-	my_printf("lvd level: %d\n", byLevel); //执行board_init()对串口进行配置后才有打印
+	my_printf("lvd level: %d\n", byLevel); 		//执行board_init()对串口进行配置后才有打印
 	while(1)
 	{
 		if(csi_lvd_flag())
@@ -40,7 +40,7 @@ void lvd_demo(void)
 		}
 		else
 		{
-			my_printf("vdd high lvd level\n");    //当前电压高于 INTLVL 设置的检测阈值
+			my_printf("vdd high lvd level\n");  //当前电压高于 INTLVL 设置的检测阈值
 		}
 		
 	}	

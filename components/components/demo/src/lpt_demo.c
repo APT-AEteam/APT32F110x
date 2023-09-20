@@ -21,7 +21,7 @@
 /* Private variablesr------------------------------------------------------*/
 
 /** \brief lpt timer
- * 
+ * - LPT定时器
  *  \param[in] none
  *  \return error code
  */
@@ -36,7 +36,7 @@ int lpt_timer_demo(void)
 }
 
 /** \brief lpt pwm ouput
- * 
+ * - LPT输出PWM波
  *  \param[in] none
  *  \return error code
  */
@@ -62,7 +62,7 @@ int lpt_pwm_demo(void)
 }
 
 /** \brief lpt pwm duty ouput
- * 
+ * - LPT输出PWM波，占空比从0变到100
  *  \param[in] none
  *  \return error code
  */
@@ -88,19 +88,13 @@ int lpt_pwm_duty_demo(void)
 	{
 		mdelay(200);
 		csi_lpt_change_duty(LPT, i);	
-	}
-
-//	csi_lpt_change_duty(LPT, 0);
-//	csi_lpt_change_duty(LPT, 50);
-//	csi_lpt_change_duty(LPT, 100);
-//	mdelay(1000);
-//	csi_lpt_change_duty(LPT, 50);
-	
+	}	
 	return iRet;	
 }
 
 /** \brief lpt sync trg count
- *  
+ *  外部中断触发LPT工作
+ * 	PB00下降沿产生外部中断，外部中断通过ETCB触发LPT工作
  *  \param[in] none
  *  \return error code
  */
@@ -136,7 +130,7 @@ int lpt_sync_trg_start_demo(void)
 }
 
 /** \brief lpt trg out
- *  
+ *  LPT触发BT1工作
  *  \param[in] none
  *  \return error code
  */
@@ -149,7 +143,7 @@ int lpt_trg_out_demo(void)
 	csi_lpt_timer_init(LPT,LPT_CLK_PCLK_DIV4,50);   				//初始化lpt,选用内部超低功耗时钟,定时50ms,默认采用PEND中断
 	csi_lpt_set_evtrg(LPT, LPT_TRGOUT, LPT_TRGSRC_PRD, 1);
 	
-	csi_bt_timer_init(BT1,5000);									//BT定时1ms
+	csi_bt_timer_init(BT1,5000);									//BT定时5ms
 	csi_bt_set_sync(BT1, BT_TRG_SYNCIN0, BT_TRG_ONCE, DISABLE);		//外部触发bt启动(SYNCIN0)
 	
 	tEtbConfig.byChType = ETB_ONE_TRG_ONE;  						//单个源触发单个目标
@@ -169,7 +163,7 @@ int lpt_trg_out_demo(void)
 }
 
 /** \brief lpt software trg out
- *  
+ *  LPT软件触发BT1工作
  *  \param[in] none
  *  \return error code
  */
@@ -179,7 +173,7 @@ int lpt_soft_trg_out_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				    				//ETB 参数配置结构体
 	
-	csi_bt_timer_init(BT1,5000);									//BT定时1ms
+	csi_bt_timer_init(BT1,5000);									//BT定时5ms
 	csi_bt_set_sync(BT1, BT_TRG_SYNCIN0, BT_TRG_ONCE, DISABLE);		//外部触发bt启动(SYNCIN0)
 	
 	tEtbConfig.byChType = ETB_ONE_TRG_ONE;  						//单个源触发单个目标

@@ -196,7 +196,7 @@ void user_demo(void)
 /// ***************************************************
 //	iic_master_demo();
 //	iic_master_eeprom_demo( );
-	iic_slave_demo();
+//	iic_slave_demo();
 //
 /// ***************************************************
 ///  SIO相关的示例代码
@@ -241,10 +241,12 @@ void user_demo(void)
 
 /// ***************************************************
 /// TKEY相关示例代码
-/// 代码适用于APT110x TOUCH EV BOARD
+/// 代码适用于APT110x TOUCH EV BOARD（滑块和滑条不适用）
 /// APT32F1103 支持TOUCH
 /// ***************************************************
 //	tkey_demo();
+//	tkey_sleep_demo();
+//	tkey_slider_wheel_demo();
 
 }
 
