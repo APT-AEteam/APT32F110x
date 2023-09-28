@@ -254,6 +254,6 @@
     <LocalDisplayFormat>1</LocalDisplayFormat>
     <debugLayout/>
     <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
-    <QuickWatchDisplayFormat/>
+    <QuickWatchDisplayFormat>1</QuickWatchDisplayFormat>
   </DebugSessions>
 </Project>
