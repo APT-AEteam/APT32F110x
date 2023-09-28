@@ -14,7 +14,7 @@
 #include <gpta.h>
 #include <drv/pin.h>
 #include "drv/etb.h"
-
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -213,7 +213,7 @@ int gpta_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PB010,   PB010_GPTA0_CHA);//28
 	csi_pin_set_mux(PB011,   PB011_GPTA0_CHB);//29
 //	csi_pin_set_mux(PB04,   PB04_GPTA1_CHA);

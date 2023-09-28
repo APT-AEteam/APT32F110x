@@ -15,6 +15,7 @@
 #include <drv/gptb.h>
 #include <drv/pin.h>
 #include "drv/etb.h"
+#include "board_config.h"
 #include "demo.h"
 #include <irq.h>
 
@@ -187,7 +188,7 @@ int gptb_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
     csi_pin_set_mux(PB04,  PB04_GPTB0_CHB  );                       //PIN:13 
@@ -252,7 +253,7 @@ int gptb_pwm_dz_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
     csi_pin_set_mux(PB04,  PB04_GPTB0_CHB  );                       //PIN:13 
@@ -326,7 +327,7 @@ int gptb_pwm_dz_em_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
     csi_pin_set_mux(PA013, PA013_GPTB0_CHAX);						//PIN:8
     csi_pin_set_mux(PA014, PA014_GPTB0_CHAY);                       //PIN:9 
 

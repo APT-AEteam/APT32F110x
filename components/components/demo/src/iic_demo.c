@@ -14,7 +14,7 @@
 #include "irq.h"
 #include "pin.h"
 #include "demo.h"
-
+#include "board_config.h"
 
 csi_iic_master_config_t  g_tIicMasterCfg;	//主机初始化结构体变量
 csi_iic_slave_config_t  g_tIicSlaveCfg;	//从机初始化结构体变量
@@ -32,7 +32,7 @@ void iic_master_eeprom_demo(void)
 	volatile uint8_t data[9] = {1,2,3,4,5,6,7,8,9};
 	volatile uint8_t data1[9] = {0};
 	
-#if !defined (USEGUI)
+#if (USE_GUI == 0)
 	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
 	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉
@@ -70,7 +70,7 @@ void iic_master_demo(void)
 {
 	
 	volatile uint8_t data1[19] = {4,4,4,4,4,4,4,4,4};
-#if !defined (USEGUI)	
+#if (USE_GUI == 0)	
 	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
 	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉
@@ -111,7 +111,7 @@ void iic_master_demo(void)
 ***************************************************/
 void iic_slave_demo(void)
 {
-#if !defined (USEGUI)
+#if (USE_GUI == 0)
 	csi_pin_output_mode(PA07,GPIO_OPEN_DRAIN);   //PA07 配置为开漏输出
 	csi_pin_output_mode(PA08,GPIO_OPEN_DRAIN);   //PA08配置为开漏输出
 	csi_pin_pull_mode(PA07, GPIO_PULLUP);   //PA07 上拉

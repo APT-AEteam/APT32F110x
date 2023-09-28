@@ -17,6 +17,7 @@
 #include "drv/lpt.h"
 #include "drv/ept.h"
 #include "drv/adc.h"
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -35,7 +36,7 @@ int etcb_one_trg_one_demo0(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				                //ETB 参数配置结构体		
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA01,PA01_INPUT);		
 	csi_pin_pull_mode(PA01, GPIO_PULLUP);						//PA01 上拉
 	csi_pin_irq_mode(PA01,EXI_GRP1, GPIO_IRQ_FALLING_EDGE);		//PA01 下降沿产生中断
@@ -117,7 +118,7 @@ void etcb_adc_config(void)
 {
 	csi_adc_config_t tAdcConfig;
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
@@ -153,7 +154,7 @@ void etcb_ept_config(void)
 {
 //------------------------------------------------------------------------------------------------------------------------	
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//PIN17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//PIN18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//PIN19
@@ -207,7 +208,7 @@ int etcb_one_trg_one_demo1(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	#endif
 	etcb_ept_config();
@@ -246,7 +247,7 @@ void etcb_adc_config12(void)
 	csi_adc_config_t tAdcConfig;
 	
 	//adc 输入管脚配置
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
 	csi_pin_set_mux(PA03, PA03_ADC_AIN2);
 	#endif
@@ -278,7 +279,7 @@ int etcb_one_trg_more_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				//ETB 参数配置结构体		
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	#endif
 	etcb_ept_config();
@@ -318,7 +319,7 @@ const csi_adc_seq_t SeqCfg3[] =
 void etcb_adc_config13(void)
 {
 	csi_adc_config_t tAdcConfig;
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA010, PA010_ADC_AIN10);
 	csi_pin_set_mux(PA011, PA011_ADC_AIN11);
@@ -352,7 +353,7 @@ int etcb_more_trg_one_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               //ETB 参数配置结构体		
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	
 	csi_pin_set_mux(PA00,PA00_INPUT);	
@@ -406,7 +407,7 @@ int etcb_mix_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               //ETB 参数配置结构体		
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA05,PA05_OUTPUT);	
 	
 	csi_pin_set_mux(PA00,PA00_INPUT);	

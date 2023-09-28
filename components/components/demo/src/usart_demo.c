@@ -12,7 +12,7 @@
 #include <string.h>
 #include <drv/usart.h>
 #include <drv/pin.h>
-
+#include "board_config.h"
 
 #include "demo.h"
 
@@ -37,7 +37,7 @@ int usart_send_dma_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程	
+#if (USE_GUI == 0)										//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK,同步模式时使用
@@ -99,7 +99,7 @@ int usart_recv_dma_demo(void)
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程		
+#if (USE_GUI == 0)										//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
@@ -197,7 +197,7 @@ int usart_char_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程		
+#if (USE_GUI == 0)										//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
@@ -244,7 +244,7 @@ int usart_send_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程	
+#if (USE_GUI == 0)										//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
@@ -292,7 +292,7 @@ int usart_send_int_demo(void)
 	volatile uint8_t byRecv;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程	
+#if (USE_GUI == 0)										//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//USART0 TX管脚配置	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//USART0 RX管脚配置
 	//csi_pin_set_mux(PA07, PA07_USART0_CK);				//CK，同步模式时使用
@@ -353,7 +353,7 @@ int usart_recv_demo(void)
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 	volatile uint8_t byRecv;
 
-#if !defined(USE_GUI)									//用户未选择图形化编程		
+#if (USE_GUI == 0)										//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
@@ -395,7 +395,7 @@ int usart_recv_rx_int_demo(void)
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程		
+#if (USE_GUI == 0)										//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置
@@ -430,7 +430,7 @@ int usart_recv_rxfifo_int_demo(void)
 	int iRet = 0;
 	csi_usart_config_t tUsartCfg;						//USART0 参数配置结构体
 
-#if !defined(USE_GUI)									//用户未选择图形化编程		
+#if (USE_GUI == 0)										//用户未选择图形化编程		
 	csi_pin_set_mux(PB02, PB02_USART0_TX);				//TX	
 	csi_pin_set_mux(PA06, PA06_USART0_RX);				//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);				//RX管脚上拉使能, 建议配置

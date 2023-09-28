@@ -15,6 +15,7 @@
 #include <drv/ept.h>
 #include <drv/pin.h>
 #include "drv/etb.h"
+#include "board_config.h"
 #include "demo.h"
 #include <irq.h>
 /* externs function--------------------------------------------------------*/
@@ -167,7 +168,7 @@ int ept_pwm_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------	
-#if defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//PIN17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//PIN18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//PIN19
@@ -250,7 +251,7 @@ int ept_pwm_dz_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						
@@ -342,7 +343,7 @@ int ept_pwm_dz_em_demo(void)
 {
 	int iRet = 0;	
 //------------------------------------------------------------------------------------------------------------------------
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA13, PA13_EPT_CHAX);						//17
 	csi_pin_set_mux(PA14, PA14_EPT_CHBX);						//18
 	csi_pin_set_mux(PA15, PA15_EPT_CHCX);						//19

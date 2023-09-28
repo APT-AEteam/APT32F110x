@@ -15,6 +15,7 @@
 #include <drv/bt.h>
 #include <drv/dma.h>
 #include <iostring.h>
+#include "board_config.h"
 #include "demo.h"
 
 /* externs function--------------------------------------------------------*/
@@ -58,7 +59,7 @@ int adc_samp_oneshot_demo(void)
 	volatile int16_t nDataBuf[3] = {0,0,0};				//存放三通道采样值
 	csi_adc_config_t tAdcConfig;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -122,7 +123,7 @@ int adc_samp_continuous_demo(void)
 	volatile int16_t nDataBuf[3] = {0,0,0};				//存放三通道采样值
 	csi_adc_config_t tAdcConfig;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -224,7 +225,7 @@ int adc_samp_oneshot_int_demo(void)
 	int iRet = 0;
 	csi_adc_config_t tAdcConfig;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -272,7 +273,7 @@ int adc_samp_continuous_int_demo(void)
 	int iRet = 0;
 	csi_adc_config_t tAdcConfig;
 	
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);				//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -329,7 +330,7 @@ int adc_samp_continuous_dma_transfer_demo(void)
 	
 	memset((uint8_t *)hwValBuf, 0, 2400);						//清除数据缓存	
 				
-#if !defined(USE_GUI)	
+#if (USE_GUI == 0)	
 	//adc 输入管脚配置
 	//csi_pin_set_mux(PA00, PA00_ADC_AIN0);						//ADC GPIO作为输入通道
 	csi_pin_set_mux(PA01, PA01_ADC_AIN1);
@@ -443,7 +444,7 @@ void adc_ts_init_demo(void)
 	uint8_t byNum = 1;
 	//STEP 1: ADC初始化
 	
-#if !defined(USE_GUI)		
+#if (USE_GUI == 0)		
 	//adc 输入管脚配置
 	csi_pin_set_mux(PA00, PA00_AVREF);                                      //GPIO的AF功能设置为VREF+                             
 	//adc 参数配置初始化

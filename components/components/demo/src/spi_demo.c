@@ -24,6 +24,7 @@
 #include "spi.h"
 #include "pin.h"
 #include <iostring.h>
+#include "board_config.h"
 
 //48LQFP SPI PIN
 //MOSI		NSS		CLK		MISO
@@ -46,7 +47,7 @@ void spi_master_send_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -83,7 +84,7 @@ void spi_master_send_int_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置   
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -123,7 +124,7 @@ void spi_slave_receive_int_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -173,7 +174,7 @@ void spi_master_send_receive_demo(void)
 	}
 	
 	//端口配置												    
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -217,7 +218,7 @@ void spi_master_send_receive_fast_demo(void)
 	}
 	
 	//端口配置											    
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -255,7 +256,7 @@ void spi_slave_send_receive_int_demo(void)
 	csi_spi_config_t t_SpiConfig;  //spi初始化参数配置结构体
 	
 	//端口配置
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -593,7 +594,7 @@ void spi_etcb_dma_send(void)
 	tEtbConfig.byTrgMode = ETB_HARDWARE_TRG;			//通道触发模式采样硬件触发
 	
 	//端口配置											    
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO
@@ -691,7 +692,7 @@ void spi_etcb_dma_send_receive(void)
 	tEtbConfig1.byTrgMode = ETB_HARDWARE_TRG;			//通道触发模式采样软件触发
 	
 	//端口配置											    
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PA07,PA07_SPI0_NSS);					//PA07 = SPI0_NSS									    
 	csi_pin_set_mux(PA08,PA08_SPI0_SCK);					//PA08 = SPI0_SCK
 	csi_pin_set_mux(PA09,PA09_SPI0_MISO);					//PA09 = SPI0_MISO

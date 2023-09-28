@@ -37,7 +37,7 @@ void rtc_set_time_demo(void)
 	csi_rtc_config_t tRtcConfig;
 	csi_rtc_time_t tRtcTime,tRtcTimeRdbk;
 	uint32_t wSec = 0;
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
@@ -110,7 +110,7 @@ void rtc_alarm_demo(void)
 	csi_rtc_time_t tAlmTime;
 	csi_rtc_time_t tBlmTime;
 	csi_rtc_config_t tRtcConfig;
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
@@ -188,7 +188,7 @@ void rtc_timer_demo(void)
 {
 	csi_rtc_config_t tRtcConfig;
 	csi_rtc_time_t tRtcTime;
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	
@@ -235,7 +235,7 @@ void rtc_timer_demo(void)
 	volatile uint8_t ch;
 	uint32_t wSec = 0;
 	
-	#if !defined(USE_GUI)
+	#if (USE_GUI == 0)
 //	csi_pin_set_mux(PA03, PA03_OSC_XI);			//设置PA0.3为SXIN，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 //	csi_pin_set_mux(PA04, PA04_OSC_XO);         //设置PA0.4为SXOUT，如果使用外部主晶振作为RTC时钟源，必须先对管脚进行配置
 	

@@ -17,6 +17,7 @@
 #include "csp.h"
 #include "pin.h"
 #include "reliability.h"
+#include "board_config.h"
 
 /* externs function--------------------------------------------------------*/
 /* private function--------------------------------------------------------*/
@@ -32,7 +33,7 @@ void io_config(uint8_t byGrp)
 	switch (byGrp) 
 	{
 		case 0: 
-		#if !defined(USE_GUI)
+		#if (USE_GUI == 0)
 			csi_pin_set_mux(PA014, PA014_LED_S0);
 			csi_pin_set_mux(PA015, PA015_LED_S1);
 			csi_pin_set_mux(PB03,  PB03_LED_S2);
@@ -45,7 +46,7 @@ void io_config(uint8_t byGrp)
 		break;
 		
 		case 1:
-		#if !defined(USE_GUI)
+		#if (USE_GUI == 0)
 			csi_pin_set_mux(PA06,  PA06_LED_S0);
 			csi_pin_set_mux(PA07,  PA07_LED_S1);
 			csi_pin_set_mux(PA08,  PA08_LED_S2);
@@ -58,7 +59,7 @@ void io_config(uint8_t byGrp)
 		break;
 	
 		case 2:
-		#if !defined(USE_GUI)
+		#if (USE_GUI == 0)
 			csi_pin_set_mux(PA011, PA011_LED_S0);
 			csi_pin_set_mux(PA012, PA012_LED_S1);
 			csi_pin_set_mux(PB03,  PB03_LED_S2);
@@ -78,7 +79,7 @@ void io_config(uint8_t byGrp)
 	mdelay(3000);
 	csi_swd_unlock();//如果要使用SWD口(PA17/PA18)，前面一定要加delay函数，否则复位后将很难连上芯片。
 	
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	//COM0~9
 	csi_pin_set_mux(PA16,  PA16_LED_COM0);
 	csi_pin_set_mux(PB05,  PB05_LED_COM1);

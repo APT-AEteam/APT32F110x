@@ -15,6 +15,7 @@
 #include "drv/etb.h"
 #include <drv/lpt.h>
 #include <drv/bt.h>
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -32,7 +33,7 @@ int cmp_base_demo(void)
 	int iRet = 0;
 	csi_cmp_config_t tCmpCfg;
 
-#if !defined(USE_GUI)		
+#if (USE_GUI == 0)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	
@@ -68,7 +69,7 @@ int cmp_dfcr_demo(void)
 {
 	int iRet = 0;
 	
-#if !defined(USE_GUI)		
+#if (USE_GUI == 0)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	
@@ -118,7 +119,7 @@ int cmp_wfcr_demo(void)
 	csi_pin_set_mux(PA03, PA03_OUTPUT);	 
 	csi_pin_set_low(PA02);	
 
-#if !defined(USE_GUI)		
+#if (USE_GUI == 0)		
 	csi_pin_set_mux(PA00,PA00_CMP_IN0);	
 	csi_pin_set_mux(PA110,PA110_CMP_IN1);		
 	csi_pin_set_mux(PA111,PA111_CMP0_OUT);	

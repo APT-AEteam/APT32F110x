@@ -85,6 +85,11 @@ extern "C" {
 #define	LED_INT_HANDLE_EN				1		//LED
 #define	TKEY_INT_HANDLE_EN				1		//TOUCH
 
+//csi GUI Handling Enable, 1/0(OPEN/CLOSE)
+//可视化编程，通过宏USE_GUI来实现功能选择
+#define USE_GUI							0		//GUI	
+
+
 #ifdef __cplusplus
 }
 #endif

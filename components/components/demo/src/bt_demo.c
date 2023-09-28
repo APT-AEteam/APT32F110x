@@ -13,7 +13,7 @@
 #include <drv/bt.h>
 #include <drv/pin.h>
 #include <drv/etb.h>
-
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -46,7 +46,7 @@ int bt_pwm_demo(void)
 	int iRet = 0;
 	csi_bt_pwm_config_t tPwmCfg;							//BT PWM输出参数初始化配置结构体
 	
-#if !defined(USE_GUI)										//用户未选择图形化编程		
+#if (USE_GUI == 0)											//用户未选择图形化编程		
 	csi_pin_set_mux(PA19, PA19_BT0_OUT);					//PA19 作为BT0 PWM输出引脚
 #endif
 	
@@ -77,7 +77,7 @@ int bt_sync_start_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体		
 
-#if !defined(USE_GUI)													//用户未选择图形化编程	
+#if (USE_GUI == 0)														//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能	
@@ -117,7 +117,7 @@ int bt_sync_count_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
 
-#if !defined(USE_GUI)													//用户未选择图形化编程	
+#if (USE_GUI == 0)														//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
@@ -156,7 +156,7 @@ int bt_sync_stop_demo(void)
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
 
-#if !defined(USE_GUI)													//用户未选择图形化编程	
+#if (USE_GUI == 0)														//用户未选择图形化编程	
 	csi_pin_set_mux(PB01, PB01_INPUT);									//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);								//PB01 上拉
 	csi_pin_irq_enable(PB01, ENABLE);									//PB01 中断使能
@@ -166,7 +166,7 @@ int bt_sync_stop_demo(void)
 	csi_exi_set_evtrg(EXI_TRGOUT5, TRGSRC_EXI16, 0);					//EXI16(PB01) 触发EXI_TRGOUT5(PB01用EXI16触发输出)
 	
 	csi_bt_timer_init(BT0,2000);										//BT定时
-	csi_bt_set_sync(BT0, BT_TRG_SYNCIN2, BT_TRG_ONCE, DISABLE);		//外部触发停止BT(SYNCIN2)
+	csi_bt_set_sync(BT0, BT_TRG_SYNCIN2, BT_TRG_ONCE, DISABLE);			//外部触发停止BT(SYNCIN2)
 	csi_bt_start(BT0);													//启动定时器
 	
 	tEtbConfig.byChType = ETB_ONE_TRG_ONE;  		//单个源触发单个目标

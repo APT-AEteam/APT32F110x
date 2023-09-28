@@ -83,7 +83,7 @@ int lcd_disp_demo(void)
 	int iRet = 0;
 	uint8_t i;
 	csi_lcd_config_t tLcdCfg;
-#if !defined(USE_GUI)					//用户未选择图形化编程	
+#if (USE_GUI == 0)						//用户未选择图形化编程	
 	uint32_t wSegMsk = 0x0Cfffffc;		//lcd seg2->26
 	uint8_t  wComMsk = 0x0f;			//lcd com0->3
 
@@ -147,7 +147,7 @@ int lcd_disp_sleep_demo(void)
 	int iRet = 0;
 	uint8_t i;
 	uint16_t hwRstSrc;
-#if !defined(USE_GUI)					//用户未选择图形化编程	
+#if (USE_GUI == 0)						//用户未选择图形化编程	
 	uint32_t wSegMsk = 0x03fffffc;		//lcd seg2->26
 	uint8_t  wComMsk = 0x0f;			//lcd com0->3
 #endif	
@@ -220,7 +220,7 @@ int lcd_disp_sleep_demo(void)
 	csi_rtc_get_time(RTC,  &tRtcTimeRdbk);		//回读当前时间
 	s_RtcSec = tRtcTimeRdbk.iSec;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程		
+#if (USE_GUI == 0)								//用户未选择图形化编程		
 	csi_lcd_gpio_init(wSegMsk, wComMsk);		//LCD GPIO 配置：com0-com3   seg2-seg31   4*30
 #endif
 	
@@ -330,7 +330,7 @@ int lcd_disp_rtc_snooze_demo(void)
 	int iRet = 0;
 	uint8_t i;
 	uint16_t hwRstSrc;
-#if !defined(USE_GUI)					//用户未选择图形化编程	
+#if (USE_GUI == 0)						//用户未选择图形化编程	
 	uint32_t wSegMsk = 0x03fffffc;		//lcd seg2->26
 	uint8_t  wComMsk = 0x0f;			//lcd com0->3
 #endif	
@@ -396,7 +396,7 @@ int lcd_disp_rtc_snooze_demo(void)
 	csi_pm_config_wakeup_source(WKUP_RTC, ENABLE);				//RTC唤醒
 	csi_pm_snooze_power_enable(SNOOZE_LCD_POWER, ENABLE);		//LCD电源使能在snooze模式下
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程		
+#if (USE_GUI == 0)								//用户未选择图形化编程		
 	csi_lcd_gpio_init(wSegMsk, wComMsk);		//LCD GPIO 配置：com0-com3   seg2-seg31   4*30
 #endif
 	

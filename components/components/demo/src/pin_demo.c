@@ -13,7 +13,7 @@
 #include "sys_clk.h"
 #include <drv/gpio.h>
 #include <drv/pin.h>
-
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -31,7 +31,7 @@ int pin_output_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程		
+#if (USE_GUI == 0)								//用户未选择图形化编程		
 	csi_pin_set_mux(PB00,PB00_OUTPUT);			//PB00 配置为输出
 	
 	//开漏
@@ -66,7 +66,7 @@ int pin_input_demo(void)
 {
 	int iRet = 0;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	csi_pin_set_mux(PA08,PA08_INPUT);			//PA08 配置为输入
 	
 	csi_pin_pull_mode(PA08,GPIO_PULLNONE);		//无上下拉
@@ -94,7 +94,7 @@ int pin_irq_demo(void)
 {
 	int iRet = 0;
 	
-#if !defined(USE_GUI)											//用户未选择图形化编程	
+#if (USE_GUI == 0)												//用户未选择图形化编程	
 
 	csi_pin_set_mux(PB01, PB01_INPUT);							//PB01 配置为输入
 	csi_pin_pull_mode(PB01, GPIO_PULLUP);						//PB01 上拉

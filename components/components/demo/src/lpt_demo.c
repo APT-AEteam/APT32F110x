@@ -14,6 +14,7 @@
 #include <drv/pin.h>
 #include <drv/etb.h>
 #include <drv/bt.h>
+#include "board_config.h"
 #include "demo.h"
 /* externs function--------------------------------------------------------*/
 /* externs variablesr------------------------------------------------------*/
@@ -45,7 +46,7 @@ int lpt_pwm_demo(void)
 	int iRet = 0;
 	
 	csi_lpt_pwm_config_t tLptPwmCfg; 
-#if !defined (USEGUI) 	
+#if (USE_GUI == 0) 	
 	csi_pin_set_mux(PA01, PA01_LPT_INOUT);						  //将PA01设为LPT_OUT
 #endif	
 	tLptPwmCfg.byClksrc = LPT_CLK_PCLK_DIV4;                     //PWM 时钟选择
@@ -72,7 +73,7 @@ int lpt_pwm_duty_demo(void)
 	uint32_t i;
 	
 	csi_lpt_pwm_config_t tLptPwmCfg;  
-#if !defined (USEGUI)	
+#if (USE_GUI == 0)	
 	csi_pin_set_mux(PA01, PA01_LPT_INOUT);						  //将PA01设为LPT_OUT
 #endif	
 	tLptPwmCfg.byClksrc = LPT_CLK_ISCLK;                         //PWM 时钟选择
@@ -103,7 +104,7 @@ int lpt_sync_trg_start_demo(void)
 	int iRet = 0;
 	volatile uint8_t ch;
 	csi_etb_config_t tEtbConfig;				               			//ETB 参数配置结构体
-#if !defined (USEGUI)
+#if (USE_GUI == 0)
 	csi_pin_set_mux(PB00, PB00_INPUT);									//PB00 配置为输入
 	csi_pin_pull_mode(PB00, GPIO_PULLUP);								//PB00 上拉
 	csi_pin_irq_mode(PB00, EXI_GRP0, GPIO_IRQ_FALLING_EDGE);			//PB00 下降沿产生中断，选择中断组16

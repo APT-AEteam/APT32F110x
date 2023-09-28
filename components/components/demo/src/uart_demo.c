@@ -12,7 +12,7 @@
 #include <string.h>
 #include <drv/uart.h>
 #include <drv/pin.h>
-
+#include "board_config.h"
 #include "demo.h"
 
 /* externs function--------------------------------------------------------*/
@@ -36,7 +36,7 @@ int uart_send_dma_demo(void)
 	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -84,7 +84,7 @@ int uart_recv_dma_demo(void)
 	int iRet = 0;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -167,7 +167,7 @@ int uart_char_demo(void)
 	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -208,7 +208,7 @@ int uart_send_demo(void)
 	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -249,7 +249,7 @@ int uart_send_int_demo(void)
 	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -302,7 +302,7 @@ int uart_receive_demo(void)
 	volatile uint8_t byRecv;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -337,7 +337,7 @@ int uart_recv_rx_int_demo(void)
 	int iRet = 0;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程
+#if (USE_GUI == 0)								//用户未选择图形化编程
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置
@@ -365,7 +365,7 @@ int uart_recv_rxfifo_int_demo(void)
 	int iRet = 0;
 	csi_uart_config_t tUartConfig;				//UART1 参数配置结构体
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	csi_pin_set_mux(PB02, PB02_UART1_TX);		//TX	
 	csi_pin_set_mux(PA06, PA06_UART1_RX);		//RX
 	csi_pin_pull_mode(PA06,GPIO_PULLUP);		//RX管脚上拉使能, 建议配置

@@ -16,7 +16,7 @@
 #include <drv/uart.h>
 #include <drv/tick.h>
 #include <iostring.h>
-
+#include "board_config.h"
 
 #include "demo.h"
 /* Private macro-----------------------------------------------------------*/
@@ -62,7 +62,7 @@ int sio_led_rgb_demo(void)
 	volatile uint8_t byRecv;
 	csi_sio_tx_config_t tSioTxCfg;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	//配置为SIO模式
 	//ref pin(PB0.1,PA0.5,PA0.3,PA0.1,PC0.0,PB0.5)
 	//csi_pin_set_mux(PB01, PB01_SIO);			
@@ -119,7 +119,7 @@ int sio_led_rgb_demo_int(void)
 
 	csi_sio_tx_config_t tSioTxCfg;
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	csi_pin_set_mux(PC00, PC00_SIO);			//配置为SIO模式
 #endif
 	
@@ -170,7 +170,7 @@ int sio_led_rgb_recv_rxfull_demo(void)
 	csi_sio_rx_config_t tSioRxCfg;
 	uint32_t wLedRxBuf[24];
 
-#if !defined(USE_GUI)								//用户未选择图形化编程		
+#if (USE_GUI == 0)									//用户未选择图形化编程		
 	csi_pin_set_mux(PC00, PC00_SIO);				//配置为SIO模式	
 #endif
 	
@@ -223,7 +223,7 @@ int sio_led_rgb_recv_rxdone_demo(void)
 	csi_sio_rx_config_t tSioRxCfg;
 	uint32_t wRxBuf[8];
 
-#if !defined(USE_GUI)								//用户未选择图形化编程		
+#if (USE_GUI == 0)									//用户未选择图形化编程		
 	csi_pin_set_mux(PC00, PC00_SIO);				//配置为SIO模式	
 #endif
 	
@@ -277,7 +277,7 @@ int sio_hdq_send_demo(void)
 	uint32_t wSendBuf[2];		
 	uint8_t byHdqData[2] = {0x68, 0x55};
 
-#if !defined(USE_GUI)							//用户未选择图形化编程	
+#if (USE_GUI == 0)								//用户未选择图形化编程	
 	csi_pin_set_mux(PC00, PC00_SIO);			//配置为SIO模式
 #endif		
 	
@@ -328,7 +328,7 @@ int sio_hdq_recv_wrcmd_demo(void)
 	csi_sio_rx_config_t tHdqRxCfg;
 	uint32_t wHdqRxBuf[1];
 	
-#if !defined(USE_GUI)								//用户未选择图形化编程	
+#if (USE_GUI == 0)									//用户未选择图形化编程	
 	csi_pin_set_mux(PC00, PC00_SIO);				//配置为SIO模式	
 #endif
 	
@@ -382,7 +382,7 @@ int sio_hdq_send_recv_demo(void)
 	
 	uint32_t wHdqRx1Buf[2] ={0,0};
 	
-#if !defined(USE_GUI)								//用户未选择图形化编程		
+#if (USE_GUI == 0)									//用户未选择图形化编程		
 	csi_pin_set_mux(PC00, PC00_SIO);				//配置为SIO模式
 #endif
 	
@@ -478,7 +478,7 @@ int sio_hdq_recv_rdcmd_demo(void)
 	uint32_t wTxData = 0;
 	uint32_t wRxBuf[2] = {0,0};
 	
-#if !defined(USE_GUI)							//用户未选择图形化编程		
+#if (USE_GUI == 0)								//用户未选择图形化编程		
 	csi_pin_set_mux(PC00, PC00_SIO);			//配置为SIO模式	
 #endif
 	

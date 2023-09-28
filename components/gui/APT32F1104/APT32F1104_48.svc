@@ -1251,7 +1251,7 @@
         <Pin pinNum="11" group="PB0" displayName="PB0.3">
           <Property class="UIchoice">
             <label>PinFunctions</label>
-            <value>Undefined</value>
+            <value>GPIO_INPUT</value>
             <Selections>
               <sel notAvailable="Pin11Fltr,Pin11DA,Pin11DSR,Pin11OM,Pin11PM">High_Z</sel>
               <sel notAvailable="Pin11DA,Pin11DSR,Pin11OM">GPIO_INPUT</sel>
@@ -1302,7 +1302,7 @@
           </Property>
           <Property class="Choice" property_class="Pin11PM">
             <label>Pull Mode</label>
-            <value>Pull_None</value>
+            <value>Pull_Up</value>
             <Selections>
               <sel>Pull_None</sel>
               <sel>Pull_Up</sel>
