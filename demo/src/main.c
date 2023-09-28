@@ -46,6 +46,7 @@ int main()
 	
 	board_init();							//打印初始化, PA111/PA112 = UART2_TX/RX, 定义见board_config.h	
 	user_demo();							//demo	
+	
 	my_printf("Hello World~~~~~~~\n");		//print message
 	
 	while(1)
