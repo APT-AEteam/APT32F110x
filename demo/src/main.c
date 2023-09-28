@@ -12,7 +12,7 @@
 #include <string.h>
 #include <csi_drv.h>
 #include <iostring.h>
-
+#include "board_config.h"
 #include "demo.h"
 
 /* Private macro-----------------------------------------------------------*/
@@ -32,7 +32,7 @@ extern void user_demo(void);				//demo
 int main()
 {
 
-#if !defined(USE_GUI)
+#if (USE_GUI == 0)
 	//不使用图形化编程需调用system_init函数
     system_init();							//系统时钟、TICK等配置	
 						

@@ -1251,7 +1251,7 @@
         <Pin pinNum="11" group="PB0" displayName="PB0.3">
           <Property class="UIchoice">
             <label>PinFunctions</label>
-            <value>GPIO_INPUT</value>
+            <value>Undefined</value>
             <Selections>
               <sel notAvailable="Pin11Fltr,Pin11DA,Pin11DSR,Pin11OM,Pin11PM">High_Z</sel>
               <sel notAvailable="Pin11DA,Pin11DSR,Pin11OM">GPIO_INPUT</sel>
