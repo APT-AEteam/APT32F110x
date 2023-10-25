@@ -157,11 +157,11 @@ csi_error_t csi_lcd_init(csp_lcd_t *ptLcdBase, csi_lcd_config_t *ptLcdCFg)
 				break;
 		}
 		
-		wDelay =  0x7ffff;
+		wDelay =  0x7fff;
 		ptLcdBase->CR |= (LCD_BIAS_EN << LCD_BIAS_POS);		//enable bias 
 		while(!csp_lcd_bias_rdy(ptLcdBase) && --wDelay);
-		if(0 == wDelay)
-			return CSI_ERROR;
+//		if(0 == wDelay)
+//			return CSI_ERROR;
 			
 		if(ptLcdCFg->byDead)								//dead config
 		{
