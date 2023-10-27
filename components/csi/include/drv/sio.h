@@ -15,6 +15,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <drv/dma.h>
 #include <drv/common.h>
 
 #include "csp.h"

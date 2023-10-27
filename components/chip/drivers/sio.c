@@ -18,6 +18,7 @@
 #include <drv/irq.h>
 #include <drv/pin.h>
 #include <drv/tick.h>
+#include <drv/etb.h>
 
 /* Private macro------------------------------------------------------*/
 #define SIO_RESET_VALUE  (0x00000000)
@@ -322,6 +323,42 @@ int32_t csi_sio_receive(csp_sio_t *ptSioBase, uint32_t *pwRecv, uint16_t hwLen)
 		default:
 			return CSI_UNSUPPORTED;;
 	}
+}
+/** \brief send data from sio, this function is dma mode
+ * 
+ *  \param[in] ptSioBase: pointer of uart register structure
+ *  \param[in] eDmaCh: channel number of dma, eDmaCh: DMA_CH0` DMA_CH3
+ *  \param[in] pData: pointer to buffer with data to send to uart transmitter.
+ *  \param[in] hwSize: number of data to send (byte); hwSize <= 0xfff
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_sio_send_dma(csp_sio_t *ptSioBase, csi_dma_ch_e eDmaCh, const void *pData, uint16_t hwSize)
+{
+	if(hwSize > 0xfff)
+		return CSI_ERROR;
+		
+	csp_sio_txdma_enable(ptSioBase);
+	csi_dma_ch_start(DMA, eDmaCh, (void *)pData, (void *)&(ptSioBase->TXBUF), hwSize, 1);
+	
+	return CSI_OK;
+}
+
+/** \brief send data from sio, this function is dma mode
+ * 
+ *  \param[in] ptSioBase: pointer of uart register structure
+ *  \param[in] eDmaCh: channel number of dma, eDmaCh: DMA_CH0` DMA_CH3
+ *  \param[in] pData: pointer to buffer with data to send to uart transmitter.
+ *  \param[in] hwSize: number of data to send (byte); hwSize <= 0xfff
+ *  \return error code \ref csi_error_t
+ */
+csi_error_t csi_sio_recv_dma(csp_sio_t *ptSioBase, csi_dma_ch_e eDmaCh, const void *pData, uint16_t hwSize)
+{
+	if(hwSize > 0xfff)
+		return CSI_ERROR;
+	csp_sio_txdma_enable(ptSioBase);
+	csi_dma_ch_start(DMA, eDmaCh, (void *)&(ptSioBase->RXBUF), (void *)pData, hwSize, 1);
+	
+	return CSI_OK;
 }
 /** \brief get sio receive/send complete message and (Do not) clear message
  * 

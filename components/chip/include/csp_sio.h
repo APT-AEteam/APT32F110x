@@ -73,6 +73,20 @@ typedef enum{
 	SIO_MODE_RX
 }sio_mode_e;
 
+#define	SIO_TDMA_EN_POS		(10)	
+#define	SIO_TDMA_EN_MSK		(0x01ul << SIO_TDMA_EN_POS)	
+typedef enum{
+	SIO_TDMA_DIS		= 0,
+	SIO_TDMA_EN
+}sio_tdma_en_e;
+
+#define	SIO_RDMA_EN_POS		(11)		
+#define	SIO_RDMA_EN_MSK		(0x01ul << SIO_RDMA_EN_POS)	
+typedef enum{
+	SIO_RDMA_DIS		= 0,
+	SIO_RDMA_EN
+}sio_rdma_en_e;
+
 #define SIO_TCKPRS_POS    	(16)		//Send CLK Div
 #define SIO_TCKPRS_MSK    	(0xFFFFul << SIO_TCKPRS_POS)
 #define SIO_TCKPRS(val)   	(((val) & 0xFFFF) << SIO_TCKPRS_POS)
@@ -360,6 +374,16 @@ static inline void csp_sio_clk_dis(csp_sio_t *ptUsartBase)
 static inline void csp_sio_set_mode(csp_sio_t *ptSioBase, sio_mode_e eTxRx)
 {
 	ptSioBase->CR = (ptSioBase->CR & ~SIO_MODE_MSK) | (eTxRx << SIO_MODE_POS);
+}
+
+//SIO DMA 
+static inline void csp_sio_txdma_enable(csp_sio_t *ptSioBase) 
+{
+	ptSioBase->CR |= SIO_TDMA_EN_MSK;
+}
+static inline void csp_sio_rxdma_enable(csp_sio_t *ptSioBase) 
+{
+	ptSioBase->CR |= SIO_RDMA_EN_MSK;
 }
 
 //SIO TX 
