@@ -381,6 +381,26 @@ csi_error_t csi_sio_set_buffer(uint32_t *pwData, uint16_t hwLen);
 int32_t csi_sio_receive(csp_sio_t *ptSioBase, uint32_t *pwRecv, uint16_t hwLen);
 
 /** 
+  \brief send data from sio, this function is dma mode
+  \param[in] ptSioBase: pointer of uart register structure
+  \param[in] eDmaCh: channel number of dma, eDmaCh: DMA_CH0` DMA_CH3
+  \param[in] pData: pointer to buffer with data to send to uart transmitter.
+  \param[in] hwSize: number of data to send (byte); hwSize <= 0xfff
+  \return error code \ref csi_error_t
+ */
+csi_error_t csi_sio_send_dma(csp_sio_t *ptSioBase, csi_dma_ch_e eDmaCh, const void *pData, uint16_t hwSize);
+
+/** 
+  \brief send data from sio, this function is dma mode
+  \param[in] ptSioBase: pointer of uart register structure
+  \param[in] eDmaCh: channel number of dma, eDmaCh: DMA_CH0` DMA_CH3
+  \param[in] pData: pointer to buffer with data to send to uart transmitter.
+  \param[in] hwSize: number of data to send (byte); hwSize <= 0xfff
+  \return error code \ref csi_error_t
+ */
+csi_error_t csi_sio_recv_dma(csp_sio_t *ptSioBase, csi_dma_ch_e eDmaCh, const void *pData, uint16_t hwSize);
+
+/** 
   \brief get the status of sio receive 
   \param[in] none
   \return the status of sio receive 

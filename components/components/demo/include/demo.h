@@ -90,6 +90,7 @@ void adc_ts_init_demo(void);
 //sio demo
 //sio led
 int sio_led_rgb_demo(void);
+int sio_led_rgb_send_dma_demo(void);
 int sio_led_rgb_recv_rxfull_demo(void);
 int sio_led_rgb_recv_rxdone_demo(void);
 //hdq

@@ -36,14 +36,14 @@ uint32_t sio_data_conver(uint8_t byTxData);
 uint8_t	byDispData[24] = 
 {
 	//R		G		B
-	0x00,	0x07,	0x00,//rgb1
-	0x00,	0x07,	0x00,//rgb2
-	0x00,	0x07,	0x00,//rgb3
-	0x00,	0x07,	0x00,//rgb4
-	0x00,	0x07,	0x00,//rgb5
-	0x00,	0x07,	0x00,//rgb6
-	0x00,	0x07,	0x00,//rgb7
-	0x00,	0x07,	0x00 //rgb8
+	0x03,	0x07,	0x0a,	//rgb1
+	0x04,	0x07,	0x05,	//rgb2
+	0x05,	0x07,	0x01,	//rgb3
+	0x06,	0x07,	0x02,	//rgb4
+	0x07,	0x07,	0x03,	//rgb5
+	0x08,	0x07,	0x04,	//rgb6
+	0x09,	0x07,	0x05,	//rgb7
+	0x0A,	0x07,	0x06 	//rgb8
 };
 
 
@@ -155,6 +155,91 @@ int sio_led_rgb_demo_int(void)
 	}
 	
 	return iRet;
+}
+
+/** \brief sio rgb led demo,use dma send 
+ *  	 - sio 驱动RGB LED(ws2812), RGB DATA = 24bit; 驱动数据输出排列方式:GRB
+ * 
+ *  \param[in] none
+ *  \return error code
+ */
+int sio_led_rgb_send_dma_demo(void)
+{
+	int ret = 0;
+	uint8_t byCount = 0;
+	uint32_t wDipDataEnd[24];
+	uint16_t hwDmaSendData[24];
+	
+	csi_dma_ch_config_t tDmaConfig;				
+	csi_etb_config_t 	tEtbConfig;	
+	csi_sio_tx_config_t tSioTxCfg;
+	
+#if (USE_GUI == 0)										//用户未选择图形化编程	
+	csi_pin_set_mux(PC00, PC00_SIO);					//配置为SIO模式
+#endif	
+	
+		//SIO TX 参数配置
+	tSioTxCfg.byD0Len 		= 1;						//D0 对象序列长度(bit个数)，这里不用D0								
+	tSioTxCfg.byD1Len 		= 1;						//D1 对象序列长度(bit个数)，这里不用D1
+	tSioTxCfg.byDLLen 		= 4;						//DL 对象序列长度(bit个数)
+	tSioTxCfg.byDHLen 		= 4;						//DH 对象序列长度(bit个数)
+	tSioTxCfg.byDLLsq 		= 0x01;						//DL 对象序列具体定义: bit= 0  -     
+														//					          | |___|					
+	tSioTxCfg.byDHHsq 		= 0x07;						//DH 对象序列具体定义: bit= 1  ___
+														//					          |   |_| 	
+	tSioTxCfg.byTxBufLen 	= 8;						//发送数据缓存长度(bit个数 = 8)，txbuf 一次发送bit数量，len <= 16
+	tSioTxCfg.byTxCnt 		= 8;						//SIO一次发送总的数据长度(bit个数 = 8)，byTxCnt >= byTxBufLen，byTxCnt < 256(最大32bytes)
+	tSioTxCfg.byIdleLev 	= SIO_IDLE_L;				//SIO空闲时刻IO管脚输出电平
+	tSioTxCfg.byTxDir 		= SIO_TXDIR_LSB;			//MSB->LSB, txbuf 数据按照bit[1:0]...[31:30]方式移出
+	tSioTxCfg.wTxFreq 		= 4000000;					//tx clk =4MHz, Ttxshift = 1/4 = 250ns；发送每bit(1/0)是250ns*4 = 1us
+	tSioTxCfg.byInt			= SIO_INTSRC_NONE;			//不使用中断。
+	csi_sio_tx_init(SIO0, &tSioTxCfg);					//初始化SIO发送配置
+	
+	for(byCount = 0; byCount < 8; byCount++ )
+	{
+		set_led_rgb_store(wDipDataEnd, byCount);		//24*16byte
+	}
+	
+	for(uint8_t i = 0; i < 24; i++)
+	{
+		hwDmaSendData[i] = (uint16_t)wDipDataEnd[i];	//将数据转换为16bit的类型，dma发送
+	}
+	
+	//dma config
+	tDmaConfig.bySrcLinc 	= DMA_ADDR_CONSTANT;		//低位传输原地址固定不变
+	tDmaConfig.bySrcHinc 	= DMA_ADDR_INC;				//高位传输原地址自增
+	tDmaConfig.byDetLinc 	= DMA_ADDR_CONSTANT;		//低位传输目标地址固定不变
+	tDmaConfig.byDetHinc 	= DMA_ADDR_CONSTANT;		//高位传输目标地址固定不变
+	tDmaConfig.byDataWidth 	= DMA_DSIZE_16_BITS;		//传输数据宽度16bit
+	tDmaConfig.byReload 	= DMA_RELOAD_DISABLE;		//禁止自动重载
+	tDmaConfig.byTransMode 	= DMA_TRANS_ONCE;			//DMA服务模式(传输模式)，连续服务
+	tDmaConfig.byTsizeMode  = DMA_TSIZE_ONE_DSIZE;		//传输数据大小，一个 DSIZE , 即DSIZE定义大小
+	tDmaConfig.byReqMode	= DMA_REQ_HARDWARE;			//DMA请求模式，硬件触发
+	tDmaConfig.wInt			= DMA_INTSRC_TCIT;			//使用TCIT中断
+	ret = csi_dma_ch_init(DMA, DMA_CH1, &tDmaConfig);	//初始化DMA
+	
+	//etb config
+	tEtbConfig.byChType 	= ETB_ONE_TRG_ONE_DMA;		//单个源触发单个目标，DMA方式
+	tEtbConfig.bySrcIp 		= ETB_SIO0_TXSRC;			//UART TXSRC作为触发源
+	tEtbConfig.byDstIp 		= ETB_DMA_CH1;				//ETB DMA通道 作为目标实际
+	tEtbConfig.byTrgMode 	= ETB_HARDWARE_TRG;			//通道触发模式采样硬件触发
+
+	csi_etb_init();										//使能ETB模块
+	ret = csi_etb_ch_config(ETB_CH10, &tEtbConfig);		//初始化ETB
+	if(ret < CSI_OK)
+		return CSI_ERROR;
+	
+	while(1)
+	{
+		csi_sio_send_dma(SIO0, DMA_CH1, hwDmaSendData, 24);	
+		
+		delay_ums(5);
+		if(csi_dma_get_msg(DMA_CH1, ENABLE))	//获取发送完成消息，并清除消息
+		{
+			//添加用户代码
+			nop;
+		}
+	}
 }
 
 /** \brief SIO 驱动RGB LED的接收实例，对应SIO驱动RGB LED的发送实例，用来接收RGB LED驱动数据,
