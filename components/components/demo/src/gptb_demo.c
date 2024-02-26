@@ -216,11 +216,11 @@ int gptb_pwm_demo(void)
 	tPwmChannel.byActionT1d    =   GPTB_LO;
 	tPwmChannel.byActionT2u    =   GPTB_NA;
 	tPwmChannel.byActionT2d    =   GPTB_NA;
-	tPwmChannel.byChoiceC1sel  =   GPTB_CMPA;
-	tPwmChannel.byChoiceC2sel  =   GPTB_CMPA;
+	tPwmChannel.byChoiceC1sel  =   GPTB_COMPA;
+	tPwmChannel.byChoiceC2sel  =   GPTB_COMPA;
 	csi_gptb_channel_config(GPTB0, &tPwmChannel,  GPTB_CHANNEL_1);
-	tPwmChannel.byChoiceC1sel  =   GPTB_CMPB;
-	tPwmChannel.byChoiceC2sel  =   GPTB_CMPB;
+	tPwmChannel.byChoiceC1sel  =   GPTB_COMPB;
+	tPwmChannel.byChoiceC2sel  =   GPTB_COMPB;
 	csi_gptb_channel_config(GPTB0, &tPwmChannel,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_start(GPTB0);//start  timer
@@ -259,8 +259,8 @@ int gptb_pwm_dz_demo(void)
     csi_pin_set_mux(PB04,  PB04_GPTB0_CHB  );                       //PIN:13 
 #endif
 //------------------------------------------------------------------------------------------------------------------------	
-	csi_gptb_pwmconfig_t tPwmCfg;								  
-		tPwmCfg.byWorkmod        = GPTB_WAVE;                       //波形输出模式
+	csi_gptb_pwmconfig_t tPwmCfg;							  
+	tPwmCfg.byWorkmod        = GPTB_WAVE;                       //波形输出模式
 	tPwmCfg.byCountingMode   = GPTB_UPDNCNT;                    //数方向递增递减计数
 	tPwmCfg.byOneshotMode    = GPTB_OP_CONT;                    //连续计数工作模式
 	tPwmCfg.byStartSrc       = GPTB_SYNC_START;					//软件使能同步触发使能控制（RSSR中START控制位）//启动方式
@@ -281,11 +281,11 @@ int gptb_pwm_dz_demo(void)
 	tGptbchannelCfg.byActionT1d    =   GPTB_LO;
 	tGptbchannelCfg.byActionT2u    =   GPTB_NA;
 	tGptbchannelCfg.byActionT2d    =   GPTB_NA;
-	tGptbchannelCfg.byChoiceC1sel  =   GPTB_CMPA;
-	tGptbchannelCfg.byChoiceC2sel  =   GPTB_CMPA;	
+	tGptbchannelCfg.byChoiceC1sel  =   GPTB_COMPA;
+	tGptbchannelCfg.byChoiceC2sel  =   GPTB_COMPA;	
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_1);//channel
-	tGptbchannelCfg.byChoiceC1sel  =   GPTB_CMPB;
-	tGptbchannelCfg.byChoiceC2sel  =   GPTB_CMPB;	
+	tGptbchannelCfg.byChoiceC1sel  =   GPTB_COMPB;
+	tGptbchannelCfg.byChoiceC2sel  =   GPTB_COMPB;	
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_deadzone_config_t  tGptbDeadZoneCfg;
@@ -357,11 +357,11 @@ int gptb_pwm_dz_em_demo(void)
 	tGptbchannelCfg.byActionT1d    =   GPTB_LO;
 	tGptbchannelCfg.byActionT2u    =   GPTB_NA;
 	tGptbchannelCfg.byActionT2d    =   GPTB_NA;
-	tGptbchannelCfg.byChoiceC1sel  =   GPTB_CMPA;
-	tGptbchannelCfg.byChoiceC2sel  =   GPTB_CMPA;	
+	tGptbchannelCfg.byChoiceC1sel  =   GPTB_COMPA;
+	tGptbchannelCfg.byChoiceC2sel  =   GPTB_COMPA;	
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_1);//channel	
-	tGptbchannelCfg.byChoiceC1sel  =   GPTB_CMPB;
-	tGptbchannelCfg.byChoiceC2sel  =   GPTB_CMPB;	
+	tGptbchannelCfg.byChoiceC1sel  =   GPTB_COMPB;
+	tGptbchannelCfg.byChoiceC2sel  =   GPTB_COMPB;	
 	csi_gptb_channel_config(GPTB0, &tGptbchannelCfg,  GPTB_CHANNEL_2);
 //------------------------------------------------------------------------------------------------------------------------	
 	csi_gptb_deadzone_config_t  tGptbDeadZoneCfg;
